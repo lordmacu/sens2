@@ -24,7 +24,7 @@ final ThemeData appTheme = ThemeData(
     focusedBorder: OutlineInputBorder(
       borderSide: BorderSide(color: Colors.blueAccent),
     ),
-    labelStyle: TextStyle(color: Colors.blue),
+    labelStyle: TextStyle(color: Colors.black54),
   ),
   textButtonTheme: TextButtonThemeData(
     style: TextButton.styleFrom(
