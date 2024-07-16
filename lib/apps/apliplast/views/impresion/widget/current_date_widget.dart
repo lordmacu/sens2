@@ -38,20 +38,20 @@ class _CurrentDateWidgetState extends State<CurrentDateWidget> {
   Widget build(BuildContext context) {
     return Container(
 
-      padding: EdgeInsets.all(20),
+
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Icon(
             Icons.calendar_today,
             color: Color.fromARGB(255, 11, 19, 68), // Color del icono
-            size: 30, // Tamaño del icono
+            size: 16, // Tamaño del icono
           ),
           SizedBox(width: 10), // Espacio entre el icono y el texto
           Text(
             _currentDate,
             style: TextStyle(
-              fontSize: 25,
+              fontSize: 16,
               fontWeight: FontWeight.bold,
               color: Color.fromARGB(255, 11, 19, 68),
             ),

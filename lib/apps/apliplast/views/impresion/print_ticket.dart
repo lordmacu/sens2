@@ -7,40 +7,17 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:sens2/core/components/inputs/dropdown_text.dart';
 import 'package:sens2/core/components/inputs/input_text.dart';
 import 'package:sens2/core/components/buttons/button.dart';
+import 'package:sens2/core/components/inputs/type_ahead.dart';
 
 class PrintTicket extends StatelessWidget {
   PrintTicketController printicketController =
-  Get.find<PrintTicketController>();
+      Get.find<PrintTicketController>();
 
   final List<String> operators = [
     'Operador 1',
     'Operador 2',
     'Operador 3'
   ]; // Lista de operadores
-
-  Widget _buildDatePicker(BuildContext context) {
-    return TextField(
-      readOnly: true,
-      style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
-      decoration: InputDecoration(
-        hintText: 'Fecha',
-        suffixIcon: Icon(Icons.calendar_today),
-        enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Color.fromARGB(167, 88, 97, 121)),
-        ),
-      ),
-      onTap: () async {
-        DateTime? pickedDate = await showDatePicker(
-          context: context,
-          initialDate: DateTime.now(),
-          firstDate: DateTime(2000),
-          lastDate: DateTime(2024),
-        );
-        if (pickedDate != null) {}
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,14 +88,6 @@ class PrintTicket extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(height: 8),
-                    Text(
-                      'N° 10',
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 11, 19, 68),
-                      ),
-                    ),
                     Container(
                       margin: EdgeInsets.only(top: 20, bottom: 20),
                       padding: EdgeInsets.only(
@@ -127,145 +96,41 @@ class PrintTicket extends StatelessWidget {
                       color: Colors.grey.shade400.withOpacity(0.2),
                       child: Column(
                         children: [
-                          CurrentDateWidget(),
-                          DropdownText(items: ['Turno', 'Item 2', 'Item 3']),
-                          SizedBox(height: 8),
-                          TypeAheadFormField(
-                            textFieldConfiguration: TextFieldConfiguration(
-                              controller:
-                              printicketController.operatorController.value,
-                              decoration: InputDecoration(
-                                labelText: 'Operador',
-                                labelStyle: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Color.fromARGB(255, 75, 159,
-                                        214)), // Cambiar el color del label
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Color.fromARGB(255, 75, 159,
-                                          214)), // Cambiar el color del borde cuando está habilitado
-                                  borderRadius: BorderRadius.circular(3.0),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Color.fromARGB(255, 11, 19,
-                                          68)), // Cambiar el color del borde cuando está enfocado
-                                  borderRadius: BorderRadius.circular(3.0),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Colors
-                                          .red), // Cambiar el color del borde cuando hay un error
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Colors
-                                          .red), // Cambiar el color del borde cuando está enfocado y hay un error
-                                  borderRadius: BorderRadius.circular(10.0),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'N° 10',
+                                style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromARGB(255, 11, 19, 68),
                                 ),
                               ),
-                              style: TextStyle(
-                                  color: Colors
-                                      .black), // Cambiar el color del texto
-                            ),
-                            suggestionsCallback: (pattern) {
-                              return operators
-                                  .where((operator) => operator
-                                  .toLowerCase()
-                                  .contains(pattern.toLowerCase()))
-                                  .toList();
-                            },
-                            itemBuilder: (context, suggestion) {
-                              return ListTile(
-                                title: Text(suggestion),
-                              );
-                            },
-                            onSuggestionSelected: (suggestion) {
+                              CurrentDateWidget()
+                            ],
+                          ),
+                          SizedBox(height: 16),
+                          DropdownText(items: ['Turno', 'Item 2', 'Item 3']),
+                          SizedBox(height: 8),
+                          TypeAhead(
+                            suggestions: operators,
+                            text: "Operador",
+                            onSuggestionSelectedCallback: (String suggestion) {
                               printicketController
                                   .operatorController.value.text = suggestion;
                             },
-                            transitionBuilder:
-                                (context, suggestionsBox, controller) {
-                              return suggestionsBox;
-                            },
-                            validator: (value) {
-                              if ((value ?? '').isEmpty) {
-                                return 'Por favor seleccione un operador';
-                              }
-                              return null;
-                            },
-                            onSaved: (value) =>
-                                print('Operador seleccionado: $value'),
                           ),
                           SizedBox(height: 8),
                         ],
                       ),
                     ),
-                    TypeAheadFormField(
-                      textFieldConfiguration: TextFieldConfiguration(
-                        controller:
-                        printicketController.operatorController.value,
-                        decoration: InputDecoration(
-                          labelText: 'Orden de Producción ',
-                          labelStyle: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 75, 159,
-                                  214)), // Cambiar el color del label
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Color.fromARGB(255, 75, 159,
-                                    214)), // Cambiar el color del borde cuando está habilitado
-                            borderRadius: BorderRadius.circular(3.0),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Color.fromARGB(255, 11, 19,
-                                    68)), // Cambiar el color del borde cuando está enfocado
-                            borderRadius: BorderRadius.circular(3.0),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colors
-                                    .red), // Cambiar el color del borde cuando hay un error
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colors
-                                    .red), // Cambiar el color del borde cuando está enfocado y hay un error
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        ),
-                        style: TextStyle(
-                            color: Colors.black), // Cambiar el color del texto
-                      ),
-                      suggestionsCallback: (pattern) {
-                        return operators
-                            .where((operator) => operator
-                            .toLowerCase()
-                            .contains(pattern.toLowerCase()))
-                            .toList();
-                      },
-                      itemBuilder: (context, suggestion) {
-                        return ListTile(
-                          title: Text(suggestion),
-                        );
-                      },
-                      onSuggestionSelected: (suggestion) {
+                    TypeAhead(
+                      text: "Orden de Producción",
+                      onSuggestionSelectedCallback: (String suggestion) {
                         printicketController.operatorController.value.text =
                             suggestion;
                       },
-                      transitionBuilder: (context, suggestionsBox, controller) {
-                        return suggestionsBox;
-                      },
-                      validator: (value) {
-                        if ((value ?? '').isEmpty) {
-                          return 'Por favor seleccione un Orden';
-                        }
-                        return null;
-                      },
-                      onSaved: (value) => print('Orden seleccionado: $value'),
                     ),
                     SizedBox(height: 30),
                     Column(
@@ -285,11 +150,9 @@ class PrintTicket extends StatelessWidget {
                                       ),
                                     ),
                                     SizedBox(height: 8),
-
                                     Container(
                                       child: TextFormField(
                                         readOnly: true,
-
                                         decoration: InputDecoration(
                                           hintText: 'Maquina 1',
                                         ),
@@ -302,7 +165,6 @@ class PrintTicket extends StatelessWidget {
                             Flexible(
                               child: Container(
                                 padding: EdgeInsets.only(left: 8, right: 8),
-
                                 child: Column(
                                   children: [
                                     Container(
@@ -312,11 +174,9 @@ class PrintTicket extends StatelessWidget {
                                       ),
                                     ),
                                     SizedBox(height: 8),
-
                                     Container(
                                       child: TextFormField(
                                         readOnly: true,
-
                                         decoration: InputDecoration(
                                           hintText: 'Espesor 1',
                                         ),
@@ -335,7 +195,6 @@ class PrintTicket extends StatelessWidget {
                             Flexible(
                               child: Container(
                                 padding: EdgeInsets.only(left: 8, right: 8),
-
                                 child: Column(
                                   children: [
                                     Container(
@@ -345,11 +204,9 @@ class PrintTicket extends StatelessWidget {
                                       ),
                                     ),
                                     SizedBox(height: 8),
-
                                     Container(
                                       child: TextFormField(
                                         readOnly: true,
-
                                         decoration: InputDecoration(
                                           hintText: 'Maquina 1',
                                         ),
@@ -370,11 +227,9 @@ class PrintTicket extends StatelessWidget {
                                       ),
                                     ),
                                     SizedBox(height: 8),
-
                                     Container(
                                       child: TextFormField(
                                         readOnly: true,
-
                                         decoration: InputDecoration(
                                           hintText: 'Espesor 1',
                                         ),
@@ -393,7 +248,6 @@ class PrintTicket extends StatelessWidget {
                             Flexible(
                               child: Container(
                                 padding: EdgeInsets.only(left: 8, right: 8),
-
                                 child: Column(
                                   children: [
                                     Container(
@@ -403,11 +257,9 @@ class PrintTicket extends StatelessWidget {
                                       ),
                                     ),
                                     SizedBox(height: 8),
-
                                     Container(
                                       child: TextFormField(
                                         readOnly: true,
-
                                         decoration: InputDecoration(
                                           hintText: 'Maquina 1',
                                         ),
@@ -428,7 +280,6 @@ class PrintTicket extends StatelessWidget {
                                       ),
                                     ),
                                     SizedBox(height: 8),
-
                                     Container(
                                       child: TextFormField(
                                         readOnly: true,
@@ -491,7 +342,7 @@ class PrintTicket extends StatelessWidget {
                               ),
                               style: ButtonStyle(
                                 backgroundColor:
-                                MaterialStateProperty.all<Color>(
+                                    MaterialStateProperty.all<Color>(
                                   Color.fromARGB(255, 14, 12, 87),
                                 ),
                                 padding: MaterialStateProperty.all<
@@ -509,7 +360,6 @@ class PrintTicket extends StatelessWidget {
                             ),
                           ),
                           SizedBox(height: 16),
-
                           Text(
                             'Peso Bruto 10kg',
                             style: TextStyle(
@@ -539,12 +389,12 @@ class PrintTicket extends StatelessWidget {
                             Color.fromARGB(255, 14, 12, 87),
                           ),
                           padding:
-                          MaterialStateProperty.all<EdgeInsetsGeometry>(
+                              MaterialStateProperty.all<EdgeInsetsGeometry>(
                             EdgeInsets.symmetric(
                                 vertical: 10.0, horizontal: 20.0),
                           ),
                           shape:
-                          MaterialStateProperty.all<RoundedRectangleBorder>(
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20.0),
                             ),
