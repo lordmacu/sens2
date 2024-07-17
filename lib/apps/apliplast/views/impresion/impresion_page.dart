@@ -85,10 +85,10 @@ class _ImpresionPageState extends State<ImpresionPage> {
 
   PageController _pageController = PageController();
   int _currentPage = 0;
-  List<String> _pageTitles = ['Extracción', 'Impresión', 'Sellado'];
+  List<String> _pageTitles = ['Extrusión', 'Impresión', 'Sellado'];
 
   void _addReport(String report1, String report2, String report3) async {
-  // Obtener el índice del nuevo reporte
+  
   int newIndex = _reports[_currentPage].length + 1;
 
   setState(() {
@@ -105,8 +105,6 @@ class _ImpresionPageState extends State<ImpresionPage> {
   });
 
   
-  await Get.toNamed('/printTicket', arguments: newIndex);
-
   
 }
 
@@ -140,12 +138,21 @@ class _ImpresionPageState extends State<ImpresionPage> {
         color: Color.fromARGB(127, 151, 235, 228),
         margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         child: ListTile(
-          title: Text(
-              'Numero de Reporte #$index - $pageTitle'), // Mostrar el título aquí
+         title: Container(
+            margin: EdgeInsets.only(bottom: 8),
+           
+            child: Text(
+              '#$index - $pageTitle',
+              style: TextStyle(
+          fontWeight: FontWeight.bold, 
+        ),
+            ),
+          ),
+          
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Reporte 1: $report1'),
+              Text('Reporte 1: $report1' ),
               Text('Reporte 2: $report2'),
               Text('Reporte 3: $report3'),
             ],
@@ -178,14 +185,27 @@ class _ImpresionPageState extends State<ImpresionPage> {
           {
             'text': 'Imprimir Ticket',
             'onPressed': () async {
-              final result = await Get.toNamed('/printTicket');
+              if(_currentPage == 0 ){
+                  final result = await Get.toNamed('/printTicket');
+              }
+              
+              if(_currentPage == 1 ){
+                  final result = await Get.toNamed('/printExtrusionTicket');
+              }
               Get.back();
             },
           },
           {
             'text': 'Fin de Turno',
             'onPressed': () async {
-              final result = await Get.toNamed('/endWork');
+             
+              if(_currentPage == 0 ){
+                   final result = await Get.toNamed('/endWork');
+              }
+              
+              if(_currentPage == 1 ){
+                   final result = await Get.toNamed('/extrusionEndWork');
+              }
               Get.back();
             },
           },
@@ -238,7 +258,7 @@ class _ImpresionPageState extends State<ImpresionPage> {
                   ),
                   SizedBox(height: 0),
                   Text(
-                    'Extracción',
+                    'Extrusion',
                     style: TextStyle(
                       color: _currentPage == 0
                           ? Color.fromARGB(255, 25, 38, 83)
@@ -284,7 +304,7 @@ class _ImpresionPageState extends State<ImpresionPage> {
                         ? Color.fromARGB(255, 25, 38, 83)
                         : Color.fromARGB(255, 151, 151, 151),
                   ),
-                  SizedBox(height: 0),
+              
                   Text(
                     'Sellado',
                     style: TextStyle(
@@ -340,8 +360,12 @@ class _ImpresionPageState extends State<ImpresionPage> {
             backgroundColor: Color.fromARGB(255, 13, 139, 128),
             foregroundColor: Colors.white,
             onPressed: () {
-              _showAdditionalOptionsDialog();
-            
+               if(_currentPage == 0){
+                 _showExtrusionDialog();
+              }
+              if(_currentPage == 1){
+                 _showPrintDialog();
+              }
             },
           ),
           SizedBox(height: 16),
@@ -362,7 +386,11 @@ class _ImpresionPageState extends State<ImpresionPage> {
     });
   }
 
-  void _showAdditionalOptionsDialog() {
+  void _showPrintDialog() {
+    _addReport('Reporte 1', 'Reporte 2', 'Reporte 3');
+    Get.toNamed('/printTicket' );
+  }
+  void _showExtrusionDialog() {
     Get.dialog(
        OptionsDialog(
         title: 'Bobina:--',
@@ -372,6 +400,7 @@ class _ImpresionPageState extends State<ImpresionPage> {
             'text': 'Calcular peso',
             'onPressed': () async {
               _addReport('Reporte 1', 'Reporte 2', 'Reporte 3');
+              Get.toNamed('/printExtrusionTicket' );
             },
           },
 

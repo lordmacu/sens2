@@ -10,8 +10,8 @@ import 'package:sens2/core/components/buttons/button.dart';
 import 'package:sens2/apps/apliplast/views/impresion/widget/custom_widget.dart';
 import 'package:sens2/apps/apliplast/views/impresion/widget/filter_options_widget.dart';
 
-class EndWork extends StatelessWidget {
-  EndWorkController endWorkController = Get.put(EndWorkController());
+class ExtrusionEndWork extends StatelessWidget {
+    EndWorkController endWorkController = Get.put(EndWorkController());
 
   final List<String> operators = ['Operador 1', 'Operador 2', 'Operador 3']; // Lista de operadores
 
@@ -120,7 +120,7 @@ class EndWork extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'N° 11',
+                                'N° 13',
                                 style: TextStyle(
                                   fontSize: 25,
                                   fontWeight: FontWeight.bold,
@@ -188,7 +188,7 @@ class EndWork extends StatelessWidget {
                               'Impresion 5',
                               'Impresion 6',
                             ],
-                            title: 'Rollos impresos',
+                            title: 'Rollos Trabajados',
                           ),
                           SizedBox(height: 8),
 
@@ -204,7 +204,12 @@ class EndWork extends StatelessWidget {
                       ),
                     ),
  SizedBox(height: 8),
-                   
+                    CustomWidget(
+            buttonText: 'Capturar',
+            weightText: '10kg',
+            mainText: 'Torta de rollos',
+            incrementableValue: '--', 
+          ),
                    SizedBox(height: 16), 
                     CustomWidget(
             buttonText: 'Capturar',
@@ -306,10 +311,14 @@ class EndWork extends StatelessWidget {
                         ],
                       ),
                     ),
-                    
+                    SizedBox(height: 8),
+                    InputTextGeneral(
+                      text: 'Saldo anterior',
+                      controller: endWorkController.balanceController.value,
+                    ),
                     SizedBox(height: 16),
                     Text(
-                      'Peso Neto MP: 500',
+                      'Saldo actual: 500',
                       style: TextStyle(
                         fontSize: 19,
                         fontWeight: FontWeight.bold,

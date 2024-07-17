@@ -62,12 +62,12 @@ class AuthWrapper extends StatelessWidget {
 
     return Obx(() {
       if (authService.isLoggedIn.value) {
-        final String appType = 'app1'; // Esto sería dinámico
+        final String appType = 'app1'; 
         switch (appType) {
           case 'app1':
             return App1Main();
           case 'app2':
-            return App1Main(); // Ajusta esto según sea necesario
+            return App1Main(); 
           default:
             return Scaffold(
               body: Center(child: Text('Aplicación no encontrada')),
