@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:sens2/apps/apliplast/controllers/print_ticket_controller.dart';
 import 'package:sens2/apps/apliplast/views/impresion/widget/current_date_widget.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-
+import 'package:sens2/apps/apliplast/views/impresion/widget/custom_widget.dart';
 import 'package:sens2/core/components/inputs/dropdown_text.dart';
 import 'package:sens2/core/components/inputs/input_text.dart';
 import 'package:sens2/core/components/buttons/button.dart';
@@ -169,7 +169,7 @@ class PrintTicket extends StatelessWidget {
                                   children: [
                                     Container(
                                       child: Text(
-                                        'Espesor',
+                                        'Medida',
                                         style: TextStyle(color: Colors.black),
                                       ),
                                     ),
@@ -178,7 +178,7 @@ class PrintTicket extends StatelessWidget {
                                       child: TextFormField(
                                         readOnly: true,
                                         decoration: InputDecoration(
-                                          hintText: 'Espesor 1',
+                                          hintText: 'Medida 1',
                                         ),
                                       ),
                                     ),
@@ -199,7 +199,7 @@ class PrintTicket extends StatelessWidget {
                                   children: [
                                     Container(
                                       child: Text(
-                                        'Maquina',
+                                        'Espesor',
                                         style: TextStyle(color: Colors.black),
                                       ),
                                     ),
@@ -208,7 +208,7 @@ class PrintTicket extends StatelessWidget {
                                       child: TextFormField(
                                         readOnly: true,
                                         decoration: InputDecoration(
-                                          hintText: 'Maquina 1',
+                                          hintText: 'Espesor 1',
                                         ),
                                       ),
                                     ),
@@ -222,7 +222,7 @@ class PrintTicket extends StatelessWidget {
                                   children: [
                                     Container(
                                       child: Text(
-                                        'Espesor',
+                                        'Color',
                                         style: TextStyle(color: Colors.black),
                                       ),
                                     ),
@@ -231,7 +231,7 @@ class PrintTicket extends StatelessWidget {
                                       child: TextFormField(
                                         readOnly: true,
                                         decoration: InputDecoration(
-                                          hintText: 'Espesor 1',
+                                          hintText: 'Color 1',
                                         ),
                                       ),
                                     ),
@@ -252,7 +252,7 @@ class PrintTicket extends StatelessWidget {
                                   children: [
                                     Container(
                                       child: Text(
-                                        'Maquina',
+                                        'Densidad',
                                         style: TextStyle(color: Colors.black),
                                       ),
                                     ),
@@ -261,7 +261,7 @@ class PrintTicket extends StatelessWidget {
                                       child: TextFormField(
                                         readOnly: true,
                                         decoration: InputDecoration(
-                                          hintText: 'Maquina 1',
+                                          hintText: 'Densidad 1',
                                         ),
                                       ),
                                     ),
@@ -275,7 +275,7 @@ class PrintTicket extends StatelessWidget {
                                   children: [
                                     Container(
                                       child: Text(
-                                        'Espesor',
+                                        'Cliente',
                                         style: TextStyle(color: Colors.black),
                                       ),
                                     ),
@@ -284,7 +284,7 @@ class PrintTicket extends StatelessWidget {
                                       child: TextFormField(
                                         readOnly: true,
                                         decoration: InputDecoration(
-                                          hintText: 'Espesor 1',
+                                          hintText: 'Cliente 1',
                                         ),
                                       ),
                                     ),
@@ -297,81 +297,17 @@ class PrintTicket extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 8),
-                    Container(
-                      margin: EdgeInsets.only(top: 30, bottom: 30),
-                      width: double.infinity,
-                      color: Colors.grey.withOpacity(0.2),
-                      child: Column(
-                        children: [
-                          SizedBox(height: 16),
-                          Text(
-                            'Bobina: 10kg',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 11, 19, 68),
-                            ),
-                          ),
-                          SizedBox(height: 16),
-                          Text(
-                            'Peso neto: --',
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 11, 19, 68),
-                            ),
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            '10kg',
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 11, 19, 68),
-                            ),
-                          ),
-                          SizedBox(height: 0),
-                          Container(
-                            width: 200,
-                            padding: EdgeInsets.symmetric(vertical: 10.0),
-                            child: TextButton(
-                              onPressed: () {},
-                              child: Text(
-                                'Capturar',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                  Color.fromARGB(255, 14, 12, 87),
-                                ),
-                                padding: MaterialStateProperty.all<
-                                    EdgeInsetsGeometry>(
-                                  EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 20.0),
-                                ),
-                                shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20.0),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 16),
-                          Text(
-                            'Peso Bruto 10kg',
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 11, 19, 68),
-                            ),
-                          ),
-                          SizedBox(height: 16),
-                        ],
-                      ),
-                    ),
+
+                    CustomWidget(
+                    optionalTitle: 'Bobina: 10kg',
+                    weightText: '10kg',
+                    mainText: 'Peso neto',
+                    incrementableValue: '--',
+                    buttonText: 'Capturar',
+                    optionalText: 'Peso Bruto',
+                    optionalNumber: 15,
+                  ),
+                   
                     SizedBox(height: 10),
                     Container(
                       width: 200,

@@ -4,8 +4,13 @@ import 'package:get/get.dart';
 class OptionsDialog extends StatelessWidget {
   final String title;
   final List<Map<String, dynamic>> options;
+  final dynamic optionalValue; // Valor opcional que puede ser texto o número
 
-  OptionsDialog({required this.title, required this.options});
+  OptionsDialog({
+    required this.title,
+    required this.options,
+    this.optionalValue, // Valor opcional
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +22,7 @@ class OptionsDialog extends StatelessWidget {
             padding: EdgeInsets.all(20.0),
             margin: EdgeInsets.only(top: 45.0, left: 10.0, right: 10.0, bottom: 10.0), // Espacio superior para el botón de cierre
             decoration: BoxDecoration(
-              color: Colors.grey[200],  // Fondo gris claro
+              color: Color.fromARGB(31, 128, 128, 128),  // Fondo gris claro
               borderRadius: BorderRadius.circular(10),
             ),
             child: Column(
@@ -25,9 +30,21 @@ class OptionsDialog extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
-                Divider(),
+                if (optionalValue != null) // Mostrar el valor opcional si está presente
+                  SizedBox(height: 8),
+                if (optionalValue is int) // Mostrar el valor como número si es un int
+                  Text(
+                    '$optionalValue kg',
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  ),
+                if (optionalValue is String) // Mostrar el valor como texto si es un String
+                  Text(
+                    'Texto opcional: $optionalValue',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                
                 ListBody(
                   children: options.map((option) {
                     return Container(

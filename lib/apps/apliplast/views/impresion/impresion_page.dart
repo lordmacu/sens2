@@ -87,20 +87,28 @@ class _ImpresionPageState extends State<ImpresionPage> {
   int _currentPage = 0;
   List<String> _pageTitles = ['Extracción', 'Impresión', 'Sellado'];
 
-  void _addReport(String report1, String report2, String report3) {
-    setState(() {
-      _reports[_currentPage].insert(
-        0,
-        _buildReportWidget(
-          report1,
-          report2,
-          report3,
-          _reports[_currentPage].length + 1,
-          _pageTitles[_currentPage], // Pasar el título de la página actual
-        ),
-      );
-    });
-  }
+  void _addReport(String report1, String report2, String report3) async {
+  // Obtener el índice del nuevo reporte
+  int newIndex = _reports[_currentPage].length + 1;
+
+  setState(() {
+    _reports[_currentPage].insert(
+      0,
+      _buildReportWidget(
+        report1,
+        report2,
+        report3,
+        newIndex,
+        _pageTitles[_currentPage], 
+      ),
+    );
+  });
+
+  
+  await Get.toNamed('/printTicket', arguments: newIndex);
+
+  
+}
 
   @override
   void initState() {
@@ -332,18 +340,12 @@ class _ImpresionPageState extends State<ImpresionPage> {
             backgroundColor: Color.fromARGB(255, 13, 139, 128),
             foregroundColor: Colors.white,
             onPressed: () {
-              _addReport('Reporte 1', 'Reporte 2', 'Reporte 3');
+              _showAdditionalOptionsDialog();
+            
             },
           ),
           SizedBox(height: 16),
-          FloatingActionButton(
-            child: Icon(Icons.settings),
-            backgroundColor: Colors.blue,
-            foregroundColor: Colors.white,
-            onPressed: () {
-              _showAdditionalOptionsDialog();
-            },
-          ),
+          
         ],
       ),
     );
@@ -363,13 +365,13 @@ class _ImpresionPageState extends State<ImpresionPage> {
   void _showAdditionalOptionsDialog() {
     Get.dialog(
        OptionsDialog(
-        title: 'Texto: bobina 10 kg',
+        title: 'Bobina:--',
+        optionalValue: 10,
         options: [
           {
-            'text': 'Imprimir Ticket',
+            'text': 'Calcular peso',
             'onPressed': () async {
-              final result = await Get.toNamed('/printTicket');
-              Get.back();
+              _addReport('Reporte 1', 'Reporte 2', 'Reporte 3');
             },
           },
 

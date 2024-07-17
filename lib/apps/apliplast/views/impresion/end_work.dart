@@ -5,7 +5,9 @@ import 'package:sens2/apps/apliplast/views/impresion/widget/current_date_widget.
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:sens2/core/components/inputs/dropdown_text.dart';
 import 'package:sens2/core/components/inputs/input_text.dart';
+import 'package:sens2/core/components/inputs/type_ahead.dart';
 import 'package:sens2/core/components/buttons/button.dart';
+import 'package:sens2/apps/apliplast/views/impresion/widget/custom_widget.dart';
 import 'package:sens2/apps/apliplast/views/impresion/widget/filter_options_widget.dart';
 
 class EndWork extends StatelessWidget {
@@ -106,71 +108,38 @@ class EndWork extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(height: 8),
-                    Text(
-                      'N° 11',
-                      style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 11, 19, 68)),
-                    ),
-                    SizedBox(height: 8),
                     Container(
                       margin: EdgeInsets.only(top: 20, bottom: 20),
-                      padding: EdgeInsets.only(top: 20, bottom: 30, left: 20, right: 20),
+                      padding: EdgeInsets.only(
+                          top: 20, bottom: 30, left: 20, right: 20),
                       width: double.infinity,
                       color: Colors.grey.shade400.withOpacity(0.2),
                       child: Column(
                         children: [
-                          CurrentDateWidget(),
-                          DropdownText(items: ['Turno', 'Item 2', 'Item 3']),
-                          SizedBox(height: 8),
-                          TypeAheadFormField(
-                            textFieldConfiguration: TextFieldConfiguration(
-                              controller: endWorkController.operatorController.value,
-                              decoration: InputDecoration(
-                                labelText: 'Operador',
-                                labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Color.fromARGB(255, 75, 159, 214)), // Cambiar el color del label
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Color.fromARGB(255, 75, 159, 214)), // Cambiar el color del borde cuando está habilitado
-                                  borderRadius: BorderRadius.circular(3.0),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Color.fromARGB(255, 11, 19, 68)), // Cambiar el color del borde cuando está enfocado
-                                  borderRadius: BorderRadius.circular(3.0),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.red), // Cambiar el color del borde cuando hay un error
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.red), // Cambiar el color del borde cuando está enfocado y hay un error
-                                  borderRadius: BorderRadius.circular(10.0),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'N° 11',
+                                style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromARGB(255, 11, 19, 68),
                                 ),
                               ),
-                              style: TextStyle(color: Colors.black), // Cambiar el color del texto
-                            ),
-                            suggestionsCallback: (pattern) {
-                              return operators.where((operator) =>
-                                  operator.toLowerCase().contains(pattern.toLowerCase())).toList();
+                              CurrentDateWidget()
+                            ],
+                          ),
+                          SizedBox(height: 16),
+                          DropdownText(items: ['Turno', 'Item 2', 'Item 3']),
+                          SizedBox(height: 8),
+                          TypeAhead(
+                            suggestions: operators,
+                            text: "Operador",
+                            onSuggestionSelectedCallback: (String suggestion) {
+                              endWorkController
+                                  .operatorController.value.text = suggestion;
                             },
-                            itemBuilder: (context, suggestion) {
-                              return ListTile(
-                                title: Text(suggestion),
-                              );
-                            },
-                            onSuggestionSelected: (suggestion) {
-                              endWorkController.operatorController.value.text = suggestion;
-                            },
-                            transitionBuilder: (context, suggestionsBox, controller) {
-                              return suggestionsBox;
-                            },
-                            validator: (value) {
-                              if ((value ?? '').isEmpty) {
-                                return 'Por favor seleccione un operador';
-                              }
-                              return null;
-                            },
-                            onSaved: (value) => print('Operador seleccionado: $value'),
                           ),
                           SizedBox(height: 8),
                         ],
@@ -178,57 +147,18 @@ class EndWork extends StatelessWidget {
                     ),
 
                     SizedBox(height: 8),
-                    TypeAheadFormField(
-                      textFieldConfiguration: TextFieldConfiguration(
-                        controller: endWorkController.operatorController.value,
-                        decoration: InputDecoration(
-                          labelText: 'Orden de Producción ',
-                          labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Color.fromARGB(255, 75, 159, 214)), // Cambiar el color del label
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Color.fromARGB(255, 75, 159, 214)), // Cambiar el color del borde cuando está habilitado
-                            borderRadius: BorderRadius.circular(3.0),
+                     TypeAhead(
+                            suggestions: operators,
+                            text: "Operador",
+                            onSuggestionSelectedCallback: (String suggestion) {
+                              endWorkController
+                                  .operatorController.value.text = suggestion;
+                            },
                           ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey), // Cambiar el color del borde cuando está enfocado
-                            borderRadius: BorderRadius.circular(3.0),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.red), // Cambiar el color del borde cuando hay un error
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.red), // Cambiar el color del borde cuando está enfocado y hay un error
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        ),
-                        style: TextStyle(color: Colors.black), // Cambiar el color del texto
-                      ),
-                      suggestionsCallback: (pattern) {
-                        return operators.where((operator) =>
-                            operator.toLowerCase().contains(pattern.toLowerCase())).toList();
-                      },
-                      itemBuilder: (context, suggestion) {
-                        return ListTile(
-                          title: Text(suggestion),
-                        );
-                      },
-                      onSuggestionSelected: (suggestion) {
-                        endWorkController.operatorController.value.text = suggestion;
-                      },
-                      transitionBuilder: (context, suggestionsBox, controller) {
-                        return suggestionsBox;
-                      },
-                      validator: (value) {
-                        if ((value ?? '').isEmpty) {
-                          return 'Por favor seleccione un Orden';
-                        }
-                        return null;
-                      },
-                      onSaved: (value) => print('Orden seleccionado: $value'),
-                    ),
 
                     SizedBox(height: 8),
                     InputTextGeneral(
+                      
                       text: 'Maquina',
                       controller: endWorkController.maquinController.value,
                     ),
@@ -273,124 +203,20 @@ class EndWork extends StatelessWidget {
                         ],
                       ),
                     ),
-
-                    Container(
-                      margin: EdgeInsets.only(top: 16),
-                      width: double.infinity,
-                      color: Colors.grey.withOpacity(0.2),
-                      child: Column(
-                        children: [
-
-
-                          SizedBox(height: 8),
-                          Text(
-                            'Torta de rollos: --',
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 11, 19, 68),
-                            ),
-                          ),
-                          SizedBox(height: 8),
-
-                          Text(
-                            '10kg',
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 11, 19, 68),
-                            ),
-                          ),
-                          SizedBox(height: 8),
-
-                          Container(
-                            width: 200,
-                            padding: EdgeInsets.symmetric(vertical: 10.0),
-                            child: TextButton(
-                              onPressed: () {},
-                              child: Text(
-                                'Capturar',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all<Color>(
-                                  Color.fromARGB(255, 14, 12, 87),
-                                ),
-                                padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                  EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                                ),
-                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20.0),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-
-
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 16),
-                    Container(
-                      margin: EdgeInsets.only(top: 16,),
-                      width: double.infinity,
-                      color: Colors.grey.withOpacity(0.2),
-                      child: Column(
-                        children: [
-                          SizedBox(height: 16),
-
-                          Text(
-                            'Desperdicio de rollos: --',
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 11, 19, 68),
-                            ),
-                          ),
-                          SizedBox(height: 16),
-
-                          Text(
-                            '10kg',
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 11, 19, 68),
-                            ),
-                          ),
-
-                          SizedBox(height: 8),
-
-                          Container(
-                            width: 200,
-                            padding: EdgeInsets.symmetric(vertical: 10.0),
-                            child: TextButton(
-                              onPressed: () {},
-                              child: Text(
-                                'Capturar',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all<Color>(
-                                  Color.fromARGB(255, 14, 12, 87),
-                                ),
-                                padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                  EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                                ),
-                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20.0),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-
-                          SizedBox(height: 16),
-                        ],
-                      ),
-                    ),
+ SizedBox(height: 8),
+                    CustomWidget(
+            buttonText: 'Capturar',
+            weightText: '10kg',
+            mainText: 'Torta de rollos',
+            incrementableValue: '--', 
+          ),
+                   SizedBox(height: 16), 
+                    CustomWidget(
+            buttonText: 'Capturar',
+            weightText: '10kg',
+            mainText: 'Desperdicions de rollos',
+            incrementableValue: '--', 
+          ),
 
                     SizedBox(height: 32),
                     Text(
@@ -500,7 +326,7 @@ class EndWork extends StatelessWidget {
                       ),
                     ),
 
-                    SizedBox(height: 20),
+                    SizedBox(height: 8),
                     Container(
                       width: 200,
                       padding: EdgeInsets.symmetric(vertical: 10.0),
