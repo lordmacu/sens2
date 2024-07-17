@@ -161,7 +161,7 @@ class _CustomWidgetState extends State<CustomWidget> {
                   ),
                 ),
                 SizedBox(width: 8),
-                Text(
+                widget.optionalNumber > 0 ? Text(
                   widget.optionalNumber != null
                       ? '${widget.optionalNumber} kg'
                       : '--',
@@ -170,7 +170,7 @@ class _CustomWidgetState extends State<CustomWidget> {
                     fontWeight: FontWeight.bold,
                     color: Color.fromARGB(255, 11, 19, 68),
                   ),
-                ),
+                ): Text(""),
               ],
             ),
           ],

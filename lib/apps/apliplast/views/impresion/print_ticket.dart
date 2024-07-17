@@ -26,7 +26,7 @@ class ExtrusionPrintTicket extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 25, 38, 83),
         title: Text(
-          'Formulario de impresión',
+          'Formulario de Extrusión',
           style: TextStyle(color: Colors.white, fontSize: 17),
         ),
         iconTheme: IconThemeData(color: Colors.white),

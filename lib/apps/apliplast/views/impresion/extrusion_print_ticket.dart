@@ -247,18 +247,18 @@ class PrintTicket extends StatelessWidget {
                     SizedBox(height: 8),
 
                     CustomWidget(
-                    optionalTitle: 'Bobina: 10kg',
+                    optionalTitle: '',
                     weightText: '10kg',
                     mainText: 'Peso Neto Impresión',
                     incrementableValue: '--',
                     buttonText: 'Capturar',
-                    optionalText: 'Peso Bruto',
-                    optionalNumber: 15,
+                    optionalText: '',
+                    optionalNumber: 0,
                   ),
                    SizedBox(height: 18),
                   InputTextGeneral(
                       
-                      text: 'Maquina',
+                      text: 'Densidad',
                       controller: printicketController.maquinController.value,
                     ),
                     SizedBox(height: 16),

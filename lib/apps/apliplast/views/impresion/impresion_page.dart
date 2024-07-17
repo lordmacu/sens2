@@ -114,17 +114,6 @@ class _ImpresionPageState extends State<ImpresionPage> {
     _addReport('Reporte 1', 'Reporte 2', 'Reporte 3');
     _addReport('Reporte 1', 'Reporte 2', 'Reporte 3');
 
-    _currentPage = 1;
-
-    _addReport('Reporte 1', 'Reporte 2', 'Reporte 3');
-    _addReport('Reporte 1', 'Reporte 2', 'Reporte 3');
-    _addReport('Reporte 1', 'Reporte 2', 'Reporte 3');
-
-    _currentPage = 2;
-    _addReport('Reporte 1', 'Reporte 2', 'Reporte 3');
-    _addReport('Reporte 1', 'Reporte 2', 'Reporte 3');
-    _addReport('Reporte 1', 'Reporte 2', 'Reporte 3');
-
     super.initState();
   }
 
