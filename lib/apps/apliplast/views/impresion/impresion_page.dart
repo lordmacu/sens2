@@ -186,26 +186,27 @@ class _ImpresionPageState extends State<ImpresionPage> {
             'text': 'Imprimir Ticket',
             'onPressed': () async {
               if(_currentPage == 0 ){
+                  final result = await Get.toNamed('/printExtrusionTicket');
+              }
+              if(_currentPage == 1 ){
                   final result = await Get.toNamed('/printTicket');
               }
               
-              if(_currentPage == 1 ){
-                  final result = await Get.toNamed('/printExtrusionTicket');
-              }
+              
               Get.back();
             },
           },
           {
             'text': 'Fin de Turno',
             'onPressed': () async {
-             
-              if(_currentPage == 0 ){
+             if(_currentPage == 0 ){
+                   final result = await Get.toNamed('/extrusionEndWork');
+              }
+              if(_currentPage == 1 ){
                    final result = await Get.toNamed('/endWork');
               }
               
-              if(_currentPage == 1 ){
-                   final result = await Get.toNamed('/extrusionEndWork');
-              }
+              
               Get.back();
             },
           },
