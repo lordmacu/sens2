@@ -9,9 +9,9 @@ import 'package:sens2/core/components/inputs/input_text.dart';
 import 'package:sens2/core/components/buttons/button.dart';
 import 'package:sens2/core/components/inputs/type_ahead.dart';
 
-class ExtrusionPrintTicket extends StatelessWidget {
- 
-      PrintTicketController printicketController = Get.put(PrintTicketController());
+class PrintTicket extends StatelessWidget {
+  PrintTicketController printicketController =
+      Get.find<PrintTicketController>();
 
   final List<String> operators = [
     'Operador 1',
@@ -100,7 +100,7 @@ class ExtrusionPrintTicket extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'N° 10',
+                                'N° 12',
                                 style: TextStyle(
                                   fontSize: 25,
                                   fontWeight: FontWeight.bold,
@@ -169,7 +169,7 @@ class ExtrusionPrintTicket extends StatelessWidget {
                                   children: [
                                     Container(
                                       child: Text(
-                                        'Medida',
+                                        'Tipo de Producto',
                                         style: TextStyle(color: Colors.black),
                                       ),
                                     ),
@@ -178,7 +178,7 @@ class ExtrusionPrintTicket extends StatelessWidget {
                                       child: TextFormField(
                                         readOnly: true,
                                         decoration: InputDecoration(
-                                          hintText: 'Medida 1',
+                                          hintText: 'Producto 1',
                                         ),
                                       ),
                                     ),
@@ -199,30 +199,7 @@ class ExtrusionPrintTicket extends StatelessWidget {
                                   children: [
                                     Container(
                                       child: Text(
-                                        'Espesor',
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    ),
-                                    SizedBox(height: 8),
-                                    Container(
-                                      child: TextFormField(
-                                        readOnly: true,
-                                        decoration: InputDecoration(
-                                          hintText: 'Espesor 1',
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Flexible(
-                              child: Container(
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      child: Text(
-                                        'Color',
+                                        'Color preparado',
                                         style: TextStyle(color: Colors.black),
                                       ),
                                     ),
@@ -239,20 +216,13 @@ class ExtrusionPrintTicket extends StatelessWidget {
                                 ),
                               ),
                             ),
-                          ],
-                        ),
-                        SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
                             Flexible(
                               child: Container(
-                                padding: EdgeInsets.only(left: 8, right: 8),
                                 child: Column(
                                   children: [
                                     Container(
                                       child: Text(
-                                        'Densidad',
+                                        'Peso Neto Extrusión',
                                         style: TextStyle(color: Colors.black),
                                       ),
                                     ),
@@ -261,30 +231,7 @@ class ExtrusionPrintTicket extends StatelessWidget {
                                       child: TextFormField(
                                         readOnly: true,
                                         decoration: InputDecoration(
-                                          hintText: 'Densidad 1',
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Flexible(
-                              child: Container(
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      child: Text(
-                                        'Cliente',
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    ),
-                                    SizedBox(height: 8),
-                                    Container(
-                                      child: TextFormField(
-                                        readOnly: true,
-                                        decoration: InputDecoration(
-                                          hintText: 'Cliente 1',
+                                          hintText: 'Extrusión 1',
                                         ),
                                       ),
                                     ),
@@ -294,6 +241,7 @@ class ExtrusionPrintTicket extends StatelessWidget {
                             ),
                           ],
                         ),
+                        
                       ],
                     ),
                     SizedBox(height: 8),
@@ -301,14 +249,26 @@ class ExtrusionPrintTicket extends StatelessWidget {
                     CustomWidget(
                     optionalTitle: 'Bobina: 10kg',
                     weightText: '10kg',
-                    mainText: 'Peso neto',
+                    mainText: 'Peso Neto Impresión',
                     incrementableValue: '--',
                     buttonText: 'Capturar',
                     optionalText: 'Peso Bruto',
                     optionalNumber: 15,
                   ),
+                   SizedBox(height: 18),
+                  InputTextGeneral(
+                      
+                      text: 'Maquina',
+                      controller: printicketController.maquinController.value,
+                    ),
+                    SizedBox(height: 16),
+                  InputTextGeneral(
+                      
+                      text: 'Cliente',
+                      controller: printicketController.maquinController.value,
+                    ),
                    
-                    SizedBox(height: 10),
+                    SizedBox(height: 8),
                     Container(
                       width: 200,
                       padding: EdgeInsets.symmetric(vertical: 10.0),
@@ -349,3 +309,6 @@ class ExtrusionPrintTicket extends StatelessWidget {
     );
   }
 }
+
+
+

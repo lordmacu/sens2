@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sens2/apps/apliplast/controllers/print_ticket_controller.dart';
@@ -9,9 +11,9 @@ import 'package:sens2/core/components/inputs/input_text.dart';
 import 'package:sens2/core/components/buttons/button.dart';
 import 'package:sens2/core/components/inputs/type_ahead.dart';
 
-class PrintTicket extends StatelessWidget {
-  PrintTicketController printicketController =
-      Get.find<PrintTicketController>();
+class ExtrusionPrintTicket extends StatelessWidget {
+ 
+      PrintTicketController printicketController = Get.put(PrintTicketController());
 
   final List<String> operators = [
     'Operador 1',
@@ -100,7 +102,7 @@ class PrintTicket extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'N° 12',
+                                'N° 10',
                                 style: TextStyle(
                                   fontSize: 25,
                                   fontWeight: FontWeight.bold,
@@ -169,7 +171,7 @@ class PrintTicket extends StatelessWidget {
                                   children: [
                                     Container(
                                       child: Text(
-                                        'Tipo de Producto',
+                                        'Medida',
                                         style: TextStyle(color: Colors.black),
                                       ),
                                     ),
@@ -178,7 +180,7 @@ class PrintTicket extends StatelessWidget {
                                       child: TextFormField(
                                         readOnly: true,
                                         decoration: InputDecoration(
-                                          hintText: 'Producto 1',
+                                          hintText: 'Medida 1',
                                         ),
                                       ),
                                     ),
@@ -199,7 +201,30 @@ class PrintTicket extends StatelessWidget {
                                   children: [
                                     Container(
                                       child: Text(
-                                        'Color preparado',
+                                        'Espesor',
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                    ),
+                                    SizedBox(height: 8),
+                                    Container(
+                                      child: TextFormField(
+                                        readOnly: true,
+                                        decoration: InputDecoration(
+                                          hintText: 'Espesor 1',
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Flexible(
+                              child: Container(
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      child: Text(
+                                        'Color',
                                         style: TextStyle(color: Colors.black),
                                       ),
                                     ),
@@ -216,13 +241,20 @@ class PrintTicket extends StatelessWidget {
                                 ),
                               ),
                             ),
+                          ],
+                        ),
+                        SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
                             Flexible(
                               child: Container(
+                                padding: EdgeInsets.only(left: 8, right: 8),
                                 child: Column(
                                   children: [
                                     Container(
                                       child: Text(
-                                        'Peso Neto Extrusión',
+                                        'Densidad',
                                         style: TextStyle(color: Colors.black),
                                       ),
                                     ),
@@ -231,7 +263,30 @@ class PrintTicket extends StatelessWidget {
                                       child: TextFormField(
                                         readOnly: true,
                                         decoration: InputDecoration(
-                                          hintText: 'Extrusión 1',
+                                          hintText: 'Densidad 1',
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Flexible(
+                              child: Container(
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      child: Text(
+                                        'Cliente',
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                    ),
+                                    SizedBox(height: 8),
+                                    Container(
+                                      child: TextFormField(
+                                        readOnly: true,
+                                        decoration: InputDecoration(
+                                          hintText: 'Cliente 1',
                                         ),
                                       ),
                                     ),
@@ -241,7 +296,6 @@ class PrintTicket extends StatelessWidget {
                             ),
                           ],
                         ),
-                        
                       ],
                     ),
                     SizedBox(height: 8),
@@ -249,26 +303,14 @@ class PrintTicket extends StatelessWidget {
                     CustomWidget(
                     optionalTitle: 'Bobina: 10kg',
                     weightText: '10kg',
-                    mainText: 'Peso Neto Impresión',
+                    mainText: 'Peso neto',
                     incrementableValue: '--',
                     buttonText: 'Capturar',
                     optionalText: 'Peso Bruto',
                     optionalNumber: 15,
                   ),
-                   SizedBox(height: 18),
-                  InputTextGeneral(
-                      
-                      text: 'Maquina',
-                      controller: printicketController.maquinController.value,
-                    ),
-                    SizedBox(height: 16),
-                  InputTextGeneral(
-                      
-                      text: 'Cliente',
-                      controller: printicketController.maquinController.value,
-                    ),
                    
-                    SizedBox(height: 8),
+                    SizedBox(height: 10),
                     Container(
                       width: 200,
                       padding: EdgeInsets.symmetric(vertical: 10.0),
