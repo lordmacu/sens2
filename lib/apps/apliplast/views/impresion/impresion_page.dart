@@ -87,34 +87,32 @@ class _ImpresionPageState extends State<ImpresionPage> {
   int _currentPage = 0;
   List<String> _pageTitles = ['Extrusión', 'Impresión', 'Sellado'];
 
-  void _addReport(String report1, String report2, String report3) async {
-  
-  int newIndex = _reports[_currentPage].length + 1;
+  void _addReport(String report1, String report2, String report3, int pageIndex) async {
+    int newIndex = _reports[pageIndex].length + 1;
 
-  setState(() {
-    _reports[_currentPage].insert(
-      0,
-      _buildReportWidget(
-        report1,
-        report2,
-        report3,
-        newIndex,
-        _pageTitles[_currentPage], 
-      ),
-    );
-  });
-
-  
-  
-}
+    setState(() {
+      _reports[pageIndex].insert(
+        0,
+        _buildReportWidget(
+          report1,
+          report2,
+          report3,
+          newIndex,
+          _pageTitles[pageIndex],
+        ),
+      );
+    });
+  }
 
   @override
   void initState() {
-    _addReport('Reporte 1', 'Reporte 2', 'Reporte 3');
-    _addReport('Reporte 1', 'Reporte 2', 'Reporte 3');
-    _addReport('Reporte 1', 'Reporte 2', 'Reporte 3');
-
     super.initState();
+    // Añadiendo tres reportes por cada página
+    for (int pageIndex = 0; pageIndex < _reports.length; pageIndex++) {
+      for (int i = 0; i < 3; i++) {
+        _addReport('Reporte 1', 'Reporte 2', 'Reporte 3', pageIndex);
+      }
+    }
   }
 
   Widget _buildReportWidget(String report1, String report2, String report3,
@@ -127,21 +125,19 @@ class _ImpresionPageState extends State<ImpresionPage> {
         color: Color.fromARGB(127, 151, 235, 228),
         margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         child: ListTile(
-         title: Container(
+          title: Container(
             margin: EdgeInsets.only(bottom: 8),
-           
             child: Text(
               '#$index - $pageTitle',
               style: TextStyle(
-          fontWeight: FontWeight.bold, 
-        ),
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
-          
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Reporte 1: $report1' ),
+              Text('Reporte 1: $report1'),
               Text('Reporte 2: $report2'),
               Text('Reporte 3: $report3'),
             ],
@@ -174,28 +170,30 @@ class _ImpresionPageState extends State<ImpresionPage> {
           {
             'text': 'Imprimir Ticket',
             'onPressed': () async {
-              if(_currentPage == 0 ){
-                  final result = await Get.toNamed('/printExtrusionTicket');
+              if (_currentPage == 0) {
+                final result = await Get.toNamed('/printExtrusionTicket');
               }
-              if(_currentPage == 1 ){
-                  final result = await Get.toNamed('/printTicket');
+              if (_currentPage == 1) {
+                final result = await Get.toNamed('/printTicket');
               }
-              
-              
+              if (_currentPage == 2) {
+                final result = await Get.toNamed('/sealedPrintTicket');
+              }
               Get.back();
             },
           },
           {
             'text': 'Fin de Turno',
             'onPressed': () async {
-             if(_currentPage == 0 ){
-                   final result = await Get.toNamed('/extrusionEndWork');
+              if (_currentPage == 0) {
+                final result = await Get.toNamed('/extrusionEndWork');
               }
-              if(_currentPage == 1 ){
-                   final result = await Get.toNamed('/endWork');
+              if (_currentPage == 1) {
+                final result = await Get.toNamed('/endWork');
               }
-              
-              
+              if (_currentPage == 2) {
+                final result = await Get.toNamed('/sealedEndWork');
+              }
               Get.back();
             },
           },
@@ -294,7 +292,6 @@ class _ImpresionPageState extends State<ImpresionPage> {
                         ? Color.fromARGB(255, 25, 38, 83)
                         : Color.fromARGB(255, 151, 151, 151),
                   ),
-              
                   Text(
                     'Sellado',
                     style: TextStyle(
@@ -350,16 +347,16 @@ class _ImpresionPageState extends State<ImpresionPage> {
             backgroundColor: Color.fromARGB(255, 13, 139, 128),
             foregroundColor: Colors.white,
             onPressed: () {
-               if(_currentPage == 0){
-                 _showExtrusionDialog();
-              }
-              if(_currentPage == 1){
-                 _showPrintDialog();
+              if (_currentPage == 0) {
+                _showExtrusionDialog();
+              } else if (_currentPage == 1) {
+                _showPrintDialog();
+              } else if (_currentPage == 2) {
+                _showSealedDialog();
               }
             },
           ),
           SizedBox(height: 16),
-          
         ],
       ),
     );
@@ -377,27 +374,30 @@ class _ImpresionPageState extends State<ImpresionPage> {
   }
 
   void _showPrintDialog() {
-    _addReport('Reporte 1', 'Reporte 2', 'Reporte 3');
-    Get.toNamed('/printTicket' );
+    _addReport('Reporte 1', 'Reporte 2', 'Reporte 3', _currentPage);
+    Get.toNamed('/printTicket');
   }
+
+  void _showSealedDialog() {
+    _addReport('Reporte 1', 'Reporte 2', 'Reporte 3', _currentPage);
+    Get.toNamed('/sealedPrintTicket');
+  }
+
   void _showExtrusionDialog() {
     Get.dialog(
-       OptionsDialog(
+      OptionsDialog(
         title: 'Bobina:--',
         optionalValue: 10,
         options: [
           {
             'text': 'Calcular peso',
             'onPressed': () async {
-              _addReport('Reporte 1', 'Reporte 2', 'Reporte 3');
-              Get.toNamed('/printExtrusionTicket' );
+              _addReport('Reporte 1', 'Reporte 2', 'Reporte 3', _currentPage);
+              Get.toNamed('/printExtrusionTicket');
             },
           },
-
         ],
-      )
-
+      ),
     );
   }
 }
-

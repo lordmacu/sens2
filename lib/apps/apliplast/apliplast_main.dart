@@ -14,6 +14,8 @@ import 'package:sens2/apps/apliplast/views/impresion/print_ticket.dart';
 import 'package:sens2/apps/apliplast/views/extrusion_report/extrusion_page.dart';
 
 import 'package:sens2/apps/apliplast/views/impresion/impresion_page.dart';
+import 'package:sens2/apps/apliplast/views/impresion/sealed_end_work.dart';
+import 'package:sens2/apps/apliplast/views/impresion/sealed_print_ticket.dart';
 
 import 'package:sens2/core/services/foreground_service.dart';
 
@@ -114,6 +116,20 @@ List<GetPage> getRoutesApiplast() {
       transition: Transition.native,
       binding: ExtrusionReportBinding(),
     ),
+     GetPage(
+      name: '/sealedPrintTicket',
+      page: () => SealedPrintTicket(),
+      transition: Transition.native,
+      binding: PrintTicketBinding(),
+    ),
+    GetPage(
+      name: '/sealedEndWork',
+      page: () => SealedEndWork(), 
+      transition: Transition.native,
+      binding: EndWorkBinding(),
+    ),
+
+    
     GetPage(
       name: '/impresion',
       page: () => ImpresionPage(),

@@ -7,6 +7,7 @@ class PrintTicketController extends GetxController {
   var orderController = TextEditingController().obs;
   var rollController = TextEditingController().obs;
   var operatorController = TextEditingController().obs;
+  
 
   var maquinController = TextEditingController().obs;
   var extentController = TextEditingController().obs;
