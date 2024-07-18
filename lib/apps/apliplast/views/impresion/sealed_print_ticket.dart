@@ -13,8 +13,8 @@ import 'package:sens2/core/components/inputs/type_ahead.dart';
 class SealedPrintTicket extends StatelessWidget {
  
 
-      PrintSealedTicketController printSealedTicketController =
-      Get.find<PrintSealedTicketController>();
+      PrintTicketSealedController printTicketSealedController =
+      Get.find<PrintTicketSealedController>();
 
   final List<String> operators = [
     'Operador 1',
@@ -120,7 +120,7 @@ class SealedPrintTicket extends StatelessWidget {
                             suggestions: operators,
                             text: "Operador",
                             onSuggestionSelectedCallback: (String suggestion) {
-                              printSealedTicketController.operatorController.value.text = suggestion;
+                              printTicketSealedController.operatorController.value.text = suggestion;
                             },
                           ),
                           SizedBox(height: 8),
@@ -130,7 +130,7 @@ class SealedPrintTicket extends StatelessWidget {
                     TypeAhead(
                       text: "Orden de Producción",
                       onSuggestionSelectedCallback: (String suggestion) {
-                        printSealedTicketController.operatorController.value.text =
+                        printTicketSealedController.operatorController.value.text =
                             suggestion;
                       },
                     ),
@@ -216,7 +216,7 @@ class SealedPrintTicket extends StatelessWidget {
                       padding: EdgeInsets.symmetric(vertical: 10.0),
                       child: TextButton(
                         onPressed: () {
-                          printSealedTicketController.send();
+                          printTicketSealedController.send();
                         },
                         child: Text(
                           'Guardar',

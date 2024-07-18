@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 
-class PrintSealedTicketController extends GetxController {
+class PrintTicketSealedController extends GetxController {
   var orderController = TextEditingController().obs;
   var rollController = TextEditingController().obs;
   var operatorController = TextEditingController().obs;

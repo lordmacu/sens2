@@ -5,7 +5,11 @@ import 'package:sens2/apps/apliplast/bindings/extrusion_report_binding.dart';
 
 import 'package:sens2/apps/apliplast/bindings/imprimir_binding.dart';
 import 'package:sens2/apps/apliplast/bindings/end_work_binding.dart';
+import 'package:sens2/apps/apliplast/bindings/end_work_extrusion_binding.dart';
+import 'package:sens2/apps/apliplast/bindings/end_work_sealed_binding.dart';
 import 'package:sens2/apps/apliplast/bindings/print_ticket_binding.dart';
+import 'package:sens2/apps/apliplast/bindings/print_ticket_extrusion_binding.dart';
+import 'package:sens2/apps/apliplast/bindings/print_ticket_sealed_binding.dart';
 
 import 'package:sens2/apps/apliplast/views/impresion/end_work.dart';
 import 'package:sens2/apps/apliplast/views/impresion/extrusion_end_work.dart';
@@ -102,13 +106,13 @@ List<GetPage> getRoutesApiplast() {
       name: '/printExtrusionTicket',
       page: () => ExtrusionPrintTicket(),
       transition: Transition.native,
-      binding: PrintTicketBinding(),
+      binding: PrintTicketExtrusionBinding(),
     ),
     GetPage(
       name: '/extrusionEndWork',
       page: () => ExtrusionEndWork(),
       transition: Transition.native,
-      binding: PrintTicketBinding(),
+      binding: EndWorkExtrusionBinding(),
     ),
     GetPage(
       name: '/extrusionReport',
@@ -120,13 +124,13 @@ List<GetPage> getRoutesApiplast() {
       name: '/sealedPrintTicket',
       page: () => SealedPrintTicket(),
       transition: Transition.native,
-      binding: PrintTicketBinding(),
+      binding: PrintTicketSealedBinding(),
     ),
     GetPage(
       name: '/sealedEndWork',
       page: () => SealedEndWork(), 
       transition: Transition.native,
-      binding: EndWorkBinding(),
+      binding: EndWorkSealedBinding(),
     ),
 
     

@@ -10,8 +10,8 @@ import 'package:sens2/core/components/buttons/button.dart';
 import 'package:sens2/core/components/inputs/type_ahead.dart';
 
 class PrintTicket extends StatelessWidget {
-  PrintExtrusionTicketController printExtrusionTicketController =
-      Get.find<PrintExtrusionTicketController>();
+  PrintTicketExtrusionController printTicketExtrusionController =
+      Get.find<PrintTicketExtrusionController>();
 
   final List<String> operators = [
     'Operador 1',
@@ -117,7 +117,7 @@ class PrintTicket extends StatelessWidget {
                             suggestions: operators,
                             text: "Operador",
                             onSuggestionSelectedCallback: (String suggestion) {
-                              printExtrusionTicketController
+                              printTicketExtrusionController
                                   .operatorController.value.text = suggestion;
                             },
                           ),
@@ -128,7 +128,7 @@ class PrintTicket extends StatelessWidget {
                     TypeAhead(
                       text: "Orden de Producción",
                       onSuggestionSelectedCallback: (String suggestion) {
-                        printExtrusionTicketController.operatorController.value.text =
+                        printTicketExtrusionController.operatorController.value.text =
                             suggestion;
                       },
                     ),
@@ -259,13 +259,13 @@ class PrintTicket extends StatelessWidget {
                   InputTextGeneral(
                       
                       text: 'Densidad',
-                      controller: printExtrusionTicketController.maquinController.value,
+                      controller: printTicketExtrusionController.maquinController.value,
                     ),
                     SizedBox(height: 16),
                   InputTextGeneral(
                       
                       text: 'Cliente',
-                      controller: printExtrusionTicketController.maquinController.value,
+                      controller: printTicketExtrusionController.maquinController.value,
                     ),
                    
                     SizedBox(height: 8),
@@ -274,7 +274,7 @@ class PrintTicket extends StatelessWidget {
                       padding: EdgeInsets.symmetric(vertical: 10.0),
                       child: TextButton(
                         onPressed: () {
-                          printExtrusionTicketController.send();
+                          printTicketExtrusionController.send();
                         },
                         child: Text(
                           'Guardar',
