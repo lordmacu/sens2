@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sens2/apps/apliplast/views/impresion/widget/switch_widget.dart';
 
-class CustomWidget extends StatefulWidget {
+class CaptureWidget extends StatefulWidget {
   final String buttonText;
   final String weightText;
   final String mainText;
@@ -10,8 +11,9 @@ class CustomWidget extends StatefulWidget {
   final String? optionalTitle;
   final String? bobinaText;
   final dynamic optionalKgValue;
+  final bool showSwitchTitle; // Nueva variable para indicar si se debe mostrar el switch
 
-  CustomWidget({
+  CaptureWidget({
     required this.buttonText,
     required this.weightText,
     required this.mainText,
@@ -21,13 +23,14 @@ class CustomWidget extends StatefulWidget {
     this.optionalTitle,
     this.bobinaText,
     this.optionalKgValue,
+    this.showSwitchTitle = false, // Valor predeterminado
   });
 
   @override
-  _CustomWidgetState createState() => _CustomWidgetState();
+  _CaptureWidgetState createState() => _CaptureWidgetState();
 }
 
-class _CustomWidgetState extends State<CustomWidget> {
+class _CaptureWidgetState extends State<CaptureWidget> {
   dynamic displayValue;
   dynamic displayKgValue;
 
@@ -59,7 +62,7 @@ class _CustomWidgetState extends State<CustomWidget> {
     String displayValueString =
         displayValue != null ? displayValue.toString() : '--';
     String displayKgValueString =
-        displayKgValue != null ? displayKgValue.toString() : '--'; // Updated to use displayKgValue instead of optionalKgValue directly
+        displayKgValue != null ? displayKgValue.toString() : '--'; 
 
     return Container(
       margin: EdgeInsets.only(top: 16),
@@ -147,6 +150,24 @@ class _CustomWidgetState extends State<CustomWidget> {
               ),
             ),
           ),
+          if (widget.showSwitchTitle) ...[
+            Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Mostrar en impresion?',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 65, 65, 65),
+                      fontSize: 17,
+                    ),
+                  ),
+                  SizedBox(width: 10), // Espacio entre el texto y el interruptor
+                  SwitchState(),
+                ],
+              ),
+            ),
+          ],
           if (widget.optionalText != null && widget.optionalNumber != null) ...[
             SizedBox(height: 8),
             Row(
@@ -161,16 +182,18 @@ class _CustomWidgetState extends State<CustomWidget> {
                   ),
                 ),
                 SizedBox(width: 8),
-                widget.optionalNumber > 0 ? Text(
-                  widget.optionalNumber != null
-                      ? '${widget.optionalNumber} kg'
-                      : '--',
-                  style: TextStyle(
-                    fontSize: 23,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 11, 19, 68),
-                  ),
-                ): Text(""),
+                widget.optionalNumber > 0
+                    ? Text(
+                        widget.optionalNumber != null
+                            ? '${widget.optionalNumber} kg'
+                            : '--',
+                        style: TextStyle(
+                          fontSize: 23,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 11, 19, 68),
+                        ),
+                      )
+                    : Text(""),
               ],
             ),
           ],

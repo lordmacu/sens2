@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sens2/apps/apliplast/controllers/end_work_controller.dart';
@@ -8,13 +7,17 @@ import 'package:sens2/core/components/inputs/dropdown_text.dart';
 import 'package:sens2/core/components/inputs/input_text.dart';
 import 'package:sens2/core/components/inputs/type_ahead.dart';
 import 'package:sens2/core/components/buttons/button.dart';
-import 'package:sens2/apps/apliplast/views/impresion/widget/custom_widget.dart';
+import 'package:sens2/apps/apliplast/views/impresion/widget/capture_widget.dart';
 import 'package:sens2/apps/apliplast/views/impresion/widget/filter_options_widget.dart';
 
 class EndWork extends StatelessWidget {
   EndWorkController endWorkController = Get.put(EndWorkController());
 
-  final List<String> operators = ['Operador 1', 'Operador 2', 'Operador 3']; // Lista de operadores
+  final List<String> operators = [
+    'Operador 1',
+    'Operador 2',
+    'Operador 3'
+  ]; // Lista de operadores
 
   Widget _buildDatePicker(BuildContext context) {
     return TextField(
@@ -138,28 +141,25 @@ class EndWork extends StatelessWidget {
                             suggestions: operators,
                             text: "Operador",
                             onSuggestionSelectedCallback: (String suggestion) {
-                              endWorkController
-                                  .operatorController.value.text = suggestion;
+                              endWorkController.operatorController.value.text =
+                                  suggestion;
                             },
                           ),
                           SizedBox(height: 8),
                         ],
                       ),
                     ),
-
                     SizedBox(height: 8),
                     TypeAhead(
                       suggestions: operators,
                       text: "Orden de producción",
                       onSuggestionSelectedCallback: (String suggestion) {
-                        endWorkController
-                            .operatorController.value.text = suggestion;
+                        endWorkController.operatorController.value.text =
+                            suggestion;
                       },
                     ),
-
                     SizedBox(height: 8),
                     InputTextGeneral(
-
                       text: 'Maquina',
                       controller: endWorkController.maquinController.value,
                     ),
@@ -168,13 +168,11 @@ class EndWork extends StatelessWidget {
                       text: 'Cliente',
                       controller: endWorkController.clientController.value,
                     ),
-
-
                     SizedBox(height: 16),
-
                     Container(
                       margin: EdgeInsets.only(top: 20, bottom: 20),
-                      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                       width: double.infinity,
                       color: Colors.grey.shade400.withOpacity(0.2),
                       child: Column(
@@ -192,7 +190,6 @@ class EndWork extends StatelessWidget {
                             title: 'Rollos impresos',
                           ),
                           SizedBox(height: 8),
-
                           Text(
                             'Subtotal: 500',
                             style: TextStyle(
@@ -205,15 +202,13 @@ class EndWork extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 8),
-
                     SizedBox(height: 16),
-                    CustomWidget(
+                    CaptureWidget(
                       buttonText: 'Capturar',
                       weightText: '10kg',
                       mainText: 'Desperdicions de rollos',
                       incrementableValue: '--',
                     ),
-
                     SizedBox(height: 32),
                     Text(
                       'Total de Producción : 500',
@@ -223,18 +218,16 @@ class EndWork extends StatelessWidget {
                         color: Color.fromARGB(255, 11, 19, 68),
                       ),
                     ),
-
                     SizedBox(height: 8),
-
                     Container(
                       margin: EdgeInsets.only(top: 20, bottom: 20),
-                      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                       width: double.infinity,
                       color: Colors.grey.shade400.withOpacity(0.2),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-
                           Text(
                             'Materias primas',
                             style: TextStyle(
@@ -259,12 +252,15 @@ class EndWork extends StatelessWidget {
                                 ),
                               ),
 
-                              SizedBox(width: 10), // Espacio entre los elementos del Row
+                              SizedBox(
+                                  width:
+                                      10), // Espacio entre los elementos del Row
                               Expanded(
                                 flex: 5,
                                 child: InputTextGeneral(
                                   text: 'Ingresa',
-                                  controller: endWorkController.materialController.value,
+                                  controller: endWorkController
+                                      .materialController.value,
                                 ),
                               ),
                             ],
@@ -285,12 +281,15 @@ class EndWork extends StatelessWidget {
                                 ),
                               ),
 
-                              SizedBox(width: 10), // Espacio entre los elementos del Row
+                              SizedBox(
+                                  width:
+                                      10), // Espacio entre los elementos del Row
                               Expanded(
                                 flex: 5,
                                 child: InputTextGeneral(
                                   text: 'Ingresa',
-                                  controller: endWorkController.materialController.value,
+                                  controller: endWorkController
+                                      .materialController.value,
                                 ),
                               ),
                             ],
@@ -307,7 +306,6 @@ class EndWork extends StatelessWidget {
                         ],
                       ),
                     ),
-
                     SizedBox(height: 8),
                     Container(
                       width: 200,
@@ -324,10 +322,13 @@ class EndWork extends StatelessWidget {
                           backgroundColor: MaterialStateProperty.all<Color>(
                             Color.fromARGB(255, 14, 12, 87),
                           ),
-                          padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                            EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                          padding:
+                              MaterialStateProperty.all<EdgeInsetsGeometry>(
+                            EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 20.0),
                           ),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20.0),
                             ),
@@ -346,4 +347,3 @@ class EndWork extends StatelessWidget {
     );
   }
 }
-

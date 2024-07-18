@@ -1,11 +1,9 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sens2/apps/apliplast/controllers/print_ticket_controller.dart';
 import 'package:sens2/apps/apliplast/views/impresion/widget/current_date_widget.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:sens2/apps/apliplast/views/impresion/widget/custom_widget.dart';
+import 'package:sens2/apps/apliplast/views/impresion/widget/capture_widget.dart';
 import 'package:sens2/core/components/inputs/dropdown_text.dart';
 import 'package:sens2/core/components/inputs/input_text.dart';
 import 'package:sens2/core/components/buttons/button.dart';
@@ -28,7 +26,7 @@ class SealedPrintTicket extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 25, 38, 83),
         title: Text(
-          'Formulario de Extrusión',
+          'Formulario de Sellado',
           style: TextStyle(color: Colors.white, fontSize: 17),
         ),
         iconTheme: IconThemeData(color: Colors.white),
@@ -198,15 +196,18 @@ class SealedPrintTicket extends StatelessWidget {
                     ),
                     SizedBox(height: 8),
 
-                    CustomWidget(
-                    optionalTitle: 'Bobina: --',
+                    CaptureWidget(
+                    
                     weightText: '10kg',
                     mainText: 'Peso',
                     incrementableValue: '--',
                     buttonText: 'Capturar',
-                    optionalText: 'Peso Bruto',
-                    optionalNumber: 15,
+                    
+                    showSwitchTitle: true, 
+                    
                   ),
+                 
+            
                    
                     SizedBox(height: 10),
                     Container(

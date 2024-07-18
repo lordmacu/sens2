@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:sens2/apps/apliplast/controllers/print_ticket_controller.dart';
 import 'package:sens2/apps/apliplast/views/impresion/widget/current_date_widget.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:sens2/apps/apliplast/views/impresion/widget/custom_widget.dart';
+import 'package:sens2/apps/apliplast/views/impresion/widget/capture_widget.dart';
 import 'package:sens2/core/components/inputs/dropdown_text.dart';
 import 'package:sens2/core/components/inputs/input_text.dart';
 import 'package:sens2/core/components/buttons/button.dart';
@@ -246,7 +246,7 @@ class PrintTicket extends StatelessWidget {
                     ),
                     SizedBox(height: 8),
 
-                    CustomWidget(
+                    CaptureWidget(
                     optionalTitle: '',
                     weightText: '10kg',
                     mainText: 'Peso Neto Impresión',

@@ -7,13 +7,18 @@ import 'package:sens2/core/components/inputs/dropdown_text.dart';
 import 'package:sens2/core/components/inputs/input_text.dart';
 import 'package:sens2/core/components/inputs/type_ahead.dart';
 import 'package:sens2/core/components/buttons/button.dart';
-import 'package:sens2/apps/apliplast/views/impresion/widget/custom_widget.dart';
+import 'package:sens2/apps/apliplast/views/impresion/widget/capture_widget.dart';
 import 'package:sens2/apps/apliplast/views/impresion/widget/filter_options_widget.dart';
+import 'package:sens2/apps/apliplast/views/impresion/widget/show_rolls_dialog.dart'; // Importa el nuevo widget
 
 class SealedEndWork extends StatelessWidget {
   EndWorkController endWorkController = Get.put(EndWorkController());
 
-  final List<String> operators = ['Operador 1', 'Operador 2', 'Operador 3']; // Lista de operadores
+  final List<String> operators = [
+    'Operador 1',
+    'Operador 2',
+    'Operador 3'
+  ]; // Lista de operadores
 
   Widget _buildDatePicker(BuildContext context) {
     return TextField(
@@ -33,7 +38,19 @@ class SealedEndWork extends StatelessWidget {
           firstDate: DateTime(2000),
           lastDate: DateTime(2024),
         );
-        if (pickedDate != null) {}
+        if (pickedDate != null) {
+          // Aquí puedes hacer algo con la fecha seleccionada
+        }
+      },
+    );
+  }
+
+  void _showAllRollsDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return ShowAllRollsDialog(
+            operators: operators); // Pasa la lista de operadores
       },
     );
   }
@@ -137,87 +154,51 @@ class SealedEndWork extends StatelessWidget {
                             suggestions: operators,
                             text: "Operador",
                             onSuggestionSelectedCallback: (String suggestion) {
-                              endWorkController
-                                  .operatorController.value.text = suggestion;
+                              endWorkController.operatorController.value.text =
+                                  suggestion;
                             },
                           ),
                           SizedBox(height: 8),
                         ],
                       ),
                     ),
-
-                    SizedBox(height: 8),
-                    TypeAhead(
-                      suggestions: operators,
-                      text: "Operador",
-                      onSuggestionSelectedCallback: (String suggestion) {
-                        endWorkController
-                            .operatorController.value.text = suggestion;
-                      },
-                    ),
-
                     SizedBox(height: 8),
                     InputTextGeneral(
-
                       text: 'Maquina',
                       controller: endWorkController.maquinController.value,
                     ),
-                    SizedBox(height: 8),
-                    InputTextGeneral(
-                      text: 'Cliente',
-                      controller: endWorkController.clientController.value,
-                    ),
-
-
                     SizedBox(height: 16),
-
-                    Container(
-                      margin: EdgeInsets.only(top: 20, bottom: 20),
-                      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                      width: double.infinity,
-                      color: Colors.grey.shade400.withOpacity(0.2),
-                      child: Column(
-                        children: [
-                          FilterOptionsWidget(
-                            controller: endWorkController.orderController.value,
-                            options: [
-                              'Impresion 1',
-                              'Impresion 2',
-                              'Impresion 3',
-                              'Impresion 4',
-                              'Impresion 5',
-                              'Impresion 6',
-                            ],
-                            title: 'Rollos utilizados',
-                          ),
-                          SizedBox(height: 8),
-
-                          Text(
-                            'Subtotal de peso rollos: 500',
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 11, 19, 68),
-                            ),
-                          ),
-                        ],
+                    TypeAhead(
+                      suggestions: operators,
+                      text: "Rollos utilizados",
+                      onSuggestionSelectedCallback: (String suggestion) {
+                        endWorkController.operatorController.value.text =
+                            suggestion;
+                      },
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      'Total de material utilizado : 500',
+                      style: TextStyle(
+                        fontSize: 19,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 11, 19, 68),
                       ),
                     ),
                     SizedBox(height: 8),
-                    CustomWidget(
+                    CaptureWidget(
                       buttonText: 'Capturar',
                       weightText: '10kg',
                       mainText: 'Sacos',
                       incrementableValue: '--',
                     ),
                     SizedBox(height: 16),
-                    CustomWidget(
+                    CaptureWidget(
                       buttonText: 'Capturar',
                       weightText: '10kg',
                       mainText: 'Empaque',
                       incrementableValue: '--',
                     ),
-
                     SizedBox(height: 32),
                     Text(
                       'Total de material utilizado : 500',
@@ -227,97 +208,84 @@ class SealedEndWork extends StatelessWidget {
                         color: Color.fromARGB(255, 11, 19, 68),
                       ),
                     ),
-
                     SizedBox(height: 8),
-
                     Container(
                       margin: EdgeInsets.only(top: 20, bottom: 20),
-                      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                      padding: EdgeInsets.symmetric(horizontal: 20),
                       width: double.infinity,
                       color: Colors.grey.shade400.withOpacity(0.2),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-
-                          Text(
-                            'Total de fundas',
-                            style: TextStyle(
-                              fontSize: 19,
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 11, 19, 68),
-                            ),
-                          ),
                           SizedBox(height: 16),
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
-                                width: 140, // Ancho deseado
+                                width: 150,
+                                padding: EdgeInsets.symmetric(vertical: 20),
                                 child: Text(
-                                  'fundas 1',
+                                  'Total fundas: 32',
                                   style: TextStyle(
-                                    fontSize: 14,
+                                    fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black,
                                   ),
                                 ),
                               ),
-
-                              SizedBox(width: 10), // Espacio entre los elementos del Row
-                              Expanded(
-                                flex: 5,
-                                child: InputTextGeneral(
-                                  text: 'Ingresa',
-                                  controller: endWorkController.materialController.value,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 10), // Espacio entre los elementos
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
+                              SizedBox(
+                                  width:
+                                      10), // Espacio entre los elementos del Row
                               Container(
-                                width: 140, // Ancho deseado
-                                child: Text(
-                                  'Materia prima 2',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
+                                width: 110,
+                                padding: EdgeInsets.symmetric(vertical: 10.0),
+                                child: TextButton(
+                                  onPressed: () {
+                                    _showAllRollsDialog(context);
+                                  },
+                                  child: Text(
+                                    'Ver todas',
+                                    style: TextStyle(color: Colors.white),
                                   ),
-                                ),
-                              ),
-
-                              SizedBox(width: 10), // Espacio entre los elementos del Row
-                              Expanded(
-                                flex: 5,
-                                child: InputTextGeneral(
-                                  text: 'Ingresa',
-                                  controller: endWorkController.materialController.value,
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                      Color.fromARGB(255, 14, 12, 87),
+                                    ),
+                                    padding: MaterialStateProperty.all<
+                                        EdgeInsetsGeometry>(
+                                      EdgeInsets.symmetric(
+                                          vertical: 10.0, horizontal: 20.0),
+                                    ),
+                                    shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20.0),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
                           ),
-                          SizedBox(height: 32),
-                          Text(
-                            'Peso neto fundas : 500',
-                            style: TextStyle(
-                              fontSize: 19,
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 11, 19, 68),
-                            ),
-                          ),
+                          SizedBox(height: 8),
                         ],
                       ),
+                    ),
+                    CaptureWidget(
+                      mainText: 'Peso neto fundas',
+                      weightText: '500',
+                      incrementableValue: '--',
+                      buttonText: 'Capturar',
                     ),
                     SizedBox(height: 8),
                     InputTextGeneral(
                       text: 'Total de produccion',
                       controller: endWorkController.balanceController.value,
                     ),
-                     SizedBox(height: 8),
-                    CustomWidget(
+                    SizedBox(height: 8),
+                    CaptureWidget(
                       buttonText: 'Capturar',
                       weightText: '10kg',
                       mainText: 'Despercio',
@@ -332,7 +300,6 @@ class SealedEndWork extends StatelessWidget {
                         color: Color.fromARGB(255, 11, 19, 68),
                       ),
                     ),
-
                     SizedBox(height: 8),
                     Container(
                       width: 200,
@@ -349,10 +316,13 @@ class SealedEndWork extends StatelessWidget {
                           backgroundColor: MaterialStateProperty.all<Color>(
                             Color.fromARGB(255, 14, 12, 87),
                           ),
-                          padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                            EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                          padding:
+                              MaterialStateProperty.all<EdgeInsetsGeometry>(
+                            EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 20.0),
                           ),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20.0),
                             ),
