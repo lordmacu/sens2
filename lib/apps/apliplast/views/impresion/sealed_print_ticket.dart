@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sens2/apps/apliplast/controllers/print_ticket_controller.dart';
+import 'package:sens2/apps/apliplast/controllers/print_ticket_sealed_controller.dart';
 import 'package:sens2/apps/apliplast/views/impresion/widget/current_date_widget.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:sens2/apps/apliplast/views/impresion/widget/capture_widget.dart';
@@ -12,8 +12,9 @@ import 'package:sens2/core/components/inputs/type_ahead.dart';
 
 class SealedPrintTicket extends StatelessWidget {
  
-      PrintTicketController printicketController =
-      Get.find<PrintTicketController>();
+
+      PrintSealedTicketController printSealedTicketController =
+      Get.find<PrintSealedTicketController>();
 
   final List<String> operators = [
     'Operador 1',
@@ -119,7 +120,7 @@ class SealedPrintTicket extends StatelessWidget {
                             suggestions: operators,
                             text: "Operador",
                             onSuggestionSelectedCallback: (String suggestion) {
-                              printicketController.operatorController.value.text = suggestion;
+                              printSealedTicketController.operatorController.value.text = suggestion;
                             },
                           ),
                           SizedBox(height: 8),
@@ -129,7 +130,7 @@ class SealedPrintTicket extends StatelessWidget {
                     TypeAhead(
                       text: "Orden de Producción",
                       onSuggestionSelectedCallback: (String suggestion) {
-                        printicketController.operatorController.value.text =
+                        printSealedTicketController.operatorController.value.text =
                             suggestion;
                       },
                     ),
@@ -215,7 +216,7 @@ class SealedPrintTicket extends StatelessWidget {
                       padding: EdgeInsets.symmetric(vertical: 10.0),
                       child: TextButton(
                         onPressed: () {
-                          printicketController.send();
+                          printSealedTicketController.send();
                         },
                         child: Text(
                           'Guardar',

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sens2/apps/apliplast/controllers/end_work_controller.dart';
+import 'package:sens2/apps/apliplast/controllers/end_work_sealed_controller.dart';
 import 'package:sens2/apps/apliplast/views/impresion/widget/current_date_widget.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:sens2/core/components/inputs/dropdown_text.dart';
@@ -12,7 +12,7 @@ import 'package:sens2/apps/apliplast/views/impresion/widget/filter_options_widge
 import 'package:sens2/apps/apliplast/views/impresion/widget/show_rolls_dialog.dart'; // Importa el nuevo widget
 
 class SealedEndWork extends StatelessWidget {
-  EndWorkController endWorkController = Get.put(EndWorkController());
+  EndWorkSealedController endWorkSealedController = Get.put(EndWorkSealedController());
 
   final List<String> operators = [
     'Operador 1',
@@ -154,7 +154,7 @@ class SealedEndWork extends StatelessWidget {
                             suggestions: operators,
                             text: "Operador",
                             onSuggestionSelectedCallback: (String suggestion) {
-                              endWorkController.operatorController.value.text =
+                              endWorkSealedController.operatorController.value.text =
                                   suggestion;
                             },
                           ),
@@ -165,14 +165,14 @@ class SealedEndWork extends StatelessWidget {
                     SizedBox(height: 8),
                     InputTextGeneral(
                       text: 'Maquina',
-                      controller: endWorkController.maquinController.value,
+                      controller: endWorkSealedController.maquinController.value,
                     ),
                     SizedBox(height: 16),
                     TypeAhead(
                       suggestions: operators,
                       text: "Rollos utilizados",
                       onSuggestionSelectedCallback: (String suggestion) {
-                        endWorkController.operatorController.value.text =
+                        endWorkSealedController.operatorController.value.text =
                             suggestion;
                       },
                     ),
@@ -282,7 +282,7 @@ class SealedEndWork extends StatelessWidget {
                     SizedBox(height: 8),
                     InputTextGeneral(
                       text: 'Total de produccion',
-                      controller: endWorkController.balanceController.value,
+                      controller: endWorkSealedController.balanceController.value,
                     ),
                     SizedBox(height: 8),
                     CaptureWidget(
@@ -306,7 +306,7 @@ class SealedEndWork extends StatelessWidget {
                       padding: EdgeInsets.symmetric(vertical: 10.0),
                       child: TextButton(
                         onPressed: () {
-                          endWorkController.send();
+                          endWorkSealedController.send();
                         },
                         child: Text(
                           'Guardar',

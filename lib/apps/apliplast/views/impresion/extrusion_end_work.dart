@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sens2/apps/apliplast/controllers/end_work_controller.dart';
+import 'package:sens2/apps/apliplast/controllers/end_work_extrusion_controller.dart';
 import 'package:sens2/apps/apliplast/views/impresion/widget/current_date_widget.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:sens2/core/components/inputs/dropdown_text.dart';
@@ -11,7 +11,7 @@ import 'package:sens2/apps/apliplast/views/impresion/widget/capture_widget.dart'
 import 'package:sens2/apps/apliplast/views/impresion/widget/filter_options_widget.dart';
 
 class ExtrusionEndWork extends StatelessWidget {
-  EndWorkController endWorkController = Get.put(EndWorkController());
+  EndWorkExtrusionController endWorkExtrusionController = Get.put(EndWorkExtrusionController());
 
   final List<String> operators = [
     'Operador 1',
@@ -141,7 +141,7 @@ class ExtrusionEndWork extends StatelessWidget {
                             suggestions: operators,
                             text: "Operador",
                             onSuggestionSelectedCallback: (String suggestion) {
-                              endWorkController.operatorController.value.text =
+                              endWorkExtrusionController.operatorController.value.text =
                                   suggestion;
                             },
                           ),
@@ -154,19 +154,19 @@ class ExtrusionEndWork extends StatelessWidget {
                       suggestions: operators,
                       text: "Operador",
                       onSuggestionSelectedCallback: (String suggestion) {
-                        endWorkController.operatorController.value.text =
+                        endWorkExtrusionController.operatorController.value.text =
                             suggestion;
                       },
                     ),
                     SizedBox(height: 8),
                     InputTextGeneral(
                       text: 'Maquina',
-                      controller: endWorkController.maquinController.value,
+                      controller: endWorkExtrusionController.maquinController.value,
                     ),
                     SizedBox(height: 8),
                     InputTextGeneral(
                       text: 'Cliente',
-                      controller: endWorkController.clientController.value,
+                      controller: endWorkExtrusionController.clientController.value,
                     ),
                     SizedBox(height: 16),
                     Container(
@@ -178,7 +178,7 @@ class ExtrusionEndWork extends StatelessWidget {
                       child: Column(
                         children: [
                           FilterOptionsWidget(
-                            controller: endWorkController.orderController.value,
+                            controller: endWorkExtrusionController.orderController.value,
                             options: [
                               'Impresion 1',
                               'Impresion 2',
@@ -265,7 +265,7 @@ class ExtrusionEndWork extends StatelessWidget {
                                 flex: 5,
                                 child: InputTextGeneral(
                                   text: 'Ingresa',
-                                  controller: endWorkController
+                                  controller: endWorkExtrusionController
                                       .materialController.value,
                                 ),
                               ),
@@ -294,7 +294,7 @@ class ExtrusionEndWork extends StatelessWidget {
                                 flex: 5,
                                 child: InputTextGeneral(
                                   text: 'Ingresa',
-                                  controller: endWorkController
+                                  controller: endWorkExtrusionController
                                       .materialController.value,
                                 ),
                               ),
@@ -315,7 +315,7 @@ class ExtrusionEndWork extends StatelessWidget {
                     SizedBox(height: 8),
                     InputTextGeneral(
                       text: 'Saldo anterior',
-                      controller: endWorkController.balanceController.value,
+                      controller: endWorkExtrusionController.balanceController.value,
                     ),
                     SizedBox(height: 16),
                     Text(
@@ -332,7 +332,7 @@ class ExtrusionEndWork extends StatelessWidget {
                       padding: EdgeInsets.symmetric(vertical: 10.0),
                       child: TextButton(
                         onPressed: () {
-                          endWorkController.send();
+                          endWorkExtrusionController.send();
                         },
                         child: Text(
                           'Guardar',
