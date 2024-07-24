@@ -9,7 +9,8 @@ import 'package:sens2/core/components/inputs/type_ahead.dart';
 import 'package:sens2/core/components/buttons/button.dart';
 import 'package:sens2/apps/apliplast/views/impresion/widget/capture_widget.dart';
 import 'package:sens2/apps/apliplast/views/impresion/widget/filter_options_widget.dart';
-import 'package:sens2/apps/apliplast/views/impresion/widget/show_rolls_dialog.dart'; // Importa el nuevo widget
+import 'package:sens2/apps/apliplast/views/impresion/widget/show_rolls_dialog.dart';
+import 'package:sens2/apps/apliplast/views/impresion/widget/list_data_widget.dart';  // Importa el nuevo widget
 
 class SealedEndWork extends StatelessWidget {
   EndWorkSealedController endWorkSealedController = Get.put(EndWorkSealedController());
@@ -45,12 +46,11 @@ class SealedEndWork extends StatelessWidget {
     );
   }
 
-  void _showAllRollsDialog(BuildContext context) {
+  void _showListData(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return ShowAllRollsDialog(
-            operators: operators); // Pasa la lista de operadores
+        return  ListDataWidget();
       },
     );
   }
@@ -163,22 +163,57 @@ class SealedEndWork extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 8),
-                    InputTextGeneral(
-                      text: 'Maquina',
-                      controller: endWorkSealedController.maquinController.value,
-                    ),
-                    SizedBox(height: 16),
                     TypeAhead(
                       suggestions: operators,
-                      text: "Rollos utilizados",
+                      text: "Orden de producción",
                       onSuggestionSelectedCallback: (String suggestion) {
                         endWorkSealedController.operatorController.value.text =
                             suggestion;
                       },
                     ),
+                      SizedBox(height: 16),
+                     TypeAhead(
+                      suggestions: operators,
+                      text: "Maquina",
+                      onSuggestionSelectedCallback: (String suggestion) {
+                        endWorkSealedController.operatorController.value.text =
+                            suggestion;
+                      },
+                    ),
+                    SizedBox(height: 16),
+                    
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Rollos utilizados',
+                            style: TextStyle(
+                              fontSize: 19,
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 11, 19, 68),
+                            ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              // Manejar la acción de agregar
+                            },
+                            child: Text('Agregar'),
+                            style: ElevatedButton.styleFrom(
+                              primary: Color.fromARGB(255, 5, 16, 77), // Fondo del botón
+                              onPrimary: Colors.white, // Color del texto
+                              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0), // Tamaño del botón
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      SizedBox(height: 16),
+                   ShowAllRollsTable(
+            operators: operators),
+              SizedBox(height: 16),
                     SizedBox(height: 8),
                     Text(
-                      'Total de material utilizado : 500',
+                      'Subtotal de peso rollos: 1650',
                       style: TextStyle(
                         fontSize: 19,
                         fontWeight: FontWeight.bold,
@@ -198,6 +233,7 @@ class SealedEndWork extends StatelessWidget {
                       weightText: '10kg',
                       mainText: 'Empaque',
                       incrementableValue: '--',
+                      
                     ),
                     SizedBox(height: 32),
                     Text(
@@ -241,7 +277,7 @@ class SealedEndWork extends StatelessWidget {
                                 padding: EdgeInsets.symmetric(vertical: 10.0),
                                 child: TextButton(
                                   onPressed: () {
-                                    _showAllRollsDialog(context);
+                                    _showListData(context);
                                   },
                                   child: Text(
                                     'Ver todas',
@@ -273,33 +309,42 @@ class SealedEndWork extends StatelessWidget {
                         ],
                       ),
                     ),
-                    CaptureWidget(
-                      mainText: 'Peso neto fundas',
-                      weightText: '500',
-                      incrementableValue: '--',
-                      buttonText: 'Capturar',
-                    ),
-                    SizedBox(height: 8),
-                    InputTextGeneral(
-                      text: 'Total de produccion',
-                      controller: endWorkSealedController.balanceController.value,
-                    ),
-                    SizedBox(height: 8),
-                    CaptureWidget(
-                      buttonText: 'Capturar',
-                      weightText: '10kg',
-                      mainText: 'Despercio',
-                      incrementableValue: '--',
-                    ),
-                    SizedBox(height: 16),
-                    Text(
-                      'Saldo: 500',
+                    
+                     Text(
+                      'Peso neto fundas: 1650',
                       style: TextStyle(
                         fontSize: 19,
                         fontWeight: FontWeight.bold,
                         color: Color.fromARGB(255, 11, 19, 68),
                       ),
                     ),
+                    
+                    SizedBox(height: 8),
+                    CaptureWidget(
+                      buttonText: 'Capturar',
+                      weightText: '10kg',
+                      mainText: 'Desperdicio',
+                      incrementableValue: '--',
+                    ),
+                    SizedBox(height: 16),
+               
+                  
+                    Text(
+                      'Total de produccion : 500',
+                      style: TextStyle(
+                        fontSize: 19,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 11, 19, 68),
+                      ),
+                    ),
+                    CaptureWidget(
+                      buttonText: 'Capturar',
+                      weightText: 'Saldo: 500',
+                      mainText: '',
+                      incrementableValue: null,
+                       showButton: false,
+                    ),
+                    
                     SizedBox(height: 8),
                     Container(
                       width: 200,

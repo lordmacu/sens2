@@ -11,7 +11,8 @@ class CaptureWidget extends StatefulWidget {
   final String? optionalTitle;
   final String? bobinaText;
   final dynamic optionalKgValue;
-  final bool showSwitchTitle; // Nueva variable para indicar si se debe mostrar el switch
+  final bool showSwitchTitle;
+  final bool showButton;
 
   CaptureWidget({
     required this.buttonText,
@@ -23,7 +24,8 @@ class CaptureWidget extends StatefulWidget {
     this.optionalTitle,
     this.bobinaText,
     this.optionalKgValue,
-    this.showSwitchTitle = false, // Valor predeterminado
+    this.showSwitchTitle = false,
+    this.showButton = true,
   });
 
   @override
@@ -38,7 +40,7 @@ class _CaptureWidgetState extends State<CaptureWidget> {
   void initState() {
     super.initState();
     displayValue = widget.incrementableValue ?? '--';
-    displayKgValue = widget.optionalKgValue ?? '--'; // Initial value '--' changed to widget.optionalKgValue
+    displayKgValue = widget.optionalKgValue ?? '--';
   }
 
   void _incrementValue() {
@@ -59,10 +61,8 @@ class _CaptureWidgetState extends State<CaptureWidget> {
 
   @override
   Widget build(BuildContext context) {
-    String displayValueString =
-        displayValue != null ? displayValue.toString() : '--';
-    String displayKgValueString =
-        displayKgValue != null ? displayKgValue.toString() : '--'; 
+    String displayValueString = displayValue != null ? displayValue.toString() : '--';
+    String displayKgValueString = displayKgValue != null ? displayKgValue.toString() : '--';
 
     return Container(
       margin: EdgeInsets.only(top: 16),
@@ -97,7 +97,7 @@ class _CaptureWidgetState extends State<CaptureWidget> {
                 ),
                 SizedBox(width: 8),
                 Text(
-                  '$displayKgValueString kg', // Displaying displayKgValueString instead of widget.optionalKgValue
+                  '$displayKgValueString kg',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -108,15 +108,17 @@ class _CaptureWidgetState extends State<CaptureWidget> {
             ),
           ],
           SizedBox(height: 8),
-          Text(
-            '${widget.mainText}: $displayValueString',
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-              color: Color.fromARGB(255, 11, 19, 68),
+          if (widget.incrementableValue != null) ...[
+            Text(
+              '${widget.mainText}: $displayValueString',
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 11, 19, 68),
+              ),
             ),
-          ),
-          SizedBox(height: 8),
+            SizedBox(height: 8),
+          ],
           Text(
             widget.weightText,
             style: TextStyle(
@@ -126,30 +128,32 @@ class _CaptureWidgetState extends State<CaptureWidget> {
             ),
           ),
           SizedBox(height: 8),
-          Container(
-            width: 200,
-            padding: EdgeInsets.symmetric(vertical: 10.0),
-            child: TextButton(
-              onPressed: _incrementValue,
-              child: Text(
-                widget.buttonText,
-                style: TextStyle(color: Colors.white),
-              ),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(
-                  Color.fromARGB(255, 14, 12, 87),
+          if (widget.showButton) ...[
+            Container(
+              width: 200,
+              padding: EdgeInsets.symmetric(vertical: 10.0),
+              child: TextButton(
+                onPressed: _incrementValue,
+                child: Text(
+                  widget.buttonText,
+                  style: TextStyle(color: Colors.white),
                 ),
-                padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                  EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                ),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                    Color.fromARGB(255, 14, 12, 87),
+                  ),
+                  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                  ),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
+          ],
           if (widget.showSwitchTitle) ...[
             Center(
               child: Row(
@@ -162,7 +166,7 @@ class _CaptureWidgetState extends State<CaptureWidget> {
                       fontSize: 17,
                     ),
                   ),
-                  SizedBox(width: 10), // Espacio entre el texto y el interruptor
+                  SizedBox(width: 10),
                   SwitchState(),
                 ],
               ),
@@ -184,9 +188,7 @@ class _CaptureWidgetState extends State<CaptureWidget> {
                 SizedBox(width: 8),
                 widget.optionalNumber > 0
                     ? Text(
-                        widget.optionalNumber != null
-                            ? '${widget.optionalNumber} kg'
-                            : '--',
+                        widget.optionalNumber != null ? '${widget.optionalNumber} kg' : '--',
                         style: TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,

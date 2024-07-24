@@ -134,6 +134,7 @@ class EndWork extends StatelessWidget {
                               CurrentDateWidget()
                             ],
                           ),
+                          
                           SizedBox(height: 16),
                           DropdownText(items: ['Turno', 'Item 2', 'Item 3']),
                           SizedBox(height: 8),
