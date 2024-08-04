@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sens2/core/components/modals/menu_drawer.dart'; 
 
 class SamiyaTara extends StatelessWidget {
   final List<Map<String, dynamic>> data = [
@@ -20,14 +21,18 @@ class SamiyaTara extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 25, 38, 83),
         title: Text(
-          'TARA',
+          'SAMIYA',
           style: TextStyle(color: Colors.white, fontSize: 17),
         ),
         iconTheme: IconThemeData(color: Colors.white),
-        leading: IconButton(
-          icon: Icon(Icons.menu),
-          onPressed: () {
-            Scaffold.of(context).openDrawer();
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: Icon(Icons.menu),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
           },
         ),
         actions: <Widget>[
@@ -39,6 +44,8 @@ class SamiyaTara extends StatelessWidget {
           ),
         ],
       ),
+       drawer: MenuDrawer(),
+
       body: Stack(
         children: [
           Column(
@@ -56,23 +63,37 @@ class SamiyaTara extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Expanded(
-                      child: TextField(
-                        decoration: InputDecoration(
-                          hintText: 'Filtrar',
-                          prefixIcon: Icon(Icons.search),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.0),
+                   Expanded(
+                      child: Container(
+                        width: double.infinity, 
+                        height: 50.0,
+              
+                        child: TextField(
+                          decoration: InputDecoration(
+                            hintText: 'Filtrar',
+                            prefixIcon: Icon(Icons.search),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                              contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0), 
+     
                           ),
                         ),
                       ),
                     ),
-                    IconButton(
-                      icon: Icon(Icons.filter_list),
-                      onPressed: () {
-                   
-                      },
+                    Container(
+                      width: 50.0, 
+                      height: 50.0, 
+                      padding: EdgeInsets.all(8.0),
+                      child: IconButton(
+                        icon: Icon(Icons.filter_list),
+                        onPressed: () {
+                        
+                        },
+                      ),
                     ),
+
+                   
                   ],
                 ),
               ),

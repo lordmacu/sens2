@@ -12,6 +12,8 @@ import 'login/login_page.dart';
 import 'apps/apliplast/apliplast_main.dart';
 import 'settings/views/settings_page.dart';
 import 'apps/samiya/views/samiya_table.dart/samiya_tara.dart';
+import 'apps/apliplast/views/servidor/servidor_page.dart';
+import 'apps/apliplast/views/gatepage/gate_page.dart';
 
 //import 'apps/apliplast/apliplast_main.dart' show getRoutesApiplast;
 import 'apps/samiya/samiya_main.dart' show getRoutesSamiya;
@@ -46,6 +48,8 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/login', page: () => LoginPage()),
         GetPage(name: '/settings', page: () => SettingsPage()),
         GetPage(name: '/samiyaTara', page: () => SamiyaTara()),
+          GetPage(name: '/server', page: () => ServidorPage()),
+            GetPage(name: '/gateWay', page: () => GatewayPage()),
          GetPage(name: '/catchWeight', page: () => CatchWeight()), 
         ...getRoutesSamiya(),
       ],

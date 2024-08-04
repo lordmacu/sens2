@@ -6,8 +6,10 @@ import 'package:sens2/apps/samiya/views/catch_weigth/catch_weight_page.dart';
 
 import 'package:sens2/apps/samiya/views/samiya_table.dart/samiya_tara.dart';
 import 'package:sens2/apps/samiya/bildings/tara_binding.dart';
+import 'package:sens2/apps/apliplast/views/gatepage/gate_page.dart';
 
-
+import 'package:sens2/apps/apliplast/bindings/gate_binding.dart';
+import 'package:sens2/apps/apliplast/views/servidor/servidor_page.dart';
 import 'package:sens2/core/services/foreground_service.dart';
 
 import 'services/product_service.dart';
@@ -88,6 +90,18 @@ List<GetPage> getRoutesSamiya() {
       page: () => CatchWeight(), // Sin el parámetro onSubmit
       transition: Transition.native,
       binding: CatchWeightBinding(),
+    ),
+    GetPage(
+      name: '/gateWay',
+      page: () => GatewayPage(),
+      transition: Transition.native,
+      binding: GateBinding(),
+    ),
+    GetPage(
+      name: '/server',
+      page: () => ServidorPage(),
+      transition: Transition.native,
+      
     ),
   
     // Ruta para configuración MQTT
