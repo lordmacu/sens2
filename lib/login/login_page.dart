@@ -42,9 +42,9 @@ class LoginPage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 32),
-              InputGeneral(icon: Icons.email, text: 'Correo electrónico'), // Utiliza InputIcon para el correo electrónico
+              InputGeneral(icon: Icons.email, text: 'Correo electrónico',controller: usernameController,), // Utiliza InputIcon para el correo electrónico
               SizedBox(height: 19),
-              InputGeneral(icon: Icons.lock, text: 'Contraseña'), // Utiliza InputIcon para la contraseña
+              InputGeneral(icon: Icons.lock, text: 'Contraseña', controller: passwordController,), // Utiliza InputIcon para la contraseña
               SizedBox(height: 15),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -85,14 +85,15 @@ class LoginPage extends StatelessWidget {
                     text: 'Ingresar',
                     colorValue: Color.fromARGB(255, 25, 38, 83),
                     fontSize: 14,
-                   // onPressed: () async {
-                      //try {
-                      //  await authService.login(
-                      //      usernameController.text, passwordController.text);
-                     // } catch (e) {
-                     //   Get.snackbar('Error', 'Failed to login');
-                     // }
-                   // },
+                    onPressed: () async {
+                      print("asfasd");
+                      try {
+                        await authService.login(
+                            usernameController.text, passwordController.text);
+                      } catch (e) {
+                        Get.snackbar('Error', 'Failed to login');
+                      }
+                    },
                   );
                 }
               }),

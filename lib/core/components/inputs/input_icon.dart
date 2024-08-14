@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 class InputGeneral extends StatelessWidget {
   final String text;
   final IconData icon;
+  final controller;
 
   const InputGeneral({
-    super.key, required this.text, required this.icon,
+    super.key, required this.text, required this.icon, this.controller
   });
 
   @override
@@ -16,6 +17,7 @@ class InputGeneral extends StatelessWidget {
       child: SizedBox(
         width: 370,
         child: TextField(
+          controller: controller,
                 decoration: InputDecoration(
                   hintText: text,
                   filled: true,

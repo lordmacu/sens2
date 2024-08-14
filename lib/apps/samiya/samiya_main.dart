@@ -12,8 +12,8 @@ import 'package:sens2/apps/apliplast/bindings/gate_binding.dart';
 import 'package:sens2/apps/apliplast/views/servidor/servidor_page.dart';
 import 'package:sens2/core/services/foreground_service.dart';
 
-import 'services/product_service.dart';
-import 'controllers/product_list_controller.dart';
+import 'services/params_service.dart';
+import 'controllers/param_list_controller.dart';
 import '../../core/services/mqtt_service.dart';
 
 class App2Main extends StatefulWidget {
@@ -28,8 +28,8 @@ class _App1MainState extends State<App2Main> {
   void initState() {
     super.initState();
 
-    Get.lazyPut<ProductService>(() => ProductService());
-    Get.lazyPut<ProductListController>(() => ProductListController());
+    Get.lazyPut<ParamsService>(() => ParamsService());
+    Get.put(ParamsController());
     Get.put(MqttService());
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -41,6 +41,7 @@ class _App1MainState extends State<App2Main> {
         final newReceivePort = FlutterForegroundTask.receivePort;
         _foregroundTaskService.registerReceivePort(newReceivePort);
       }
+      Get.offNamed('/catchWeight');
     });
   }
 
@@ -78,14 +79,13 @@ class _App1MainState extends State<App2Main> {
 // Función para registrar las rutas específicas de app1
 List<GetPage> getRoutesSamiya() {
   return [
-   
     GetPage(
       name: '/samiyaTara',
       page: () => SamiyaTara(),
       transition: Transition.native,
       binding: TaraBinding(),
     ),
-      GetPage(
+    GetPage(
       name: '/catchWeight',
       page: () => CatchWeight(), // Sin el parámetro onSubmit
       transition: Transition.native,
@@ -101,9 +101,8 @@ List<GetPage> getRoutesSamiya() {
       name: '/server',
       page: () => ServidorPage(),
       transition: Transition.native,
-      
     ),
-  
+
     // Ruta para configuración MQTT
   ];
 }

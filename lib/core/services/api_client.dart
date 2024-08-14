@@ -27,10 +27,11 @@ class ApiClient extends GetxService {
   Future<http.Response> get(String endpoint,
       {Map<String, String>? headers}) async {
     final combinedHeaders = {
-      'Authorization': 'Bearer ${token.value}',
+      'access-token': '${token.value}',
       if (headers != null) ...headers,
     };
-    return await httpClient.get(_getUri(endpoint), headers: combinedHeaders);
+
+     return await httpClient.get(_getUri(endpoint), headers: combinedHeaders);
   }
 
   Future<http.Response> post(String endpoint,
