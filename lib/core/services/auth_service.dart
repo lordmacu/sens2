@@ -31,13 +31,11 @@ class AuthService extends GetxService {
       'password': password,
     }}");
 
-
-
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-       token.value = data['token'];
+      token.value = data['token'];
       apiClient.setToken(token.value);
-        storage.write('token', data['token']);
+      storage.write('token', data['token']);
       storage.write('message', data['message']);
       storage.write('username', username);
       storage.write('password', password);
@@ -57,20 +55,12 @@ class AuthService extends GetxService {
     );
     var body = jsonDecode(response.body);
     print(body);
-    try{
+    try {
       var body = jsonDecode(response.body);
       storage.write('organization', body['data']['organization']);
       isLoggedIn.value = true;
-    } on Exception catch (e) {
-
-    }
-
-
-
-
-
+    } on Exception catch (e) {}
   }
-
 
   Future<void> logout() async {
     isLoggedIn.value = false;

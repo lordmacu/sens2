@@ -8,10 +8,12 @@ import 'package:sens2/core/components/inputs/dropdown_text.dart';
 import 'package:sens2/core/components/inputs/input_text.dart';
 import 'package:sens2/core/components/buttons/button.dart';
 import 'package:sens2/core/components/inputs/type_ahead.dart';
-import 'package:sens2/core/components/modals/menu_drawer.dart'; 
+import 'package:sens2/core/components/modals/menu_drawer.dart';
+import 'package:sens2/core/controllers/menu_controller.dart';
 
 class CatchWeight extends StatelessWidget {
   final PrintTicketController printicketController = Get.put(PrintTicketController());
+  final MenuDrawerController menuController = Get.put(MenuDrawerController());
 
   final List<String> operators = [
     'Operador 1',
@@ -33,8 +35,16 @@ class CatchWeight extends StatelessWidget {
           builder: (BuildContext context) {
             return IconButton(
               icon: Icon(Icons.menu),
-              onPressed: () {
+              onPressed: () async{
+                final Map<String, String> categoryMenuMapping = {
+                  'supplier': 'Proveedor',
+                  'material': 'Material',
+                  'proveedor': 'Proveedor',
+                  'materiaPrima': 'Materia prima',
+                };
+                menuController.loadMenuItems(categoryMenuMapping);
                 Scaffold.of(context).openDrawer();
+
               },
             );
           },

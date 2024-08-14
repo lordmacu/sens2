@@ -1,29 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sens2/apps/samiya/controllers/tara_controller.dart';
 import 'package:sens2/core/components/modals/menu_drawer.dart';
 
-class SamiyaTara extends StatelessWidget {
-  final List<Map<String, dynamic>> data = [
-    {"fecha_creacion": "2024-07-23", "TARA": "Prueba 1", "PESO": 10.0},
-    {"fecha_creacion": "2024-07-22", "TARA": "Prueba 2", "PESO": 90.0},
-    {"fecha_creacion": "2024-07-21", "TARA": "Prueba 3", "PESO": 77.0},
-    {"fecha_creacion": "2024-07-20", "TARA": "Prueba 4", "PESO": 0.05},
-    {"fecha_creacion": "2024-07-19", "TARA": "Prueba 5", "PESO": 2.0},
-    {"fecha_creacion": "2024-07-18", "TARA": "Prueba 6", "PESO": 2.5},
-  ];
-
-  final ScrollController _verticalScrollController = ScrollController();
+class GeneralTable extends StatelessWidget {
+  final TableController tableController = Get.put(TableController());
   final ScrollController _horizontalScrollController = ScrollController();
+  final ScrollController _verticalScrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
+    // Obtener el ancho de la vista
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 25, 38, 83),
-        title: Text(
-          'SAMIYA',
-          style: TextStyle(color: Colors.white, fontSize: 17),
-        ),
+        title: Obx(() {
+          return Text(
+            tableController.title.value,
+            style: TextStyle(color: Colors.white, fontSize: 17),
+          );
+        }),
         iconTheme: IconThemeData(color: Colors.white),
         leading: Builder(
           builder: (BuildContext context) {
@@ -53,18 +51,9 @@ class SamiyaTara extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: [
-                    Expanded(
-                      child: Text(
-                        'Tara',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+
                     Expanded(
                       child: Container(
-                        width: double.infinity,
                         height: 50.0,
                         child: TextField(
                           decoration: InputDecoration(
@@ -73,40 +62,16 @@ class SamiyaTara extends StatelessWidget {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8.0),
                             ),
-                            contentPadding:
-                                EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 12.0, horizontal: 16.0),
                           ),
+                          onChanged: (value) {
+                            tableController.filterTable(value);  // Aplicar filtro
+                          },
                         ),
                       ),
                     ),
-                    Container(
-                      width: 50.0,
-                      height: 50.0,
-                      padding: EdgeInsets.all(8.0),
-                      child: IconButton(
-                        icon: Icon(Icons.filter_list),
-                        onPressed: () {},
-                      ),
-                    ),
                   ],
-                ),
-              ),
-              Container(
-                color: Color.fromARGB(22, 168, 161, 161),
-                child: RawScrollbar(
-                  controller: _horizontalScrollController,
-                  thumbVisibility: true,
-                  thickness: 8,
-                  radius: Radius.circular(10),
-                  thumbColor: Color.fromARGB(255, 25, 38, 83),
-                  child: SingleChildScrollView(
-                    controller: _horizontalScrollController,
-                    scrollDirection: Axis.horizontal,
-                    child: Container(
-                      width: 1000,
-                      height: 20,
-                    ),
-                  ),
                 ),
               ),
               Expanded(
@@ -116,59 +81,64 @@ class SamiyaTara extends StatelessWidget {
                   child: SingleChildScrollView(
                     controller: _verticalScrollController,
                     scrollDirection: Axis.vertical,
-                    child: DataTable(
-                      columns: [
-                        DataColumn(label: Text('Fecha de creación')),
-                        DataColumn(label: Text('TARA')),
-                        DataColumn(label: Text('PESO')),
-                        DataColumn(label: Text('OPCIONES')),
-                      ],
-                      rows: data.map((row) {
-                        final GlobalKey iconKey = GlobalKey();
-                        return DataRow(cells: [
-                          DataCell(Text(row['fecha_creacion'].toString())),
-                          DataCell(Text(row['TARA'])),
-                          DataCell(Text(row['PESO'].toString())),
-                          DataCell(
-  Builder(
-    builder: (BuildContext context) {
-      return IconButton(
-        key: iconKey,
-        icon: Icon(Icons.more_vert),
-        onPressed: () {
-          final RenderBox renderBox = iconKey.currentContext?.findRenderObject() as RenderBox;
-          final Offset offset = renderBox.localToGlobal(Offset.zero);
-          showMenu(
-            context: context,
-            position: RelativeRect.fromLTRB(
-              offset.dx, offset.dy, offset.dx + 1, offset.dy + 1,
-            ),
-            items: [
-              PopupMenuItem<String>(
-                value: 'edit',
-                child: Text('Editar'),
-              ),
-              PopupMenuItem<String>(
-                value: 'delete',
-                child: Text('Borrar'),
-              ),
-            ],
-          ).then((value) {
-            if (value == 'edit') {
-              // Lógica para editar
-            } else if (value == 'delete') {
-              // Lógica para borrar
-            }
-          });
-        },
-      );
-    },
-  ),
-),
-
-                        ]);
-                      }).toList(),
-                    ),
+                    child: Obx(() {
+                      return Container(
+                        width: screenWidth,
+                        child: DataTable(
+                          columns: [
+                            ...tableController.headers.keys.map((header) {
+                              return DataColumn(label: Text(header));
+                            }).toList(),
+                            DataColumn(label: Text('OPCIONES')), // Columna para las opciones
+                          ],
+                          rows: tableController.filteredData.map((row) {
+                            return DataRow(cells: [
+                              ...tableController.headers.keys.map((header) {
+                                return DataCell(Text(row[header]?.toString() ?? ''));
+                              }).toList(),
+                              DataCell(
+                                Builder(
+                                  builder: (BuildContext context) {
+                                    return IconButton(
+                                      icon: Icon(Icons.more_vert),
+                                      onPressed: () {
+                                        final RenderBox renderBox = context.findRenderObject() as RenderBox;
+                                        final Offset offset = renderBox.localToGlobal(Offset.zero);
+                                        showMenu(
+                                          context: context,
+                                          position: RelativeRect.fromLTRB(
+                                            offset.dx,
+                                            offset.dy,
+                                            offset.dx + 1,
+                                            offset.dy + 1,
+                                          ),
+                                          items: [
+                                            PopupMenuItem<String>(
+                                              value: 'edit',
+                                              child: Text('Editar'),
+                                            ),
+                                            PopupMenuItem<String>(
+                                              value: 'delete',
+                                              child: Text('Borrar'),
+                                            ),
+                                          ],
+                                        ).then((value) {
+                                          if (value == 'edit') {
+                                            // Lógica para editar
+                                          } else if (value == 'delete') {
+                                            // Lógica para borrar
+                                          }
+                                        });
+                                      },
+                                    );
+                                  },
+                                ),
+                              ),
+                            ]);
+                          }).toList(),
+                        ),
+                      );
+                    }),
                   ),
                 ),
               ),
@@ -234,11 +204,9 @@ class SamiyaTara extends StatelessWidget {
                           Navigator.of(context).pop();
                         },
                         style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(
-                                  Color.fromARGB(255, 231, 230, 230)),
-                          shape: MaterialStateProperty.all<
-                              RoundedRectangleBorder>(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Color.fromARGB(255, 231, 230, 230)),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
                               side: BorderSide(
@@ -263,8 +231,7 @@ class SamiyaTara extends StatelessWidget {
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
                               Color.fromARGB(255, 22, 37, 92)),
-                          shape: MaterialStateProperty.all<
-                              RoundedRectangleBorder>(
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
                               side: BorderSide(

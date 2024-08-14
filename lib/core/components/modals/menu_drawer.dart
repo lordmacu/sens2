@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart'; 
+import 'package:get/get.dart';
+import 'package:sens2/apps/samiya/controllers/tara_controller.dart';
+import 'package:sens2/core/controllers/menu_controller.dart';
+import 'package:sens2/core/services/auth_service.dart';
 
 class MenuDrawer extends StatelessWidget {
+  final MenuDrawerController controller = Get.find<MenuDrawerController>();
+  final TableController controllerTable = Get.find<TableController>();
+  final AuthService authService = Get.find<AuthService>();
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: Column(
         children: [
-        
           SizedBox(height: 20),
-         
           Align(
             alignment: Alignment.topRight,
             child: IconButton(
               icon: Icon(Icons.arrow_back),
               onPressed: () {
-                Navigator.of(context).pop(); 
+                Navigator.of(context).pop();
               },
             ),
           ),
@@ -23,128 +28,158 @@ class MenuDrawer extends StatelessWidget {
             child: ListView(
               padding: EdgeInsets.zero,
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 16.0),
-                  child: Text(
-                    'CONFIGURACIÓN',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 150, 150, 150),
-                    ),
-                  ),
-                ),
+                _buildSectionTitle('CONFIGURACIÓN'),
+                _buildListTile('Servidor', '/server'),
+                _buildSectionTitle('CONFIGURACIÓN'),
+                _buildListTile('GateWay', '/gateWay'),
+                _buildSectionTitle('GENERAL'),
+                _buildListTile('Pallet', null),
+                _buildSectionTitle('PARAMETROS'),
+                Obx(() {
+                  return Column(
+                    children: controller.menuItems.map((item) {
+                      return Padding(
+                        padding: const EdgeInsets.only(left: 16.0),
+                        child: ListTile(
+                          title: Text(
+                            item['value']!,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          onTap: () async {
+                            final Map<String, Map<String, dynamic>>
+                                tableConfigurations = {
+                              'material': {
+                                'headersMapping': {
+                                  'Material': 'key',
+                                  'Tarifa': 'tariff',
+                                },
+                                'editableFieldsMapping': {
+                                  {
+                                    'type': 'textfield',
+                                    'value': 'key',
+                                    'name': 'Tarifa',
+                                  },
+                                  {
+                                    'type': 'textfield',
+                                    'value': 'tariff',
+                                    'name': 'Material',
+                                  }
+                                },
+                              },
+                              'supplier': {
+                                'headersMapping': {
+                                  'Proveedor': 'key',
+                                },
+                                'editableFieldsMapping': {
+                                  {
+                                    'type': 'textfield',
+                                    'value': 'key',
+                                    'name': 'Proveedor',
+                                  }
+                                },
+                              },
+                              'proveedor': {
+                                'headersMapping': {
+                                  'Proveedor': 'key',
+                                },
+                                'editableFieldsMapping': {
+                                  {
+                                    'type': 'textfield',
+                                    'value': 'key',
+                                    'name': 'Proveedor',
+                                  }
+                                },
+                              },
+                              'materiaPrima': {
+                                'headersMapping': {
+                                  'Materia Prima': 'key',
+                                },
+                                'editableFieldsMapping': {
+                                  {
+                                    'type': 'textfield',
+                                    'value': 'key',
+                                    'name': 'Materia Prima',
+                                  }
+                                },
+                              },
+                            };
+
+                            final config = tableConfigurations[item['key']];
+
+                            final headersMapping = config?['headersMapping']
+                                as Map<String, String>;
+                            final editableFieldsMapping =
+                                config?['editableFieldsMapping']
+                                    as Map<String, Map<String, String>>;
+
+                            await controllerTable.loadItems(
+                              item['key'] as String,
+                              headersMapping,
+                              item['value'] as String,
+                              editableFieldsMapping,
+                            );
+
+                            Navigator.of(context).pop();
+
+                            Get.toNamed('/generalTable', arguments: {
+                              'key': item['key'],
+                              'value': item['value']
+                            });
+                          },
+                        ),
+                      );
+                    }).toList(),
+                  );
+                }),
                 Padding(
                   padding: const EdgeInsets.only(left: 16.0),
                   child: ListTile(
                     title: Text(
-                      'Servidor',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                      onTap: () {
-                      Get.toNamed('/server'); 
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16.0),
-                  child: Text(
-                    'CONFIGURACIÓN',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 150, 150, 150),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16.0),
-                  child: ListTile(
-                    title: Text(
-                      'GateWay',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      'Cerrar turno',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.blue),
                     ),
                     onTap: () {
-                      Get.toNamed('/gateWay'); 
+                      authService.logout();
+                      Get.toNamed('/');
                     },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16.0),
-                  child: Text(
-                    'GENERAL',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 150, 150, 150),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16.0),
-                  child: ListTile(
-                    title: Text(
-                      'Pallet',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    onTap: () {},
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16.0),
-                  child: Text(
-                    'PARAMETROS',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 150, 150, 150),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16.0),
-                  child: ListTile(
-                    title: Text(
-                      'Provedor',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    onTap: () {},
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16.0),
-                  child: ListTile(
-                    title: Text(
-                      'Materia Prima',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    onTap: () {},
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16.0),
-                  child: ListTile(
-                    title: Text(
-                      'Tara',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    onTap: () {},
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16.0),
-                  child: ListTile(
-                    title: Text(
-                      'Material',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    onTap: () {},
                   ),
                 ),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildSectionTitle(String title) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 16.0),
+      child: Text(
+        title,
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          color: Color.fromARGB(255, 150, 150, 150),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildListTile(String title, String? route) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 16.0),
+      child: ListTile(
+        title: Text(
+          title,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        onTap: route != null
+            ? () {
+                Get.toNamed(route);
+              }
+            : null,
       ),
     );
   }
