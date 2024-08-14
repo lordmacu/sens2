@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sens2/core/components/buttons/button.dart';
-import 'package:sens2/core/components/icons/logo.dart';
-import 'package:sens2/core/components/inputs/input_icon.dart'; // Asegúrate de importar InputIcon si no lo has hecho
+import 'package:sens2/core/components/logo.dart';
+import 'package:sens2/core/components/inputs/input_icon.dart';
 import 'package:sens2/apps/apliplast/controllers/login_controller.dart';
 import 'package:sens2/core/components/inputs/input_text.dart';
 import 'package:sens2/core/services/auth_service.dart';
@@ -15,7 +15,6 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Login')),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -23,6 +22,8 @@ class LoginPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(height: 50),
+              LogoPrincipal(topValue: 0), 
+              SizedBox(height: 16), // Espacio entre el logo y el título
               Text(
                 'Bienvenido',
                 style: TextStyle(
@@ -42,9 +43,9 @@ class LoginPage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 32),
-              InputGeneral(icon: Icons.email, text: 'Correo electrónico'), // Utiliza InputIcon para el correo electrónico
+              InputGeneral(icon: Icons.email, text: 'Correo electrónico'),
               SizedBox(height: 19),
-              InputGeneral(icon: Icons.lock, text: 'Contraseña'), // Utiliza InputIcon para la contraseña
+              InputGeneral(icon: Icons.lock, text: 'Contraseña'),
               SizedBox(height: 15),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -76,7 +77,7 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 32),
-             Obx(() {
+              Obx(() {
                 final authService = Get.find<AuthService>();
                 if (authService == null || authService.isLoggedIn.value) {
                   return CircularProgressIndicator();
@@ -84,7 +85,7 @@ class LoginPage extends StatelessWidget {
                   return ButtonGeneral(
                     text: 'Ingresar',
                     colorValue: Color.fromARGB(255, 25, 38, 83),
-                    fontSize: 14,
+                    fontSize: 12,
                    // onPressed: () async {
                       //try {
                       //  await authService.login(

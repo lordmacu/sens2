@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
         Get.put(RequestQueueService());
         // No inicializamos MqttService aquí
       }),
-      initialRoute: '/samiyaTara', // Ajusta el initialRoute a '/'
+      initialRoute: '/login', // Ajusta el initialRoute a '/'
       getPages: [
         GetPage(name: '/', page: () => AuthWrapper()),
         GetPage(name: '/login', page: () => LoginPage()),

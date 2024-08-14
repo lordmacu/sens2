@@ -103,6 +103,7 @@ List<GetPage> getRoutesSamiya() {
       transition: Transition.native,
       
     ),
+    
   
     // Ruta para configuración MQTT
   ];

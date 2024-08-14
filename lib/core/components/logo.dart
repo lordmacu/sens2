@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class Logo extends StatelessWidget {
+class LogoPrincipal extends StatelessWidget {
   final int topValue;
 
-  const Logo({
+  const LogoPrincipal({
     Key? key, 
     required this.topValue,
   }) : super(key: key); 
@@ -17,7 +17,7 @@ class Logo extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         height: 130,
         child: Image.asset(
-          'assets/seans-icon.png',
+          'lib/core/assets/icon-seas.png',
           fit: BoxFit.contain,
         ),
       ),
