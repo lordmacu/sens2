@@ -33,6 +33,7 @@ class MenuDrawer extends StatelessWidget {
                 _buildSectionTitle('CONFIGURACIÓN'),
                 _buildListTile('GateWay', '/gateWay'),
                 _buildSectionTitle('GENERAL'),
+                 _buildListTile('Lotes', '/tableLote'),
                 _buildListTile('Pallet', null),
                 _buildSectionTitle('PARAMETROS'),
                 Obx(() {

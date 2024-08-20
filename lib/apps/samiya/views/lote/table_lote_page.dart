@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sens2/apps/samiya/controllers/lote_controller.dart';
+import 'package:sens2/apps/samiya/controllers/lote_controller.dart'; 
 import 'package:sens2/core/components/modals/menu_drawer.dart';
 import 'package:sens2/core/controllers/menu_controller.dart';
 import 'package:intl/intl.dart';
@@ -96,7 +96,7 @@ class _TableLotePageState extends State<TableLotePage> {
                           controller: loteFilterController,
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
-                            hintText: 'Lote',
+                            hintText: 'lote',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8.0),
                             ),
@@ -149,25 +149,6 @@ class _TableLotePageState extends State<TableLotePage> {
                   ],
                 ),
               ),
-              // Scroll horizontal entre los filtros y la tabla
-              RawScrollbar(
-                controller: _horizontalScrollController,
-                thumbVisibility: true,
-                thickness: 8,
-                radius: Radius.circular(10),
-                thumbColor: Color.fromARGB(255, 25, 38, 83),
-                child: SingleChildScrollView(
-                  controller: _horizontalScrollController,
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 800, // Un ancho mayor para forzar el scroll horizontal
-                      ),
-                    ],
-                  ),
-                ),
-              ),
               Expanded(
                 child: RawScrollbar(
                   controller: _verticalScrollController,
@@ -193,9 +174,9 @@ class _TableLotePageState extends State<TableLotePage> {
                             DataCell(
                               Row(
                                 children: [
-                                  Container(
-                                    margin: EdgeInsets.symmetric(horizontal: 0.0),
-                                    padding: EdgeInsets.all(0.0),
+                                 Container(
+                                    margin: EdgeInsets.symmetric(horizontal: 0.0), 
+                                    padding: EdgeInsets.all(0.0), 
                                     child: IconButton(
                                       icon: Icon(Icons.edit),
                                       onPressed: () {
@@ -262,7 +243,7 @@ class _TableLotePageState extends State<TableLotePage> {
                                                     },
                                                     style: ButtonStyle(
                                                       backgroundColor: MaterialStateProperty.all<Color>(
-                                                          Color.fromARGB(255, 231, 230, 230)),
+                                                        Color.fromARGB(255, 231, 230, 230)),
                                                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                                         RoundedRectangleBorder(
                                                           borderRadius: BorderRadius.circular(10.0),
@@ -286,7 +267,7 @@ class _TableLotePageState extends State<TableLotePage> {
                                                     },
                                                     style: ButtonStyle(
                                                       backgroundColor: MaterialStateProperty.all<Color>(
-                                                          Color.fromARGB(255, 22, 37, 92)),
+                                                        Color.fromARGB(255, 22, 37, 92)),
                                                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                                         RoundedRectangleBorder(
                                                           borderRadius: BorderRadius.circular(10.0),
@@ -303,10 +284,11 @@ class _TableLotePageState extends State<TableLotePage> {
                                       },
                                     ),
                                   ),
-                                  SizedBox(width: 4),
+
+                                  SizedBox(width: 4), 
                                   Container(
-                                    margin: EdgeInsets.only(left: 0),
-                                    padding: EdgeInsets.only(left: 0),
+                                    margin: EdgeInsets.only(left: 0), 
+                                    padding: EdgeInsets.only(left: 0), 
                                     child: IconButton(
                                       icon: Icon(Icons.delete),
                                       onPressed: () {
@@ -328,7 +310,7 @@ class _TableLotePageState extends State<TableLotePage> {
                                                   onPressed: () {
                                                     setState(() {
                                                       data.remove(row);
-                                                      filteredData.remove(row);
+                                                      filterTable();
                                                     });
                                                     Navigator.of(context).pop();
                                                   },
@@ -339,7 +321,8 @@ class _TableLotePageState extends State<TableLotePage> {
                                         );
                                       },
                                     ),
-                                  ),
+                                  )
+
                                 ],
                               ),
                             ),
@@ -445,7 +428,8 @@ class _TableLotePageState extends State<TableLotePage> {
                       child: TextButton(
                         child: Text(
                           'Cancelar',
-                          style: TextStyle(color: Color.fromARGB(255, 21, 19, 107)),
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 21, 19, 107)),
                         ),
                         onPressed: () {
                           Navigator.of(context).pop();
@@ -453,10 +437,13 @@ class _TableLotePageState extends State<TableLotePage> {
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
                               Color.fromARGB(255, 231, 230, 230)),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          shape: MaterialStateProperty.all<
+                              RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
-                              side: BorderSide(color: Color.fromARGB(255, 201, 201, 201), width: 2.0),
+                              side: BorderSide(
+                                  color: Color.fromARGB(255, 201, 201, 201),
+                                  width: 2.0),
                             ),
                           ),
                         ),
@@ -473,7 +460,7 @@ class _TableLotePageState extends State<TableLotePage> {
                           if (nuevoLoteController.text.isNotEmpty &&
                               nuevaFechaController.text.isNotEmpty) {
                             setState(() {
-                              final newRow = {
+                              data.add({
                                 "fecha_creacion": nuevaFechaController.text,
                                 "lote": nuevoLoteController.text,
                                 "PESO": nuevoPesoController.text.isNotEmpty
@@ -481,12 +468,11 @@ class _TableLotePageState extends State<TableLotePage> {
                                     : 0.0,
                                 "proveedor": nuevoProveedorController.text.isNotEmpty
                                     ? nuevoProveedorController.text
-                                    : "Nuevo Proveedor",
-                              };
-                              data.add(newRow);
-                              filteredData.add(newRow);
+                                    : "Nuevo Proveedor", 
+                              });
                             });
                             Navigator.of(context).pop();
+                            filterTable(); // Refrescar la tabla después de agregar un nuevo registro
                           }
                         },
                         style: TextButton.styleFrom(
