@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:sens2/apps/samiya/controllers/tara_controller.dart';
 import 'package:sens2/apps/samiya/views/catch_weigth/catch_weight_page.dart';
-import 'package:sens2/apps/samiya/views/table/general_table.dart';
+import 'package:sens2/core/components/table/general_table.dart';
 import 'package:sens2/core/bindings/table_binding.dart';
 import 'package:wakelock/wakelock.dart';
 import 'core/theme/app_theme.dart';

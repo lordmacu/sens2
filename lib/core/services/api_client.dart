@@ -37,10 +37,12 @@ class ApiClient extends GetxService {
   Future<http.Response> post(String endpoint,
       {Map<String, String>? headers, dynamic body}) async {
     final combinedHeaders = {
-      'Authorization': 'Bearer ${token.value}',
+      'access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhbWl5YXRlc3RlckBzZW5zY2xvdWQuaW8iLCJ1c2VyX2lkIjoiNjM5YjYzNzQ2MjllN2JjYjlmYjRiMzhiIiwiZW5hYmxlIjp0cnVlLCJpYXQiOjE3MjQxNjA2MzMsImV4cCI6MTcyNDc2NTQzM30.t3bRYvWQPgosbVX3ClnCidLlFyc7vlllisBpW4aHqzY',
       'Content-Type': 'application/json',
-      if (headers != null) ...headers,
+       if (headers != null) ...headers,
     };
+
+    print("estos son los headers ${combinedHeaders}");
     return await httpClient.post(
       _getUri(endpoint),
       headers: combinedHeaders,
@@ -51,7 +53,7 @@ class ApiClient extends GetxService {
   Future<http.Response> put(String endpoint,
       {Map<String, String>? headers, dynamic body}) async {
     final combinedHeaders = {
-      'Authorization': 'Bearer ${token.value}',
+      'access-token': '${token.value}',
       'Content-Type': 'application/json',
       if (headers != null) ...headers,
     };
@@ -65,7 +67,7 @@ class ApiClient extends GetxService {
   Future<http.Response> delete(String endpoint,
       {Map<String, String>? headers}) async {
     final combinedHeaders = {
-      'Authorization': 'Bearer ${token.value}',
+      'Authorization': '${token.value}',
       if (headers != null) ...headers,
     };
     return await httpClient.delete(_getUri(endpoint), headers: combinedHeaders);

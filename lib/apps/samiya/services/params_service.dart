@@ -20,7 +20,6 @@ class ParamsService extends GetxService {
     for (var category in groupedData.keys) {
       await storage.write(category, groupedData[category]);
     }
-
     await storage.write('categories', categories);
   }
 
@@ -36,8 +35,8 @@ class ParamsService extends GetxService {
   }
 
   Future<Map<String, List<Map<String, dynamic>>>> fetchParams() async {
-    final response = await apiClient.get(
-        'api/paramsOrganizations/?organizationName=samiya&name');
+    final response = await apiClient
+        .get('api/paramsOrganizations/?organizationName=samiya&name');
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body)['data'] as List<dynamic>;

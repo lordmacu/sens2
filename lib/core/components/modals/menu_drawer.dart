@@ -54,16 +54,16 @@ class MenuDrawer extends StatelessWidget {
                                   'Tarifa': 'tariff',
                                 },
                                 'editableFieldsMapping': {
-                                  {
+                                  'key': {
                                     'type': 'textfield',
                                     'value': 'key',
-                                    'name': 'Tarifa',
+                                    'name': 'Material',
                                   },
-                                  {
+                                  'tariff': {
                                     'type': 'textfield',
                                     'value': 'tariff',
-                                    'name': 'Material',
-                                  }
+                                    'name': 'Tarifa',
+                                  },
                                 },
                               },
                               'supplier': {
@@ -71,11 +71,11 @@ class MenuDrawer extends StatelessWidget {
                                   'Proveedor': 'key',
                                 },
                                 'editableFieldsMapping': {
-                                  {
+                                  'key': {
                                     'type': 'textfield',
                                     'value': 'key',
                                     'name': 'Proveedor',
-                                  }
+                                  },
                                 },
                               },
                               'proveedor': {
@@ -83,11 +83,11 @@ class MenuDrawer extends StatelessWidget {
                                   'Proveedor': 'key',
                                 },
                                 'editableFieldsMapping': {
-                                  {
+                                  'key': {
                                     'type': 'textfield',
                                     'value': 'key',
                                     'name': 'Proveedor',
-                                  }
+                                  },
                                 },
                               },
                               'materiaPrima': {
@@ -95,11 +95,11 @@ class MenuDrawer extends StatelessWidget {
                                   'Materia Prima': 'key',
                                 },
                                 'editableFieldsMapping': {
-                                  {
+                                  'key': {
                                     'type': 'textfield',
                                     'value': 'key',
-                                    'name': 'Materia Prima',
-                                  }
+                                    'name': 'Materia Prima'
+                                  },
                                 },
                               },
                             };
@@ -110,7 +110,7 @@ class MenuDrawer extends StatelessWidget {
                                 as Map<String, String>;
                             final editableFieldsMapping =
                                 config?['editableFieldsMapping']
-                                    as Map<String, Map<String, String>>;
+                                    as Map<String, Map<String, dynamic>>;
 
                             await controllerTable.loadItems(
                               item['key'] as String,

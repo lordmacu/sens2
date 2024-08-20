@@ -5,7 +5,7 @@ import 'package:sens2/apps/samiya/bildings/catch_weight_binding.dart';
 import 'package:sens2/apps/samiya/controllers/tara_controller.dart';
 import 'package:sens2/apps/samiya/views/catch_weigth/catch_weight_page.dart';
 
-import 'package:sens2/apps/samiya/views/table/general_table.dart';
+import 'package:sens2/core/components/table/general_table.dart';
 import 'package:sens2/apps/samiya/bildings/tara_binding.dart';
 import 'package:sens2/apps/apliplast/views/gatepage/gate_page.dart';
 
