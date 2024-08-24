@@ -10,9 +10,9 @@ class ListDataWidget extends StatelessWidget {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('Total fundas', style: TextStyle(color: Color.fromARGB(255, 17, 11, 97), fontSize: 23)),
+          const Text('Total fundas', style: TextStyle(color: Color.fromARGB(255, 17, 11, 97), fontSize: 23)),
           IconButton(
-            icon: Icon(Icons.close),
+            icon: const Icon(Icons.close),
             onPressed: () {
               Get.back();
             },
@@ -23,13 +23,13 @@ class ListDataWidget extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              color: Color.fromARGB(17, 104, 104, 104),
+              color: const Color.fromARGB(17, 104, 104, 104),
               child: Table(
                 border: TableBorder.all(color: const Color.fromARGB(255, 136, 136, 136)),
                 children: [
-                  TableRow(children: [
+                  const TableRow(children: [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0),
                       child: Text('Fundas', style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
                   ]),
@@ -40,7 +40,7 @@ class ListDataWidget extends StatelessWidget {
                         child: Text(number.toString()),
                       ),
                     ]);
-                  }).toList(),
+                  }),
                 ],
               ),
             ),

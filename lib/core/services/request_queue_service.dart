@@ -5,17 +5,18 @@ import 'package:get_storage/get_storage.dart';
 import 'package:sens2/core/services/api_client.dart';
 import 'package:sens2/core/services/auth_service.dart';
 import 'package:sens2/core/services/connectivity_service.dart';
+import 'package:logger/logger.dart';
 
 class RequestQueueService extends GetxService {
   final storage = GetStorage();
   final pendingRequests = <Map<String, dynamic>>[].obs;
   final AuthService authService = Get.put(AuthService());
+  final Logger logger = Logger();
 
   @override
   void onInit() {
     super.onInit();
     loadPendingRequests();
-
   }
 
   void loadPendingRequests() {
@@ -36,7 +37,7 @@ class RequestQueueService extends GetxService {
   Future<void> processRequests() async {
     if (Get.find<ConnectivityService>().isOnline.value) {
       for (var request in List.from(pendingRequests)) {
-        print("Processing request: $request");
+        logger.i("Processing request: $request");
         try {
           final response = await Get.find<ApiClient>().post(
             request['endpoint'],
@@ -46,16 +47,16 @@ class RequestQueueService extends GetxService {
           if (response.statusCode == 200) {
             removeRequest(request);
           } else if (response.statusCode == 401) {
-             final success = await _attemptReLogin();
+            final success = await _attemptReLogin();
             if (success) {
               await processRequests();
               return; // Exit the loop as the requests will be re-processed
             } else {
-              print("Re-login failed. Request will remain in the queue.");
+              logger.w("Re-login failed. Request will remain in the queue.");
             }
           }
         } catch (e) {
-          print("Error processing request: $e");
+          logger.e("Error processing request: $e");
         }
       }
     }
@@ -70,7 +71,7 @@ class RequestQueueService extends GetxService {
         return true;
       }
     } catch (e) {
-      print("Re-login failed: $e");
+      logger.e("Re-login failed: $e");
     }
     return false;
   }

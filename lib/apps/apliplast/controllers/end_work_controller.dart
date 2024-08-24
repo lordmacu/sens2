@@ -1,6 +1,7 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
+
 
 class EndWorkController extends GetxController {
   var productionOrderController = TextEditingController().obs;
@@ -18,21 +19,22 @@ class EndWorkController extends GetxController {
   var balanceController = TextEditingController().obs;
   var currentBalanceController = TextEditingController().obs;
 
+  // Instancia del Logger
+  var logger = Logger();
+
   void send() {
-    print(productionOrderController.value.text);
-    print(operatorController.value.text);
-    print(maquinController.value.text);
-    print(extrusionController.value.text);
-    print(clientController.value.text);
-    print(subtotalController.value.text);
-    print(scrapController.value.text);
-    print(tortaController.value.text);
-    print(totalProductionController.value.text);
-    print(tableController.value.text);
-    print(materialController.value.text);
-    print(balanceController.value.text);
-    print(currentBalanceController.value.text);
+    logger.d(productionOrderController.value.text);
+    logger.d(operatorController.value.text);
+    logger.d(maquinController.value.text);
+    logger.d(extrusionController.value.text);
+    logger.d(clientController.value.text);
+    logger.d(subtotalController.value.text);
+    logger.d(scrapController.value.text);
+    logger.d(tortaController.value.text);
+    logger.d(totalProductionController.value.text);
+    logger.d(tableController.value.text);
+    logger.d(materialController.value.text);
+    logger.d(balanceController.value.text);
+    logger.d(currentBalanceController.value.text);
   }
 }
-
-

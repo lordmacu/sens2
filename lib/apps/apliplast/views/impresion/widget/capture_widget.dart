@@ -14,7 +14,7 @@ class CaptureWidget extends StatefulWidget {
   final bool showSwitchTitle;
   final bool showButton;
 
-  CaptureWidget({
+  const CaptureWidget({super.key, 
     required this.buttonText,
     required this.weightText,
     required this.mainText,
@@ -51,13 +51,6 @@ class _CaptureWidgetState extends State<CaptureWidget> {
     }
   }
 
-  void _incrementKgValue() {
-    if (displayKgValue is int) {
-      setState(() {
-        displayKgValue++;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,17 +58,17 @@ class _CaptureWidgetState extends State<CaptureWidget> {
     String displayKgValueString = displayKgValue != null ? displayKgValue.toString() : '--';
 
     return Container(
-      margin: EdgeInsets.only(top: 16),
-      padding: EdgeInsets.only(top: 16, bottom: 16),
+      margin: const EdgeInsets.only(top: 16),
+      padding: const EdgeInsets.only(top: 16, bottom: 16),
       width: double.infinity,
       color: Colors.grey.withOpacity(0.2),
       child: Column(
         children: [
           if (widget.optionalTitle != null) ...[
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               widget.optionalTitle!,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: Color.fromARGB(255, 11, 19, 68),
@@ -83,22 +76,22 @@ class _CaptureWidgetState extends State<CaptureWidget> {
             ),
           ],
           if (widget.bobinaText != null && widget.optionalKgValue != null) ...[
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   widget.bobinaText!,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Color.fromARGB(255, 11, 19, 68),
                   ),
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 Text(
                   '$displayKgValueString kg',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Color.fromARGB(255, 11, 19, 68),
@@ -107,43 +100,39 @@ class _CaptureWidgetState extends State<CaptureWidget> {
               ],
             ),
           ],
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           if (widget.incrementableValue != null) ...[
             Text(
               '${widget.mainText}: $displayValueString',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
                 color: Color.fromARGB(255, 11, 19, 68),
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
           ],
           Text(
             widget.weightText,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 25,
               fontWeight: FontWeight.bold,
               color: Color.fromARGB(255, 11, 19, 68),
             ),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           if (widget.showButton) ...[
             Container(
               width: 200,
-              padding: EdgeInsets.symmetric(vertical: 10.0),
+              padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: TextButton(
                 onPressed: _incrementValue,
-                child: Text(
-                  widget.buttonText,
-                  style: TextStyle(color: Colors.white),
-                ),
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(
-                    Color.fromARGB(255, 14, 12, 87),
+                    const Color.fromARGB(255, 14, 12, 87),
                   ),
                   padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                    const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                   ),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
@@ -151,11 +140,15 @@ class _CaptureWidgetState extends State<CaptureWidget> {
                     ),
                   ),
                 ),
+                child: Text(
+                  widget.buttonText,
+                  style: const TextStyle(color: Colors.white),
+                ),
               ),
             ),
           ],
           if (widget.showSwitchTitle) ...[
-            Center(
+            const Center(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -173,29 +166,29 @@ class _CaptureWidgetState extends State<CaptureWidget> {
             ),
           ],
           if (widget.optionalText != null && widget.optionalNumber != null) ...[
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   widget.optionalText!,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 23,
                     fontWeight: FontWeight.bold,
                     color: Color.fromARGB(255, 11, 19, 68),
                   ),
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 widget.optionalNumber > 0
                     ? Text(
                         widget.optionalNumber != null ? '${widget.optionalNumber} kg' : '--',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                           color: Color.fromARGB(255, 11, 19, 68),
                         ),
                       )
-                    : Text(""),
+                    : const Text(""),
               ],
             ),
           ],

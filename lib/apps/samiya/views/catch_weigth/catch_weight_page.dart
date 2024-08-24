@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sens2/apps/apliplast/controllers/print_ticket_controller.dart';
-import 'package:sens2/apps/apliplast/views/impresion/widget/current_date_widget.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:sens2/apps/apliplast/views/impresion/widget/capture_widget.dart';
 import 'package:sens2/core/components/inputs/dropdown_text.dart';
-import 'package:sens2/core/components/inputs/input_text.dart';
-import 'package:sens2/core/components/buttons/button.dart';
 import 'package:sens2/core/components/inputs/type_ahead.dart';
 import 'package:sens2/core/components/modals/menu_drawer.dart';
 import 'package:sens2/core/controllers/menu_controller.dart';
@@ -25,16 +20,16 @@ class CatchWeight extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 25, 38, 83),
-        title: Text(
+        backgroundColor: const Color.fromARGB(255, 25, 38, 83),
+        title: const Text(
           'SAMIYA',
           style: TextStyle(color: Colors.white, fontSize: 17),
         ),
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
-              icon: Icon(Icons.menu),
+              icon: const Icon(Icons.menu),
               onPressed: () async{
                 final Map<String, String> categoryMenuMapping = {
                   'supplier': 'Proveedor',
@@ -51,7 +46,7 @@ class CatchWeight extends StatelessWidget {
         ),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back),
             onPressed: () {
               Get.back(); 
             },
@@ -67,22 +62,22 @@ class CatchWeight extends StatelessWidget {
               child: Container(
                 width: 360,
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(22, 79, 92, 150),
+                  color: const Color.fromARGB(22, 79, 92, 150),
                   borderRadius: BorderRadius.circular(20),
                 ),
-                padding: EdgeInsets.all(25),
+                padding: const EdgeInsets.all(25),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Container(
-                      margin: EdgeInsets.only(bottom: 20),
-                      padding: EdgeInsets.only(
+                      margin: const EdgeInsets.only(bottom: 20),
+                      padding: const EdgeInsets.only(
                           top: 20, bottom: 30, left: 20, right: 20),
                       width: double.infinity,
                       color: Colors.grey.shade400.withOpacity(0.2),
-                      child: Column(
+                      child: const Column(
                         children: [
                           Text(
                             '0',
@@ -103,8 +98,8 @@ class CatchWeight extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
@@ -117,8 +112,8 @@ class CatchWeight extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
@@ -131,8 +126,8 @@ class CatchWeight extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
@@ -145,9 +140,9 @@ class CatchWeight extends StatelessWidget {
                         ),
                       ),
                     ),
-                    DropdownText(items: ['Proveedores 2', 'Item 2', 'Item 3']),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
+                    const DropdownText(items: ['Proveedores 2', 'Item 2', 'Item 3']),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
@@ -160,9 +155,9 @@ class CatchWeight extends StatelessWidget {
                         ),
                       ),
                     ),
-                    DropdownText(items: ['Proveedores 2', 'Item 2', 'Item 3']),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
+                    const DropdownText(items: ['Proveedores 2', 'Item 2', 'Item 3']),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
@@ -175,13 +170,13 @@ class CatchWeight extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: Column(
                         children: [
                           TextFormField(
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               labelText: 'Pallet',
                               border: OutlineInputBorder(),
                             ),
@@ -189,9 +184,9 @@ class CatchWeight extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(height: 8),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
+                    const SizedBox(height: 8),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
@@ -209,10 +204,10 @@ class CatchWeight extends StatelessWidget {
                       children: <Widget>[
                         Flexible(
                           child: Container(
-                            padding: EdgeInsets.only(left: 8, right: 8),
+                            padding: const EdgeInsets.only(left: 8, right: 8),
                             child: Column(
                               children: [
-                                SizedBox(height: 8),
+                                const SizedBox(height: 8),
                                 TypeAhead(
                                   text: "Graveta",
                                   onSuggestionSelectedCallback:
@@ -228,10 +223,10 @@ class CatchWeight extends StatelessWidget {
                         ),
                         Flexible(
                           child: Container(
-                            padding: EdgeInsets.only(left: 8, right: 8),
+                            padding: const EdgeInsets.only(left: 8, right: 8),
                             child: Column(
                               children: [
-                                SizedBox(height: 8),
+                                const SizedBox(height: 8),
                                 TypeAhead(
                                   text: "Graveta 2",
                                   onSuggestionSelectedCallback:
@@ -247,61 +242,55 @@ class CatchWeight extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     Container(
                       width: 500,
-                      padding: EdgeInsets.symmetric(vertical: 10.0),
+                      padding: const EdgeInsets.symmetric(vertical: 10.0),
                       child: TextButton(
                         onPressed: () {
                           printicketController.send();
                         },
-                        child: Text(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(
+                            const Color.fromARGB(255, 224, 211, 138),
+                          ),
+                          padding: MaterialStateProperty.all<
+                              EdgeInsetsGeometry>(
+                            const EdgeInsets.symmetric(
+                                vertical: 15.0, horizontal: 20.0),
+                          ),
+                          shape: MaterialStateProperty.all<
+                              RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                          ),
+                        ),
+                        child: const Text(
                           'Enviar',
                           style: TextStyle(
                             color: Color.fromARGB(255, 129, 123, 68),
                             fontSize: 17,
                           ),
                         ),
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(
-                            Color.fromARGB(255, 224, 211, 138),
-                          ),
-                          padding: MaterialStateProperty.all<
-                              EdgeInsetsGeometry>(
-                            EdgeInsets.symmetric(
-                                vertical: 15.0, horizontal: 20.0),
-                          ),
-                          shape: MaterialStateProperty.all<
-                              RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.0),
-                            ),
-                          ),
-                        ),
                       ),
                     ),
                     Container(
                       width: 500,
-                      padding: EdgeInsets.symmetric(vertical: 10.0),
+                      padding: const EdgeInsets.symmetric(vertical: 10.0),
                       child: TextButton(
                         onPressed: () {
                           printicketController.send();
                         },
-                        child: Text(
-                          'Cerrar Lote',
-                          style: TextStyle(
-                              color: const Color.fromARGB(255, 43, 41, 41),
-                              fontSize: 17),
-                        ),
                         style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all<Color>(
-                            Color.fromARGB(255, 214, 212, 212),
+                            const Color.fromARGB(255, 214, 212, 212),
                           ),
                           padding: MaterialStateProperty.all<
                               EdgeInsetsGeometry>(
-                            EdgeInsets.symmetric(
+                            const EdgeInsets.symmetric(
                                 vertical: 15.0, horizontal: 20.0),
                           ),
                           shape: MaterialStateProperty.all<
@@ -311,9 +300,15 @@ class CatchWeight extends StatelessWidget {
                             ),
                           ),
                         ),
+                        child: const Text(
+                          'Cerrar Lote',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 43, 41, 41),
+                              fontSize: 17),
+                        ),
                       ),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                   ],
                 ),
               ),

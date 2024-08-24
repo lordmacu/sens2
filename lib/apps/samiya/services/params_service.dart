@@ -3,10 +3,12 @@ import 'package:get_storage/get_storage.dart';
 import '../../../core/services/api_client.dart';
 import '../../../core/services/request_queue_service.dart';
 import 'dart:convert';
+import 'package:logger/logger.dart';
 
 class ParamsService extends GetxService {
   final ApiClient apiClient = Get.find<ApiClient>();
   final requestQueueService = Get.find<RequestQueueService>();
+  final Logger logger = Logger();
 
   Future<void> saveGroupedData(
       Map<String, List<Map<String, dynamic>>> groupedData) async {
@@ -29,8 +31,8 @@ class ParamsService extends GetxService {
       await saveGroupedData(groupedData);
       return groupedData;
     } catch (e) {
-      print('Error fetching or saving params: $e');
-      throw e;
+      logger.e('Error fetching or saving params: $e');
+      rethrow;
     }
   }
 

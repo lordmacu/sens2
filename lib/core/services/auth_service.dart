@@ -1,11 +1,13 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:logger/logger.dart';
 import 'api_client.dart';
 import 'dart:convert';
 
 class AuthService extends GetxService {
   final ApiClient apiClient = Get.find<ApiClient>();
   final storage = GetStorage();
+  final Logger logger = Logger(); // Instancia de Logger
 
   var isLoggedIn = false.obs;
   var user = Rxn<Map<String, dynamic>>();
@@ -26,7 +28,8 @@ class AuthService extends GetxService {
       }),
     );
 
-    print("ñla  respuesta ${response.body}  ${{
+    logger.i("Respuesta del servidor: ${response.body}");
+    logger.i("Datos enviados: ${{
       'username': username,
       'password': password,
     }}");
@@ -39,13 +42,13 @@ class AuthService extends GetxService {
       storage.write('message', data['message']);
       storage.write('username', username);
       storage.write('password', password);
-      this.userInformation(token.value, username);
+      userInformation(token.value, username);
     } else {
       throw Exception('Failed to login');
     }
   }
 
-  Future<void> userInformation(String token, username) async {
+  Future<void> userInformation(String token, String username) async {
     final response = await apiClient.get(
       'api/users/profile/information?select=construction&select=organization&select=variable',
       headers: {
@@ -53,13 +56,14 @@ class AuthService extends GetxService {
         'access-token': token,
       },
     );
-    var body = jsonDecode(response.body);
-    print(body);
+
     try {
       var body = jsonDecode(response.body);
       storage.write('organization', body['data']['organization']);
       isLoggedIn.value = true;
-    } on Exception catch (e) {}
+    } catch (e) {
+      logger.e("Error al obtener información del usuario: $e");
+    }
   }
 
   Future<void> logout() async {

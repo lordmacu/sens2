@@ -21,13 +21,13 @@ class InputGeneral extends StatelessWidget {
                 decoration: InputDecoration(
                   hintText: text,
                   filled: true,
-                  hintStyle: TextStyle(color: Color.fromARGB(255, 25, 38, 83)),
-                  fillColor: Color.fromARGB(73, 210, 209, 231).withOpacity(0.7),
+                  hintStyle: const TextStyle(color: Color.fromARGB(255, 25, 38, 83)),
+                  fillColor: const Color.fromARGB(73, 210, 209, 231).withOpacity(0.7),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.black),
+                    borderSide: const BorderSide(color: Colors.black),
                   ),
-                  prefixIcon: Icon(icon, color: Color.fromARGB(255, 25, 38, 83)),
+                  prefixIcon: Icon(icon, color: const Color.fromARGB(255, 25, 38, 83)),
                 ),
                 keyboardType: TextInputType.emailAddress,
               ),

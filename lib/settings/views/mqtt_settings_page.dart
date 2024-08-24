@@ -11,6 +11,8 @@ class MqttSettingsPage extends StatelessWidget {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  MqttSettingsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     hostController.text = settingsController.host.value;
@@ -20,34 +22,34 @@ class MqttSettingsPage extends StatelessWidget {
     passwordController.text = settingsController.password.value;
 
     return Scaffold(
-      appBar: AppBar(title: Text('MQTT Configuration')),
+      appBar: AppBar(title: const Text('MQTT Configuration')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             TextField(
               controller: hostController,
-              decoration: InputDecoration(labelText: 'MQTT Host'),
+              decoration: const InputDecoration(labelText: 'MQTT Host'),
             ),
             TextField(
               controller: portController,
-              decoration: InputDecoration(labelText: 'MQTT Port'),
+              decoration: const InputDecoration(labelText: 'MQTT Port'),
               keyboardType: TextInputType.number,
             ),
             TextField(
               controller: clientIdController,
-              decoration: InputDecoration(labelText: 'Client ID'),
+              decoration: const InputDecoration(labelText: 'Client ID'),
             ),
             TextField(
               controller: usernameController,
-              decoration: InputDecoration(labelText: 'Username'),
+              decoration: const InputDecoration(labelText: 'Username'),
             ),
             TextField(
               controller: passwordController,
-              decoration: InputDecoration(labelText: 'Password'),
+              decoration: const InputDecoration(labelText: 'Password'),
               obscureText: true,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 settingsController.host.value = hostController.text;
@@ -58,7 +60,7 @@ class MqttSettingsPage extends StatelessWidget {
                 settingsController.saveSettings();
                 Get.snackbar('Configuration', 'MQTT settings saved');
               },
-              child: Text('Save'),
+              child: const Text('Save'),
             ),
           ],
         ),

@@ -10,23 +10,25 @@ import 'package:sens2/core/components/inputs/dropdown_text.dart';
   
 
 class PrintReportPage extends GetView<PrintReportController> {
+  const PrintReportPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 25, 38, 83),
-        title: Text('Reporte de Impresion',
+        backgroundColor: const Color.fromARGB(255, 25, 38, 83),
+        title: const Text('Reporte de Impresion',
             style: TextStyle(color: Colors.white, fontSize: 17)),
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         leading: IconButton(
-          icon: Icon(Icons.menu),
+          icon: const Icon(Icons.menu),
           onPressed: () {
             Scaffold.of(context).openDrawer();
           },
         ),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back),
             onPressed: () {
               Get.back(); // Utilizando Get para navegar hacia atrás
             },
@@ -37,7 +39,7 @@ class PrintReportPage extends GetView<PrintReportController> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            DrawerHeader(
+            const DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
@@ -50,11 +52,11 @@ class PrintReportPage extends GetView<PrintReportController> {
               ),
             ),
             ListTile(
-              title: Text('Opción 1'),
+              title: const Text('Opción 1'),
               onTap: () {},
             ),
             ListTile(
-              title: Text('Opción 2'),
+              title: const Text('Opción 2'),
               onTap: () {},
             ),
           ],
@@ -63,12 +65,12 @@ class PrintReportPage extends GetView<PrintReportController> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Container(
               width: 360,
-              padding: EdgeInsets.symmetric(vertical: 10),
-              margin: EdgeInsets.symmetric(vertical: 10),
-              child: Align(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              child: const Align(
                 alignment: Alignment.center,
                 child: Text(
                   'Reporte de Impresion',
@@ -81,18 +83,18 @@ class PrintReportPage extends GetView<PrintReportController> {
             ),
             Center(
               child: Container(
-                margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                 width: 360,
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(22, 79, 92, 150),
+                  color: const Color.fromARGB(22, 79, 92, 150),
                   borderRadius: BorderRadius.circular(20),
                 ),
-                padding: EdgeInsets.all(25),
+                padding: const EdgeInsets.all(25),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(height: 8),
-                    Align(
+                    const SizedBox(height: 8),
+                    const Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
                         'Preparacion de tinta',
@@ -102,35 +104,33 @@ class PrintReportPage extends GetView<PrintReportController> {
                             color: Color.fromARGB(255, 11, 19, 68)),
                       ),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Row(
                       children: [
-                        Expanded(
+                        const Expanded(
                           flex: 3,
-                          child: Container(
-                            child: Align(
-                              alignment: Alignment.topLeft,
-                              child: Text(
-                                'Orden de produccion:',
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color.fromARGB(255, 11, 19, 68)),
-                              ),
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: Text(
+                              'Orden de produccion:',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromARGB(255, 11, 19, 68)),
                             ),
                           ),
                         ),
                         Expanded(
                           flex: 5,
                           child: Padding(
-                            padding: EdgeInsets.only(bottom: 0),
+                            padding: const EdgeInsets.only(bottom: 0),
                             child: TextField(
                               keyboardType: TextInputType.number,
                               inputFormatters: <TextInputFormatter>[
                                 FilteringTextInputFormatter.digitsOnly
                               ],
-                              style: TextStyle(color: Colors.black),
-                              decoration: InputDecoration(
+                              style: const TextStyle(color: Colors.black),
+                              decoration: const InputDecoration(
                                 hintText: 'Orden de produccion',
                                 hintStyle: TextStyle(
                                     fontSize: 14,
@@ -147,19 +147,19 @@ class PrintReportPage extends GetView<PrintReportController> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 8),
-                    InputTextGeneral(text: 'Turno'),
-                    SizedBox(height: 8),
-                    InputTextGeneral(text: 'Maquina '),
-                    SizedBox(height: 8),
-                    Container(
+                    const SizedBox(height: 8),
+                    const InputTextGeneral(text: 'Turno'),
+                    const SizedBox(height: 8),
+                    const InputTextGeneral(text: 'Maquina '),
+                    const SizedBox(height: 8),
+                    SizedBox(
                       width: 380,
                       height: 40,
                       child: TextField(
                         readOnly: true,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 13, fontWeight: FontWeight.bold),
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Fecha',
                           suffixIcon: Icon(Icons.calendar_today),
                           enabledBorder: UnderlineInputBorder(
@@ -178,8 +178,8 @@ class PrintReportPage extends GetView<PrintReportController> {
                         },
                       ),
                     ),
-                    SizedBox(height: 30),
-                    Align(
+                    const SizedBox(height: 30),
+                    const Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
                         'Color preparado',
@@ -189,7 +189,7 @@ class PrintReportPage extends GetView<PrintReportController> {
                             color: Color.fromARGB(255, 11, 19, 68)),
                       ),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     TextField(
                       maxLines: 3,
                       keyboardType: TextInputType.multiline,
@@ -200,33 +200,33 @@ class PrintReportPage extends GetView<PrintReportController> {
                           color: Colors.grey[400],
                         ),
                         border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black),
+                          borderSide: const BorderSide(color: Colors.black),
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue),
+                          borderSide: const BorderSide(color: Colors.blue),
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         contentPadding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                            const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                       ),
                     ),
-                    SizedBox(height: 20),
-                    DropdownText(items: ['Color', 'Item 2', 'Item 3']),
+                    const SizedBox(height: 20),
+                    const DropdownText(items: ['Color', 'Item 2', 'Item 3']),
                   ],
                 ),
               ),
             ),
             Center(
               child: Container(
-                margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                 width: 360,
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(22, 79, 92, 150),
+                  color: const Color.fromARGB(22, 79, 92, 150),
                   borderRadius: BorderRadius.circular(20),
                 ),
-                padding: EdgeInsets.all(25),
-                child: Column(
+                padding: const EdgeInsets.all(25),
+                child: const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(height: 8),
@@ -255,12 +255,12 @@ class PrintReportPage extends GetView<PrintReportController> {
             ),
             Center(
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 30),
+                padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -269,14 +269,14 @@ class PrintReportPage extends GetView<PrintReportController> {
                           child: ElevatedButton(
                             onPressed: () {},
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Color.fromARGB(47, 90, 255, 255),
-                              padding: EdgeInsets.symmetric(
+                              backgroundColor: const Color.fromARGB(47, 90, 255, 255),
+                              padding: const EdgeInsets.symmetric(
                                   vertical: 10, horizontal: 6),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
                             ),
-                            child: Text(
+                            child: const Text(
                               'Agregar otro',
                               style: TextStyle(
                                 fontSize: 16,
@@ -291,17 +291,17 @@ class PrintReportPage extends GetView<PrintReportController> {
                 ),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Center(
               child: Container(
-                margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                 width: 360,
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(22, 79, 92, 150),
+                  color: const Color.fromARGB(22, 79, 92, 150),
                   borderRadius: BorderRadius.circular(20),
                 ),
-                padding: EdgeInsets.all(25),
-                child: Column(
+                padding: const EdgeInsets.all(25),
+                child: const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(height: 5),
@@ -329,17 +329,17 @@ class PrintReportPage extends GetView<PrintReportController> {
             ),
             Center(
               child: Container(
-                margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                 width: 360,
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(22, 79, 92, 150),
+                  color: const Color.fromARGB(22, 79, 92, 150),
                   borderRadius: BorderRadius.circular(20),
                 ),
-                padding: EdgeInsets.all(25),
+                padding: const EdgeInsets.all(25),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Align(
+                    const Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
                         'Novedades ',
@@ -349,7 +349,7 @@ class PrintReportPage extends GetView<PrintReportController> {
                             color: Color.fromARGB(255, 11, 19, 68)),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     TextField(
                       maxLines: 5,
                       keyboardType: TextInputType.multiline,
@@ -360,26 +360,26 @@ class PrintReportPage extends GetView<PrintReportController> {
                           color: Colors.grey[400],
                         ),
                         border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black),
+                          borderSide: const BorderSide(color: Colors.black),
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue),
+                          borderSide: const BorderSide(color: Colors.blue),
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         contentPadding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                            const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                       ),
                     ),
                   ],
                 ),
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 12),
-              margin: EdgeInsets.only(bottom: 13, top: 10, left: 10, right: 10),
-              child: Column(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              margin: const EdgeInsets.only(bottom: 13, top: 10, left: 10, right: 10),
+              child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   SizedBox(height: 2),
@@ -403,20 +403,20 @@ class labelAndInput extends StatelessWidget {
   final String label;
   final String placeholder;
   const labelAndInput({
-    Key? key,
+    super.key,
     required this.label,
     required this.placeholder,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Container(
+        SizedBox(
           width: 80,
           child: Text(
             label,
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.bold,
                 color: Color.fromARGB(255, 11, 19, 68)),

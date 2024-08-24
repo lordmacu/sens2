@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 import 'package:sens2/apps/samiya/controllers/tara_controller.dart';
 
 class EditableFieldsDialogContent extends StatelessWidget {
@@ -8,8 +9,9 @@ class EditableFieldsDialogContent extends StatelessWidget {
 
   // Obtén el controlador de GetX
   final TableController tableController = Get.find<TableController>();
+  final Logger logger = Logger(); // Instancia del logger
 
-  EditableFieldsDialogContent({
+  EditableFieldsDialogContent({super.key, 
     required this.editableFieldsMapping,
     required this.initialValues,
   });
@@ -25,38 +27,39 @@ class EditableFieldsDialogContent extends StatelessWidget {
 
           final currentValue = initialValues[fieldName]?.toString();
 
-          print("current id ${initialValues}");
+          logger.i("current id $initialValues"); // Reemplazo de print
+          
           return Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: fieldConfig['type'] == 'textfield'
                 ? TextField(
-              decoration: InputDecoration(
-                hintText: fieldConfig['name'],
-              ),
-              controller: TextEditingController(text: currentValue),
-              onChanged: (value) {
-                final fieldName = fieldConfig['name'];
-                             tableController.setFieldValue(fieldConfig["value"], value, fieldName);
-              },
-            )
+                    decoration: InputDecoration(
+                      hintText: fieldConfig['name'],
+                    ),
+                    controller: TextEditingController(text: currentValue),
+                    onChanged: (value) {
+                      final fieldName = fieldConfig['name'];
+                      tableController.setFieldValue(fieldConfig["value"], value, fieldName);
+                    },
+                  )
                 : DropdownButtonFormField<String>(
-              decoration: InputDecoration(
-                hintText: fieldConfig['name'],
-              ),
-              value: currentValue,
-              items: tableController.getDropdownItems(entry.key),
-              onChanged: (value) {
-                if (value != null) {
-                  final fieldName = fieldConfig['name'];
-                  print("Nombre del campo: $fieldName");
+                    decoration: InputDecoration(
+                      hintText: fieldConfig['name'],
+                    ),
+                    value: currentValue,
+                    items: tableController.getDropdownItems(entry.key),
+                    onChanged: (value) {
+                      if (value != null) {
+                        final fieldName = fieldConfig['name'];
+                        logger.i("Nombre del campo: $fieldName"); // Reemplazo de print
 
-                  print("aquii iel entry ${entry}");
-                 tableController.setFieldValue(entry.key, value, fieldName);
-                }
-              },
-            ),
+                        logger.i("aquii iel entry $entry"); // Reemplazo de print
+                        tableController.setFieldValue(entry.key, value, fieldName);
+                      }
+                    },
+                  ),
           );
-        }).toList(),
+        }),
       ],
     );
   }

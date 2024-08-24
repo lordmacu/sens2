@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sens2/apps/apliplast/views/impresion/print_ticket.dart';
-import 'package:sens2/apps/apliplast/views/impresion/end_work.dart';
 import 'package:sens2/core/components/modals/options_dialog.dart';
+import 'package:sens2/apps/apliplast/views/reprocesos/reprocessing_page.dart';
 
 class ReportFormWidget extends StatelessWidget {
   final TextEditingController report1Controller = TextEditingController();
@@ -10,39 +9,39 @@ class ReportFormWidget extends StatelessWidget {
   final TextEditingController report3Controller = TextEditingController();
   final Function(String, String, String) onSubmit;
 
-  ReportFormWidget({Key? key, required this.onSubmit}) : super(key: key);
+  ReportFormWidget({super.key, required this.onSubmit});
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Color.fromARGB(234, 255, 255, 255),
-      margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+      color: const Color.fromARGB(234, 255, 255, 255),
+      margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
             child: Text('Nuevo Reporte'),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
               controller: report1Controller,
-              decoration: InputDecoration(labelText: 'Reporte 1'),
+              decoration: const InputDecoration(labelText: 'Reporte 1'),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
               controller: report2Controller,
-              decoration: InputDecoration(labelText: 'Reporte 2'),
+              decoration: const InputDecoration(labelText: 'Reporte 2'),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
               controller: report3Controller,
-              decoration: InputDecoration(labelText: 'Reporte 3'),
+              decoration: const InputDecoration(labelText: 'Reporte 3'),
             ),
           ),
           Row(
@@ -59,7 +58,7 @@ class ReportFormWidget extends StatelessWidget {
                   report2Controller.clear();
                   report3Controller.clear();
                 },
-                child: Text('Agregar'),
+                child: const Text('Agregar'),
               ),
             ],
           ),
@@ -70,22 +69,23 @@ class ReportFormWidget extends StatelessWidget {
 }
 
 class ImpresionPage extends StatefulWidget {
-  const ImpresionPage({Key? key}) : super(key: key);
+  const ImpresionPage({super.key});
 
   @override
   _ImpresionPageState createState() => _ImpresionPageState();
 }
 
 class _ImpresionPageState extends State<ImpresionPage> {
-  List<List<Widget>> _reports = [
+  final List<List<Widget>> _reports = [
+    [], // Reports for ReprocessingPage
     [], // Reports for FirstPage
     [], // Reports for SecondPage
     [], // Reports for ThirdPage
   ];
 
-  PageController _pageController = PageController();
+  final PageController _pageController = PageController();
   int _currentPage = 0;
-  List<String> _pageTitles = ['Extrusión', 'Impresión', 'Sellado'];
+  final List<String> _pageTitles = ['Reprocesos', 'Extrusión', 'Impresión', 'Sellado'];
 
   void _addReport(String report1, String report2, String report3, int pageIndex) async {
     int newIndex = _reports[pageIndex].length + 1;
@@ -122,14 +122,14 @@ class _ImpresionPageState extends State<ImpresionPage> {
         _showOptionsDialog(index);
       },
       child: Card(
-        color: Color.fromARGB(127, 151, 235, 228),
-        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+        color: const Color.fromARGB(127, 151, 235, 228),
+        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         child: ListTile(
           title: Container(
-            margin: EdgeInsets.only(bottom: 8),
+            margin: const EdgeInsets.only(bottom: 8),
             child: Text(
               '#$index - $pageTitle',
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -146,11 +146,11 @@ class _ImpresionPageState extends State<ImpresionPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               IconButton(
-                icon: Icon(Icons.edit),
+                icon: const Icon(Icons.edit),
                 onPressed: () {},
               ),
               IconButton(
-                icon: Icon(Icons.delete),
+                icon: const Icon(Icons.delete),
                 onPressed: () {
                   _deleteReport(index - 1);
                 },
@@ -167,36 +167,32 @@ class _ImpresionPageState extends State<ImpresionPage> {
       OptionsDialog(
         title: 'Opciones de Reporte',
         options: [
-          {
-            'text': 'Imprimir Ticket',
-            'onPressed': () async {
-              if (_currentPage == 0) {
-                final result = await Get.toNamed('/printExtrusionTicket');
-              }
-              if (_currentPage == 1) {
-                final result = await Get.toNamed('/printTicket');
-              }
-              if (_currentPage == 2) {
-                final result = await Get.toNamed('/sealedPrintTicket');
-              }
-              Get.back();
+         {
+              'text': 'Imprimir Ticket',
+              'onPressed': () async {
+                if (_currentPage == 0) {
+                  await Get.toNamed('/printExtrusionTicket');
+                } else if (_currentPage == 1) {
+                  await Get.toNamed('/printTicket');
+                } else if (_currentPage == 2) {
+                  await Get.toNamed('/sealedPrintTicket');
+                }
+                Get.back();
+              },
             },
-          },
           {
-            'text': 'Fin de Turno',
-            'onPressed': () async {
-              if (_currentPage == 0) {
-                final result = await Get.toNamed('/extrusionEndWork');
-              }
-              if (_currentPage == 1) {
-                final result = await Get.toNamed('/endWork');
-              }
-              if (_currentPage == 2) {
-                final result = await Get.toNamed('/sealedEndWork');
-              }
-              Get.back();
+              'text': 'Fin de Turno',
+              'onPressed': () async {
+                if (_currentPage == 0) {
+                  await Get.toNamed('/extrusionEndWork');
+                } else if (_currentPage == 1) {
+                  await Get.toNamed('/endWork');
+                } else if (_currentPage == 2) {
+                  await Get.toNamed('/sealedEndWork');
+                }
+                Get.back();
+              },
             },
-          },
         ],
       ),
     );
@@ -212,95 +208,116 @@ class _ImpresionPageState extends State<ImpresionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 25, 38, 83),
-        title: Text(
+        backgroundColor: const Color.fromARGB(255, 25, 38, 83),
+        title: const Text(
           'Pagina Reporte',
           style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
         ),
-        iconTheme: IconThemeData(color: Color.fromARGB(255, 206, 207, 209)),
+        iconTheme: const IconThemeData(color: Color.fromARGB(255, 206, 207, 209)),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
       ),
       bottomNavigationBar: PreferredSize(
-        preferredSize: Size.fromHeight(kToolbarHeight),
+        preferredSize: const Size.fromHeight(kToolbarHeight),
         child: Container(
-          color: Color.fromARGB(255, 241, 242, 245),
+          color: const Color.fromARGB(255, 241, 242, 245),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              // Nuevo botón "Reprocesos"
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   IconButton(
-                    icon: Icon(Icons.arrow_circle_down),
+                    icon: const Icon(Icons.loop),
+                    onPressed: () {
+                      _changePage(3);
+                    },
+                    color: const Color.fromARGB(255, 25, 38, 83),
+                  ),
+                  const SizedBox(height: 0),
+                  const Text(
+                    'Reprocesos',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 25, 38, 83),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                ],
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.arrow_circle_down),
                     onPressed: () {
                       _changePage(0);
                     },
                     color: _currentPage == 0
-                        ? Color.fromARGB(255, 25, 38, 83)
-                        : Color.fromARGB(255, 177, 177, 177),
+                        ? const Color.fromARGB(255, 25, 38, 83)
+                        : const Color.fromARGB(255, 177, 177, 177),
                   ),
-                  SizedBox(height: 0),
+                  const SizedBox(height: 0),
                   Text(
-                    'Extrusion',
+                    'Extrusión',
                     style: TextStyle(
                       color: _currentPage == 0
-                          ? Color.fromARGB(255, 25, 38, 83)
-                          : Color.fromARGB(255, 177, 177, 177),
+                          ? const Color.fromARGB(255, 25, 38, 83)
+                          : const Color.fromARGB(255, 177, 177, 177),
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                 ],
               ),
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   IconButton(
-                    icon: Icon(Icons.print),
+                    icon: const Icon(Icons.print),
                     onPressed: () {
                       _changePage(1);
                     },
                     color: _currentPage == 1
-                        ? Color.fromARGB(255, 25, 38, 83)
-                        : Color.fromARGB(255, 177, 177, 177),
+                        ? const Color.fromARGB(255, 25, 38, 83)
+                        : const Color.fromARGB(255, 177, 177, 177),
                   ),
-                  SizedBox(height: 0),
+                  const SizedBox(height: 0),
                   Text(
                     'Impresión',
                     style: TextStyle(
                       color: _currentPage == 1
-                          ? Color.fromARGB(255, 25, 38, 83)
-                          : Color.fromARGB(255, 151, 151, 151),
+                          ? const Color.fromARGB(255, 25, 38, 83)
+                          : const Color.fromARGB(255, 151, 151, 151),
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                 ],
               ),
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   IconButton(
-                    icon: Icon(Icons.send_and_archive),
+                    icon: const Icon(Icons.send_and_archive),
                     onPressed: () {
                       _changePage(2);
                     },
                     color: _currentPage == 2
-                        ? Color.fromARGB(255, 25, 38, 83)
-                        : Color.fromARGB(255, 151, 151, 151),
+                        ? const Color.fromARGB(255, 25, 38, 83)
+                        : const Color.fromARGB(255, 151, 151, 151),
                   ),
                   Text(
                     'Sellado',
                     style: TextStyle(
                       color: _currentPage == 2
-                          ? Color.fromARGB(255, 25, 38, 83)
-                          : Color.fromARGB(255, 151, 151, 151),
+                          ? const Color.fromARGB(255, 25, 38, 83)
+                          : const Color.fromARGB(255, 151, 151, 151),
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                 ],
               ),
             ],
@@ -333,32 +350,36 @@ class _ImpresionPageState extends State<ImpresionPage> {
                     ..._reports[2],
                   ],
                 ),
+                // Página de "Reprocesos" con la vista ReprocessingPage
+                const ReprocessingPage(), // Aquí se muestra la vista ReprocessingPage
               ],
             ),
           ),
         ],
       ),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            child: Icon(Icons.add),
-            backgroundColor: Color.fromARGB(255, 13, 139, 128),
-            foregroundColor: Colors.white,
-            onPressed: () {
-              if (_currentPage == 0) {
-                _showExtrusionDialog();
-              } else if (_currentPage == 1) {
-                _showPrintDialog();
-              } else if (_currentPage == 2) {
-                _showSealedDialog();
-              }
-            },
-          ),
-          SizedBox(height: 16),
-        ],
-      ),
+      floatingActionButton: _currentPage == 3
+          ? null // Oculta el botón flotante cuando está en la página "Reprocesos"
+          : Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                FloatingActionButton(
+                  backgroundColor: const Color.fromARGB(255, 13, 139, 128),
+                  foregroundColor: Colors.white,
+                  onPressed: () {
+                    if (_currentPage == 0) {
+                      _showExtrusionDialog();
+                    } else if (_currentPage == 1) {
+                      _showPrintDialog();
+                    } else if (_currentPage == 2) {
+                      _showSealedDialog();
+                    }
+                  },
+                  child: const Icon(Icons.add),
+                ),
+                const SizedBox(height: 16),
+              ],
+            ),
     );
   }
 
@@ -367,7 +388,7 @@ class _ImpresionPageState extends State<ImpresionPage> {
       _currentPage = index;
       _pageController.animateToPage(
         index,
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         curve: Curves.ease,
       );
     });

@@ -6,7 +6,7 @@ class LabelAndInput extends StatelessWidget {
   final TextStyle labelStyle; // Estilo para el texto del label
 
   const LabelAndInput({
-    Key? key,
+    super.key,
     required this.label,
     required this.placeholder,
     this.labelStyle = const TextStyle(
@@ -14,12 +14,13 @@ class LabelAndInput extends StatelessWidget {
       fontWeight: FontWeight.bold,
       color: Color.fromARGB(255, 11, 19, 68),
     ),
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
+        // ignore: sized_box_for_whitespace
         Container(
           width: 100, 
           child: Text(

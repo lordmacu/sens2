@@ -2,40 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 void showEditDialog(BuildContext context) {
-  TextEditingController _controller = TextEditingController();
+  TextEditingController controller = TextEditingController();
 
   showDialog(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text('Peso: 300'),
+        title: const Text('Peso: 300'),
         content: TextField(
-          controller: _controller,
-          decoration: InputDecoration(hintText: "Ingresa"),
+          controller: controller,
+          decoration: const InputDecoration(hintText: "Ingresa"),
         ),
         actions: [
           TextButton(
-              child: Text('Cancelar'),
-                            style: ElevatedButton.styleFrom(
-                              primary: Color.fromARGB(255, 5, 16, 77), // Fondo del botón
-                              onPrimary: Colors.white, // Color del texto
-                              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0), // Tamaño del botón
+              style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.white, backgroundColor: const Color.fromARGB(255, 5, 16, 77), // Color del texto
+                              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0), // Tamaño del botón
                             ),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
+             onPressed: () {
+                  Get.back(); // Volver a la pantalla anterior
+                },
+              child: const Text('Cancelar'),
           ),
           TextButton(
-            child: Text('Guardar'),
-                            style: ElevatedButton.styleFrom(
-                              primary: Color.fromARGB(255, 5, 16, 77), // Fondo del botón
-                              onPrimary: Colors.white, // Color del texto
-                              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0), // Tamaño del botón
+            style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.white, backgroundColor: const Color.fromARGB(255, 5, 16, 77), // Color del texto
+                              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0), // Tamaño del botón
                             ),
             onPressed: () {
               // Save action
               Navigator.of(context).pop();
             },
+            child: const Text('Guardar'),
           ),
         ],
       );

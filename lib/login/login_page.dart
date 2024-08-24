@@ -10,11 +10,13 @@ class LoginPage extends StatelessWidget {
   final TextEditingController passwordController = TextEditingController();
   final AuthService authService = Get.find<AuthService>();
 
+  LoginPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Container(
+        child: SizedBox(
           height: MediaQuery.of(context).size.height, // Ajusta la altura del contenedor al tamaño de la pantalla
           child: Center( // Centra el contenido vertical y horizontalmente
             child: Padding(
@@ -22,15 +24,15 @@ class LoginPage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(height: 50),
-                  LogoPrincipal(topValue: 0),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 50),
+                  const LogoPrincipal(topValue: 0),
+                  const SizedBox(height: 16),
                   _buildWelcomeText(),
-                  SizedBox(height: 32),
+                  const SizedBox(height: 32),
                   _buildInputFields(),
-                  SizedBox(height: 32),
+                  const SizedBox(height: 32),
                   _buildLoginButton(),
-                  SizedBox(height: 50),
+                  const SizedBox(height: 50),
                 ],
               ),
             ),
@@ -41,7 +43,7 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget _buildWelcomeText() {
-    return Column(
+    return const Column(
       children: [
         Text(
           'Bienvenido',
@@ -66,13 +68,13 @@ class LoginPage extends StatelessWidget {
           text: 'Correo electrónico',
           controller: usernameController,
         ),
-        SizedBox(height: 19),
+        const SizedBox(height: 19),
         InputGeneral(
           icon: Icons.lock,
           text: 'Contraseña',
           controller: passwordController,
         ),
-        SizedBox(height: 15),
+        const SizedBox(height: 15),
       ],
     );
   }
@@ -80,11 +82,11 @@ class LoginPage extends StatelessWidget {
   Widget _buildLoginButton() {
     return Obx(() {
       if (authService.isLoggedIn.value) {
-        return CircularProgressIndicator();
+        return const CircularProgressIndicator();
       } else {
         return ButtonGeneral(
           text: 'Ingresar',
-          colorValue: Color.fromARGB(255, 25, 38, 83),
+          colorValue: const Color.fromARGB(255, 25, 38, 83),
           fontSize: 12,
           onPressed: () async {
             if (_validateInputs()) {

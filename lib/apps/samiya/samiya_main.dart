@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:get/get.dart';
 import 'package:sens2/apps/samiya/bildings/catch_weight_binding.dart';
-import 'package:sens2/apps/samiya/controllers/tara_controller.dart';
 import 'package:sens2/apps/samiya/views/catch_weigth/catch_weight_page.dart';
 
-import 'package:sens2/core/components/table/general_table.dart';
-import 'package:sens2/apps/samiya/bildings/tara_binding.dart';
 import 'package:sens2/apps/apliplast/views/gatepage/gate_page.dart';
 
 import 'package:sens2/apps/apliplast/bindings/gate_binding.dart';
@@ -18,6 +15,8 @@ import 'controllers/param_list_controller.dart';
 import '../../core/services/mqtt_service.dart';
 
 class App2Main extends StatefulWidget {
+  const App2Main({super.key});
+
   @override
   _App1MainState createState() => _App1MainState();
 }
@@ -72,13 +71,13 @@ List<GetPage> getRoutesSamiya() {
     ),
     GetPage(
       name: '/gateWay',
-      page: () => GatewayPage(),
+      page: () => const GatewayPage(),
       transition: Transition.native,
       binding: GateBinding(),
     ),
     GetPage(
       name: '/server',
-      page: () => ServidorPage(),
+      page: () => const ServidorPage(),
       transition: Transition.native,
     ),
    ];

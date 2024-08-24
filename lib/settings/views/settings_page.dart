@@ -8,6 +8,8 @@ class SettingsPage extends StatelessWidget {
   final TextEditingController urlController = TextEditingController();
   final TextEditingController portController = TextEditingController();
 
+  SettingsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     // Inicializar los controladores de texto con los valores guardados
@@ -15,7 +17,7 @@ class SettingsPage extends StatelessWidget {
     portController.text = settingsController.serverPort.value;
 
     return Scaffold(
-      appBar: AppBar(title: Text('Configuración')),
+      appBar: AppBar(title: const Text('Configuración')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -23,18 +25,18 @@ class SettingsPage extends StatelessWidget {
           children: [
             TextField(
               controller: urlController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Ruta del Servidor',
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             TextField(
               controller: portController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Puerto del Servidor',
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 settingsController.saveSettings(
@@ -43,7 +45,7 @@ class SettingsPage extends StatelessWidget {
                 );
                 Get.snackbar('Configuración', 'Configuración guardada');
               },
-              child: Text('Guardar'),
+              child: const Text('Guardar'),
             ),
           ],
         ),

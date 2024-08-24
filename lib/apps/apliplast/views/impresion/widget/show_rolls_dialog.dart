@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:sens2/core/components/buttons/edit_buton.dart';
 import 'package:sens2/core/components/modals/edit_modal.dart';
 
 class ShowAllRollsTable extends StatelessWidget {
   final List<String> operators;
 
-  const ShowAllRollsTable({Key? key, required this.operators}) : super(key: key);
+  const ShowAllRollsTable({super.key, required this.operators});
 
   @override
   Widget build(BuildContext context) {
@@ -14,21 +13,21 @@ class ShowAllRollsTable extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            color: Color.fromARGB(17, 104, 104, 104),
+            color: const Color.fromARGB(17, 104, 104, 104),
             child: Table(
               border: TableBorder.all(color: const Color.fromARGB(255, 136, 136, 136)),
               children: [
-                TableRow(children: [
+                const TableRow(children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
+                    padding: EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
                     child: Text('Etiquetas', style: TextStyle(fontWeight: FontWeight.bold)),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
+                    padding: EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
                     child: Text('Peso total', style: TextStyle(fontWeight: FontWeight.bold)),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
+                    padding: EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
                     child: Text('Peso consumido', style: TextStyle(fontWeight: FontWeight.bold)),
                   ),
                 ]),
@@ -40,7 +39,7 @@ class ShowAllRollsTable extends StatelessWidget {
                         EditButton(onPressed: () {
                          showEditDialog(context);
                         }),
-                        Expanded(child: Text('EXT001')),
+                        const Expanded(child: Text('EXT001')),
                       ],
                     ),
                   ),
@@ -51,7 +50,7 @@ class ShowAllRollsTable extends StatelessWidget {
                         EditButton(onPressed: () {
                          showEditDialog(context);
                         }),
-                        Expanded(child: Text('500')),
+                        const Expanded(child: Text('500')),
                       ],
                     ),
                   ),
@@ -62,7 +61,7 @@ class ShowAllRollsTable extends StatelessWidget {
                         EditButton(onPressed: () {
                          showEditDialog(context);
                         }),
-                        Expanded(
+                        const Expanded(
                           child: Text(
                           'ok',
                           style: TextStyle(
@@ -85,7 +84,7 @@ class ShowAllRollsTable extends StatelessWidget {
                         EditButton(onPressed: () {
                          showEditDialog(context);
                         }),
-                        Expanded(child: Text('EXT002')),
+                        const Expanded(child: Text('EXT002')),
                       ],
                     ),
                   ),
@@ -96,7 +95,7 @@ class ShowAllRollsTable extends StatelessWidget {
                         EditButton(onPressed: () {
                          showEditDialog(context);
                         }),
-                        Expanded(child: Text('500')),
+                        const Expanded(child: Text('500')),
                       ],
                     ),
                   ),
@@ -107,7 +106,7 @@ class ShowAllRollsTable extends StatelessWidget {
                         EditButton(onPressed: () {
                          showEditDialog(context);
                         }),
-                        Expanded(child: Text('500')),
+                        const Expanded(child: Text('500')),
                       ],
                     ),
                   ),
@@ -120,7 +119,7 @@ class ShowAllRollsTable extends StatelessWidget {
                         EditButton(onPressed: () {
                          showEditDialog(context);
                         }),
-                        Expanded(child: Text('IMP003')),
+                        const Expanded(child: Text('IMP003')),
                       ],
                     ),
                   ),
@@ -131,7 +130,7 @@ class ShowAllRollsTable extends StatelessWidget {
                         EditButton(onPressed: () {
                          showEditDialog(context);
                         }),
-                        Expanded(child: Text('450')),
+                        const Expanded(child: Text('450')),
                       ],
                     ),
                   ),
@@ -142,7 +141,7 @@ class ShowAllRollsTable extends StatelessWidget {
                         EditButton(onPressed: () {
                          showEditDialog(context);
                         }),
-                        Expanded(child: Text('450')),
+                        const Expanded(child: Text('450')),
                       ],
                     ),
                   ),
@@ -155,7 +154,7 @@ class ShowAllRollsTable extends StatelessWidget {
                         EditButton(onPressed: () {
                          showEditDialog(context);
                         }),
-                        Expanded(child: Text('IMP004')),
+                        const Expanded(child: Text('IMP004')),
                       ],
                     ),
                   ),
@@ -166,7 +165,7 @@ class ShowAllRollsTable extends StatelessWidget {
                         EditButton(onPressed: () {
                          showEditDialog(context);
                         }),
-                        Expanded(child: Text('400')),
+                        const Expanded(child: Text('400')),
                       ],
                     ),
                   ),
@@ -177,7 +176,7 @@ class ShowAllRollsTable extends StatelessWidget {
                         EditButton(onPressed: () {
                          showEditDialog(context);
                         }),
-                        Expanded(child: Text('200')),
+                        const Expanded(child: Text('200')),
                       ],
                     ),
                   ),
@@ -190,7 +189,7 @@ class ShowAllRollsTable extends StatelessWidget {
                         EditButton(onPressed: () {
                          showEditDialog(context);
                         }),
-                        Expanded(child: Text('IMP005')),
+                        const Expanded(child: Text('IMP005')),
                       ],
                     ),
                   ),
@@ -201,7 +200,7 @@ class ShowAllRollsTable extends StatelessWidget {
                         EditButton(onPressed: () {
                          showEditDialog(context);
                         }),
-                        Expanded(child: Text('1850')),
+                        const Expanded(child: Text('1850')),
                       ],
                     ),
                   ),
@@ -212,7 +211,7 @@ class ShowAllRollsTable extends StatelessWidget {
                         EditButton(onPressed: () {
                          showEditDialog(context);
                         }),
-                        Expanded(child: Text('1650')),
+                        const Expanded(child: Text('1650')),
                       ],
                     ),
                   ),
@@ -225,7 +224,7 @@ class ShowAllRollsTable extends StatelessWidget {
                         EditButton(onPressed: () {
                          showEditDialog(context);
                         }),
-                        Expanded(child: Text('EXT003')),
+                        const Expanded(child: Text('EXT003')),
                       ],
                     ),
                   ),
@@ -236,7 +235,7 @@ class ShowAllRollsTable extends StatelessWidget {
                         EditButton(onPressed: () {
                          showEditDialog(context);
                         }),
-                        Expanded(child: Text('470')),
+                        const Expanded(child: Text('470')),
                       ],
                     ),
                   ),
@@ -247,7 +246,7 @@ class ShowAllRollsTable extends StatelessWidget {
                         EditButton(onPressed: () {
                          showEditDialog(context);
                         }),
-                        Expanded(child: Text('')),
+                        const Expanded(child: Text('')),
                       ],
                     ),
                   ),
@@ -260,7 +259,7 @@ class ShowAllRollsTable extends StatelessWidget {
                         EditButton(onPressed: () {
                          showEditDialog(context);
                         }),
-                        Expanded(child: Text('IMP005')),
+                        const Expanded(child: Text('IMP005')),
                       ],
                     ),
                   ),
@@ -271,7 +270,7 @@ class ShowAllRollsTable extends StatelessWidget {
                         EditButton(onPressed: () {
                          showEditDialog(context);
                         }),
-                        Expanded(child: Text('520')),
+                        const Expanded(child: Text('520')),
                       ],
                     ),
                   ),
@@ -282,22 +281,22 @@ class ShowAllRollsTable extends StatelessWidget {
                         EditButton(onPressed: () {
                          showEditDialog(context);
                         }),
-                        Expanded(child: Text('')),
+                        const Expanded(child: Text('')),
                       ],
                     ),
                   ),
                 ]),
-                TableRow(children: [
+                const TableRow(children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
+                    padding: EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
                     child: Text('TOTAL', style: TextStyle(fontWeight: FontWeight.bold)),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
+                    padding: EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
                     child: Text('2840', style: TextStyle(fontWeight: FontWeight.bold)),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
+                    padding: EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
                     child: Text('', style: TextStyle(fontWeight: FontWeight.bold)),
                   ),
                 ]),

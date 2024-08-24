@@ -6,11 +6,11 @@ class FilterOptionsWidget extends StatefulWidget {
   final String title; // Añadido aquí
 
   const FilterOptionsWidget({
-    Key? key,
+    super.key,
     required this.options,
     this.controller,
     this.title = 'Options', // Valor por defecto
-  }) : super(key: key);
+  });
 
   @override
   _FilterOptionsWidgetState createState() => _FilterOptionsWidgetState();
@@ -34,12 +34,12 @@ class _FilterOptionsWidgetState extends State<FilterOptionsWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         Text(
           widget.title, // Cambiado aquí
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         Wrap(
           spacing: 8.0,
           children: widget.options.map((option) {

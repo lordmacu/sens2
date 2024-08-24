@@ -4,9 +4,9 @@ class DropdownText extends StatelessWidget {
   final List<String> items;
 
   const DropdownText({
-    Key? key,
+    super.key,
     required this.items,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class DropdownText extends StatelessWidget {
         ? items.first
         : ''; // Obtener el primer elemento de items
 
-    return Container(
+    return SizedBox(
       width: 480,
       height: 40,
       child: DropdownButton<String>(
@@ -23,13 +23,13 @@ class DropdownText extends StatelessWidget {
         onChanged: (String? newValue) {
           // Lógica de cambio de proveedor
         },
-        style: TextStyle(
+        style: const TextStyle(
           fontWeight: FontWeight.bold,
           color: Color.fromARGB(255, 129, 129, 129),
         ),
         underline: Container(
           height: 1,
-          color: Color.fromARGB(167, 88, 97, 121),
+          color: const Color.fromARGB(167, 88, 97, 121),
         ),
         items: items.map((String value) {
           return DropdownMenuItem<String>(

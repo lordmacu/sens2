@@ -4,10 +4,12 @@ import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:logger/logger.dart';
 
 class FirstTaskHandler extends TaskHandler {
   SendPort? _sendPort;
   late MqttServerClient client;
+  final Logger logger = Logger();
 
   @override
   void onStart(DateTime timestamp, SendPort? sendPort) async {
@@ -39,22 +41,22 @@ class FirstTaskHandler extends TaskHandler {
     try {
       await client.connect(username, password);
     } catch (e) {
-      print('Exception: $e');
+      logger.e('Exception: $e');
       client.disconnect();
     }
   }
 
   void onConnected() {
-    print('Connected');
+    logger.i('Connected');
     client.subscribe('test/topic', MqttQos.atMostOnce);
   }
 
   void onDisconnected() {
-    print('Disconnected');
+    logger.w('Disconnected');
   }
 
   void onSubscribed(String topic) {
-    print('Subscribed to $topic');
+    logger.i('Subscribed to $topic');
   }
 
   @override
@@ -65,12 +67,12 @@ class FirstTaskHandler extends TaskHandler {
   @override
   void onDestroy(DateTime timestamp, SendPort? sendPort) async {
     client.disconnect();
-    print('onDestroy');
+    logger.i('onDestroy');
   }
 
   @override
   void onNotificationButtonPressed(String id) {
-    print('onNotificationButtonPressed >> $id');
+    logger.i('onNotificationButtonPressed >> $id');
   }
 
   @override

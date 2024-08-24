@@ -1,40 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sens2/core/components/logo.dart';
 import 'package:sens2/core/components/buttons/button_general.dart';
 
 
 class ServidorPage extends StatelessWidget {
+  const ServidorPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 25, 38, 83),
-        title: Text(
+        backgroundColor: const Color.fromARGB(255, 25, 38, 83),
+        title: const Text(
           'Servidores',
           style: TextStyle(color: Colors.white),
         ),
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
+          icon: const Icon(Icons.arrow_back),
+         onPressed: () {
+      Get.back(); // Volver a la pantalla anterior
+    },
         ),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Container(
                 width: MediaQuery.of(context).size.width - 40,
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(40, 79, 92, 150),
+                  color: const Color.fromARGB(40, 79, 92, 150),
                   borderRadius: BorderRadius.circular(20),
                 ),
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -57,21 +58,21 @@ class ServidorPage extends StatelessWidget {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(value),
-                                    SizedBox(width: 185),
+                                    const SizedBox(width: 185),
                                   ],
                                 ),
                               );
                             }).toList(),
                             underline: Container(
                               height: 1,
-                              color: Color.fromARGB(167, 88, 97, 121),
+                              color: const Color.fromARGB(167, 88, 97, 121),
                             ),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
-                    TextField(
+                    const SizedBox(height: 16),
+                    const TextField(
                       decoration: InputDecoration(
                         hintText: 'Ruta del Servidor',
                         border: UnderlineInputBorder(
@@ -82,8 +83,8 @@ class ServidorPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 16),
-                    TextField(
+                    const SizedBox(height: 16),
+                    const TextField(
                       decoration: InputDecoration(
                         hintText: 'Puerto',
                         border: UnderlineInputBorder(
@@ -98,15 +99,15 @@ class ServidorPage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 20),
-            Center(
+            const SizedBox(height: 20),
+            const Center(
               child: ButtonGeneral(
                 text: 'Guardar',
                 colorValue: Color.fromARGB(255, 25, 38, 83),
                 fontSize: 14,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
           ],
         ),
       ),

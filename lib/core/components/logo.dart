@@ -4,16 +4,16 @@ class LogoPrincipal extends StatelessWidget {
   final int topValue;
 
   const LogoPrincipal({
-    Key? key, 
+    super.key, 
     required this.topValue,
-  }) : super(key: key); 
+  }); 
 
   @override
   Widget build(BuildContext context) {
     return Positioned(
       top: topValue.toDouble(), 
       left: 0,
-      child: Container(
+      child: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: 130,
         child: Image.asset(

@@ -227,17 +227,17 @@ class LabelAndInput extends StatelessWidget {
   final TextStyle labelStyle;
 
   const LabelAndInput({
-    Key? key,
+    super.key,
     required this.label,
     required this.placeholder,
     required this.labelStyle,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Container(
+        SizedBox(
           width: 80,
           child: Text(
             label,

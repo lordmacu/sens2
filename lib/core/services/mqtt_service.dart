@@ -3,12 +3,13 @@ import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_foreground_task/flutter_foreground_task.dart';
+import 'package:logger/logger.dart';
 
 class MqttService extends GetxService {
   late MqttServerClient client;
   final storage = GetStorage();
   var isConnected = false.obs;
+  final Logger logger = Logger();
 
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
@@ -40,31 +41,32 @@ class MqttService extends GetxService {
     final connMessage = MqttConnectMessage()
         .withClientIdentifier(clientId)
         .startClean()
-        .withWillQos(MqttQos.atLeastOnce).authenticateAs(username, password);
+        .withWillQos(MqttQos.atLeastOnce)
+        .authenticateAs(username, password);
     client.connectionMessage = connMessage;
 
     try {
       await client.connect(username, password);
     } catch (e) {
-      print('Exception: $e');
+      logger.e('Connection failed: $e');
       disconnect();
     }
   }
 
   void onConnected() {
-    print('Connected');
+    logger.i('Connected');
     isConnected.value = true;
     _showNotification('MQTT', 'Connected');
   }
 
   void onDisconnected() {
-    print('Disconnected');
+    logger.i('Disconnected');
     isConnected.value = false;
     _showNotification('MQTT', 'Disconnected');
   }
 
   void onSubscribed(String topic) {
-    print('Subscribed to $topic');
+    logger.i('Subscribed to $topic');
   }
 
   void disconnect() {

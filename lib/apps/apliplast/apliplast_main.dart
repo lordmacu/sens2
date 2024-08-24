@@ -28,6 +28,8 @@ import 'controllers/product_list_controller.dart';
 import '../../core/services/mqtt_service.dart';
 
 class App1Main extends StatefulWidget {
+  const App1Main({super.key});
+
   @override
   _App1MainState createState() => _App1MainState();
 }
@@ -65,18 +67,18 @@ class _App1MainState extends State<App1Main> {
   Widget build(BuildContext context) {
     return WithForegroundTask(
       child: Scaffold(
-        appBar: AppBar(title: Text('App 1')),
+        appBar: AppBar(title: const Text('App 1')),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Welcome to App 1!'),
-              SizedBox(height: 20),
+              const Text('Welcome to App 1!'),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   Get.toNamed('/app1/products');
                 },
-                child: Text('Go to Product List'),
+                child: const Text('Go to Product List'),
               ),
             ],
           ),
@@ -92,7 +94,7 @@ List<GetPage> getRoutesApiplast() {
     GetPage(name: '/app1', page: () => App1Main()),
     GetPage(
       name: '/endWork',
-      page: () => EndWork(),
+      page: () => const EndWork(),
       transition: Transition.native,
       binding: EndWorkBinding(),
     ),
@@ -116,7 +118,7 @@ List<GetPage> getRoutesApiplast() {
     ),
     GetPage(
       name: '/extrusionReport',
-      page: () => ExtrusionReport(),
+      page: () => const ExtrusionReport(),
       transition: Transition.native,
       binding: ExtrusionReportBinding(),
     ),
@@ -136,7 +138,7 @@ List<GetPage> getRoutesApiplast() {
     
     GetPage(
       name: '/impresion',
-      page: () => ImpresionPage(),
+      page: () => const ImpresionPage(),
       transition: Transition.native,
       binding: ImprimirBinding(),
     ),

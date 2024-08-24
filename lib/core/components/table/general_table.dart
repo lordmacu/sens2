@@ -9,24 +9,26 @@ class GeneralTable extends StatelessWidget {
   final ScrollController _horizontalScrollController = ScrollController();
   final ScrollController _verticalScrollController = ScrollController();
 
+  GeneralTable({super.key});
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 25, 38, 83),
+        backgroundColor: const Color.fromARGB(255, 25, 38, 83),
         title: Obx(() {
           return Text(
             tableController.title.value,
-            style: TextStyle(color: Colors.white, fontSize: 17),
+            style: const TextStyle(color: Colors.white, fontSize: 17),
           );
         }),
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
-              icon: Icon(Icons.menu),
+              icon: const Icon(Icons.menu),
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               },
@@ -35,7 +37,7 @@ class GeneralTable extends StatelessWidget {
         ),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back),
             onPressed: () {
               Get.back();
             },
@@ -52,16 +54,16 @@ class GeneralTable extends StatelessWidget {
                 child: Row(
                   children: [
                     Expanded(
-                      child: Container(
+                      child: SizedBox(
                         height: 50.0,
                         child: TextField(
                           decoration: InputDecoration(
                             hintText: 'Filtrar',
-                            prefixIcon: Icon(Icons.search),
+                            prefixIcon: const Icon(Icons.search),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8.0),
                             ),
-                            contentPadding: EdgeInsets.symmetric(
+                            contentPadding: const EdgeInsets.symmetric(
                                 vertical: 12.0, horizontal: 16.0),
                           ),
                           onChanged: (value) {
@@ -81,7 +83,7 @@ class GeneralTable extends StatelessWidget {
                     controller: _verticalScrollController,
                     scrollDirection: Axis.vertical,
                     child: Obx(() {
-                      return Container(
+                      return SizedBox(
                         width: screenWidth,
                         child: DataTable(
                           columns: [
@@ -103,19 +105,19 @@ class GeneralTable extends StatelessWidget {
                                   ),
                                 ),
                               );
-                            }).toList(),
-                            DataColumn(label: Text('OPCIONES')), // No sorting here
+                            }),
+                            const DataColumn(label: Text('OPCIONES')), // No sorting here
                           ],
                           rows: tableController.filteredData.map((row) {
                             return DataRow(cells: [
                               ...tableController.headers.keys.map((header) {
                                 return DataCell(Text(row[header]?.toString() ?? ''));
-                              }).toList(),
+                              }),
                               DataCell(
                                 Builder(
                                   builder: (BuildContext context) {
                                     return IconButton(
-                                      icon: Icon(Icons.more_vert),
+                                      icon: const Icon(Icons.more_vert),
                                       onPressed: () {
                                         final RenderBox renderBox = context.findRenderObject() as RenderBox;
                                         final Offset offset = renderBox.localToGlobal(Offset.zero);
@@ -128,11 +130,11 @@ class GeneralTable extends StatelessWidget {
                                             offset.dy + 1,
                                           ),
                                           items: [
-                                            PopupMenuItem<String>(
+                                            const PopupMenuItem<String>(
                                               value: 'edit',
                                               child: Text('Editar'),
                                             ),
-                                            PopupMenuItem<String>(
+                                            const PopupMenuItem<String>(
                                               value: 'delete',
                                               child: Text('Borrar'),
                                             ),
@@ -147,18 +149,18 @@ class GeneralTable extends StatelessWidget {
                                                   shape: RoundedRectangleBorder(
                                                     borderRadius: BorderRadius.circular(15.0),
                                                   ),
-                                                  backgroundColor: Color.fromARGB(255, 255, 253, 244),
+                                                  backgroundColor: const Color.fromARGB(255, 255, 253, 244),
                                                   titlePadding: EdgeInsets.zero,
                                                   title: Container(
-                                                    padding: EdgeInsets.all(16.0),
-                                                    decoration: BoxDecoration(
+                                                    padding: const EdgeInsets.all(16.0),
+                                                    decoration: const BoxDecoration(
                                                       color: Color.fromARGB(255, 25, 38, 83),
                                                       borderRadius: BorderRadius.only(
                                                         topLeft: Radius.circular(15.0),
                                                         topRight: Radius.circular(15.0),
                                                       ),
                                                     ),
-                                                    child: Text(
+                                                    child: const Text(
                                                       'Editar',
                                                       style: TextStyle(color: Colors.white, fontSize: 20),
                                                     ),
@@ -168,53 +170,53 @@ class GeneralTable extends StatelessWidget {
                                                     initialValues: selectedItem, // Pass current values to the dialog
                                                   ),
                                                   actions: [
-                                                    Container(
+                                                    SizedBox(
                                                       width: 100,
                                                       child: TextButton(
-                                                        child: Text(
-                                                          'Cancelar',
-                                                          style: TextStyle(
-                                                              color: Color.fromARGB(255, 21, 19, 107)),
-                                                        ),
                                                         onPressed: () {
                                                           Navigator.of(context).pop();
                                                         },
                                                         style: ButtonStyle(
                                                           backgroundColor: MaterialStateProperty.all<Color>(
-                                                              Color.fromARGB(255, 231, 230, 230)),
+                                                              const Color.fromARGB(255, 231, 230, 230)),
                                                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                                             RoundedRectangleBorder(
                                                               borderRadius: BorderRadius.circular(10.0),
-                                                              side: BorderSide(
+                                                              side: const BorderSide(
                                                                   color: Color.fromARGB(255, 201, 201, 201),
                                                                   width: 2.0),
                                                             ),
                                                           ),
                                                         ),
+                                                        child: const Text(
+                                                          'Cancelar',
+                                                          style: TextStyle(
+                                                              color: Color.fromARGB(255, 21, 19, 107)),
+                                                        ),
                                                       ),
                                                     ),
-                                                    Container(
+                                                    SizedBox(
                                                       width: 100,
                                                       child: TextButton(
-                                                        child: Text(
-                                                          'Guardar',
-                                                          style: TextStyle(color: Colors.white),
-                                                        ),
                                                         onPressed: () {
                                                           tableController.saveEditedItem(selectedItem); // Save edited data
                                                           Navigator.of(context).pop();
                                                         },
                                                         style: ButtonStyle(
                                                           backgroundColor: MaterialStateProperty.all<Color>(
-                                                              Color.fromARGB(255, 22, 37, 92)),
+                                                              const Color.fromARGB(255, 22, 37, 92)),
                                                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                                             RoundedRectangleBorder(
                                                               borderRadius: BorderRadius.circular(10.0),
-                                                              side: BorderSide(
+                                                              side: const BorderSide(
                                                                   color: Color.fromARGB(255, 21, 14, 90),
                                                                   width: 2.0),
                                                             ),
                                                           ),
+                                                        ),
+                                                        child: const Text(
+                                                          'Guardar',
+                                                          style: TextStyle(color: Colors.white),
                                                         ),
                                                       ),
                                                     ),
@@ -227,17 +229,17 @@ class GeneralTable extends StatelessWidget {
                                               context: context,
                                               builder: (BuildContext context) {
                                                 return AlertDialog(
-                                                  title: Text('Confirmar eliminación'),
-                                                  content: Text('¿Estás seguro de que quieres eliminar este elemento?'),
+                                                  title: const Text('Confirmar eliminación'),
+                                                  content: const Text('¿Estás seguro de que quieres eliminar este elemento?'),
                                                   actions: <Widget>[
                                                     TextButton(
-                                                      child: Text('Cancelar'),
+                                                      child: const Text('Cancelar'),
                                                       onPressed: () {
                                                         Navigator.of(context).pop();
                                                       },
                                                     ),
                                                     TextButton(
-                                                      child: Text('Eliminar'),
+                                                      child: const Text('Eliminar'),
                                                       onPressed: () {
                                                         tableController.deleteItem(row['id']);
                                                         Navigator.of(context).pop();
@@ -269,10 +271,10 @@ class GeneralTable extends StatelessWidget {
       floatingActionButton: ClipRRect(
         borderRadius: BorderRadius.circular(50.0),
         child: FloatingActionButton(
-          backgroundColor: Color.fromARGB(255, 25, 38, 83),
-          child: Icon(Icons.add),
+          backgroundColor: const Color.fromARGB(255, 25, 38, 83),
+          child: const Icon(Icons.add),
           onPressed: () {
-            final editableFieldsMapping = tableController.editableFields as Map<String, Map<String, dynamic>>?;
+            final editableFieldsMapping = tableController.editableFields;
             final Map<String, dynamic> initialValues = {};
             showDialog(
               context: context,
@@ -281,67 +283,67 @@ class GeneralTable extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),
                   ),
-                  backgroundColor: Color.fromARGB(255, 255, 253, 244),
+                  backgroundColor: const Color.fromARGB(255, 255, 253, 244),
                   titlePadding: EdgeInsets.zero,
                   title: Container(
-                    padding: EdgeInsets.all(16.0),
-                    decoration: BoxDecoration(
+                    padding: const EdgeInsets.all(16.0),
+                    decoration: const BoxDecoration(
                       color: Color.fromARGB(255, 25, 38, 83),
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(15.0),
                         topRight: Radius.circular(15.0),
                       ),
                     ),
-                    child: Text(
+                    child: const Text(
                       'Agregar',
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                   ),
                   content: EditableFieldsDialogContent(
-                    editableFieldsMapping: editableFieldsMapping ?? {},
+                    editableFieldsMapping: editableFieldsMapping,
                     initialValues: initialValues, // Pass empty values for new items
                   ),
                   actions: [
-                    Container(
+                    SizedBox(
                       width: 100,
                       child: TextButton(
-                        child: Text(
-                          'Cancelar',
-                          style: TextStyle(color: Color.fromARGB(255, 21, 19, 107)),
-                        ),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(255, 231, 230, 230)),
+                          backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 231, 230, 230)),
                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
-                              side: BorderSide(color: Color.fromARGB(255, 201, 201, 201), width: 2.0),
+                              side: const BorderSide(color: Color.fromARGB(255, 201, 201, 201), width: 2.0),
                             ),
                           ),
                         ),
+                        child: const Text(
+                          'Cancelar',
+                          style: TextStyle(color: Color.fromARGB(255, 21, 19, 107)),
+                        ),
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       width: 100,
                       child: TextButton(
-                        child: Text(
-                          'Agregar',
-                          style: TextStyle(color: Colors.white),
-                        ),
                         onPressed: () {
                           tableController.addNewItem(); // Add new item
                           Navigator.of(context).pop();
                         },
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(255, 22, 37, 92)),
+                          backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 22, 37, 92)),
                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
-                              side: BorderSide(color: Color.fromARGB(255, 21, 14, 90), width: 2.0),
+                              side: const BorderSide(color: Color.fromARGB(255, 21, 14, 90), width: 2.0),
                             ),
                           ),
+                        ),
+                        child: const Text(
+                          'Agregar',
+                          style: TextStyle(color: Colors.white),
                         ),
                       ),
                     ),

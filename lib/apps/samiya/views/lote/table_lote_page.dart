@@ -6,6 +6,8 @@ import 'package:sens2/core/controllers/menu_controller.dart';
 import 'package:intl/intl.dart';
 
 class TableLotePage extends StatefulWidget {
+  const TableLotePage({super.key});
+
   @override
   _TableLotePageState createState() => _TableLotePageState();
 }
@@ -54,16 +56,16 @@ class _TableLotePageState extends State<TableLotePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 25, 38, 83),
-        title: Text(
+        backgroundColor: const Color.fromARGB(255, 25, 38, 83),
+        title: const Text(
           'Lotes',
           style: TextStyle(color: Colors.white, fontSize: 17),
         ),
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
-              icon: Icon(Icons.menu),
+              icon: const Icon(Icons.menu),
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               },
@@ -72,7 +74,7 @@ class _TableLotePageState extends State<TableLotePage> {
         ),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back),
             onPressed: () {
               Get.back();
             },
@@ -89,7 +91,7 @@ class _TableLotePageState extends State<TableLotePage> {
                 child: Row(
                   children: [
                     Expanded(
-                      child: Container(
+                      child: SizedBox(
                         width: double.infinity,
                         height: 50.0,
                         child: TextField(
@@ -100,15 +102,15 @@ class _TableLotePageState extends State<TableLotePage> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8.0),
                             ),
-                            contentPadding: EdgeInsets.symmetric(
+                            contentPadding: const EdgeInsets.symmetric(
                                 vertical: 12.0, horizontal: 16.0),
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(width: 8.0),
+                    const SizedBox(width: 8.0),
                     Expanded(
-                      child: Container(
+                      child: SizedBox(
                         width: double.infinity,
                         height: 50.0,
                         child: TextField(
@@ -118,9 +120,9 @@ class _TableLotePageState extends State<TableLotePage> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8.0),
                             ),
-                            contentPadding: EdgeInsets.symmetric(
+                            contentPadding: const EdgeInsets.symmetric(
                                 vertical: 12.0, horizontal: 16.0),
-                            suffixIcon: Icon(Icons.calendar_today),
+                            suffixIcon: const Icon(Icons.calendar_today),
                           ),
                           readOnly: true,
                           onTap: () async {
@@ -139,9 +141,9 @@ class _TableLotePageState extends State<TableLotePage> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 8.0),
+                    const SizedBox(width: 8.0),
                     IconButton(
-                      icon: Icon(Icons.search),
+                      icon: const Icon(Icons.search),
                       onPressed: () {
                         filterTable(); // Filtrar al hacer clic en el icono de búsqueda
                       },
@@ -154,15 +156,15 @@ class _TableLotePageState extends State<TableLotePage> {
                   controller: _verticalScrollController,
                   thumbVisibility: true,
                   thickness: 8,
-                  radius: Radius.circular(10),
-                  thumbColor: Color.fromARGB(255, 25, 38, 83),
+                  radius: const Radius.circular(10),
+                  thumbColor: const Color.fromARGB(255, 25, 38, 83),
                   child: SingleChildScrollView(
                     controller: _verticalScrollController,
                     child: SingleChildScrollView(
                       controller: _horizontalScrollController,
                       scrollDirection: Axis.horizontal,
                       child: DataTable(
-                        columns: [
+                        columns: const [
                           DataColumn(label: Text('Opciones')),
                           DataColumn(label: Text('Lote')),
                           DataColumn(label: Text('Peso')),
@@ -175,10 +177,10 @@ class _TableLotePageState extends State<TableLotePage> {
                               Row(
                                 children: [
                                  Container(
-                                    margin: EdgeInsets.symmetric(horizontal: 0.0), 
-                                    padding: EdgeInsets.all(0.0), 
+                                    margin: const EdgeInsets.symmetric(horizontal: 0.0), 
+                                    padding: const EdgeInsets.all(0.0), 
                                     child: IconButton(
-                                      icon: Icon(Icons.edit),
+                                      icon: const Icon(Icons.edit),
                                       onPressed: () {
                                         TextEditingController editLoteController = TextEditingController(text: row['lote']);
                                         TextEditingController editPesoController = TextEditingController(text: row['PESO'].toString());
@@ -191,18 +193,18 @@ class _TableLotePageState extends State<TableLotePage> {
                                               shape: RoundedRectangleBorder(
                                                 borderRadius: BorderRadius.circular(15.0),
                                               ),
-                                              backgroundColor: Color.fromARGB(255, 255, 253, 244),
+                                              backgroundColor: const Color.fromARGB(255, 255, 253, 244),
                                               titlePadding: EdgeInsets.zero,
                                               title: Container(
-                                                padding: EdgeInsets.all(16.0),
-                                                decoration: BoxDecoration(
+                                                padding: const EdgeInsets.all(16.0),
+                                                decoration: const BoxDecoration(
                                                   color: Color.fromARGB(255, 25, 38, 83),
                                                   borderRadius: BorderRadius.only(
                                                     topLeft: Radius.circular(15.0),
                                                     topRight: Radius.circular(15.0),
                                                   ),
                                                 ),
-                                                child: Text(
+                                                child: const Text(
                                                   'Editar',
                                                   style: TextStyle(color: Colors.white, fontSize: 20),
                                                 ),
@@ -213,50 +215,49 @@ class _TableLotePageState extends State<TableLotePage> {
                                                   TextField(
                                                     controller: editLoteController,
                                                     keyboardType: TextInputType.number, // Solo numérico
-                                                    decoration: InputDecoration(
+                                                    decoration: const InputDecoration(
                                                       hintText: 'Lote',
                                                     ),
                                                   ),
-                                                  SizedBox(height: 8),
+                                                  const SizedBox(height: 8),
                                                   TextField(
                                                     controller: editPesoController,
-                                                    decoration: InputDecoration(
+                                                    decoration: const InputDecoration(
                                                       hintText: 'Peso',
                                                     ),
                                                   ),
-                                                  SizedBox(height: 8),
+                                                  const SizedBox(height: 8),
                                                   TextField(
                                                     controller: editProveedorController,
-                                                    decoration: InputDecoration(
+                                                    decoration: const InputDecoration(
                                                       hintText: 'Proveedor',
                                                     ),
                                                   ),
                                                 ],
                                               ),
                                               actions: [
-                                                Container(
+                                                SizedBox(
                                                   width: 100,
                                                   child: TextButton(
-                                                    child: Text('Cancelar', style: TextStyle(color: Color.fromARGB(255, 21, 19, 107))),
                                                     onPressed: () {
                                                       Navigator.of(context).pop();
                                                     },
                                                     style: ButtonStyle(
                                                       backgroundColor: MaterialStateProperty.all<Color>(
-                                                        Color.fromARGB(255, 231, 230, 230)),
+                                                        const Color.fromARGB(255, 231, 230, 230)),
                                                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                                         RoundedRectangleBorder(
                                                           borderRadius: BorderRadius.circular(10.0),
-                                                          side: BorderSide(color: Color.fromARGB(255, 201, 201, 201), width: 2.0),
+                                                          side: const BorderSide(color: Color.fromARGB(255, 201, 201, 201), width: 2.0),
                                                         ),
                                                       ),
                                                     ),
+                                                    child: const Text('Cancelar', style: TextStyle(color: Color.fromARGB(255, 21, 19, 107))),
                                                   ),
                                                 ),
-                                                Container(
+                                                SizedBox(
                                                   width: 100,
                                                   child: TextButton(
-                                                    child: Text('Guardar', style: TextStyle(color: Colors.white)),
                                                     onPressed: () {
                                                       setState(() {
                                                         row['lote'] = editLoteController.text;
@@ -267,14 +268,15 @@ class _TableLotePageState extends State<TableLotePage> {
                                                     },
                                                     style: ButtonStyle(
                                                       backgroundColor: MaterialStateProperty.all<Color>(
-                                                        Color.fromARGB(255, 22, 37, 92)),
+                                                        const Color.fromARGB(255, 22, 37, 92)),
                                                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                                         RoundedRectangleBorder(
                                                           borderRadius: BorderRadius.circular(10.0),
-                                                          side: BorderSide(color: Color.fromARGB(255, 21, 14, 90), width: 2.0),
+                                                          side: const BorderSide(color: Color.fromARGB(255, 21, 14, 90), width: 2.0),
                                                         ),
                                                       ),
                                                     ),
+                                                    child: const Text('Guardar', style: TextStyle(color: Colors.white)),
                                                   ),
                                                 ),
                                               ],
@@ -285,28 +287,28 @@ class _TableLotePageState extends State<TableLotePage> {
                                     ),
                                   ),
 
-                                  SizedBox(width: 4), 
+                                  const SizedBox(width: 4), 
                                   Container(
-                                    margin: EdgeInsets.only(left: 0), 
-                                    padding: EdgeInsets.only(left: 0), 
+                                    margin: const EdgeInsets.only(left: 0), 
+                                    padding: const EdgeInsets.only(left: 0), 
                                     child: IconButton(
-                                      icon: Icon(Icons.delete),
+                                      icon: const Icon(Icons.delete),
                                       onPressed: () {
                                         showDialog(
                                           context: context,
                                           builder: (BuildContext context) {
                                             return AlertDialog(
-                                              title: Text("Borrar"),
-                                              content: Text("¿Seguro que quiere borrar este lote?"),
+                                              title: const Text("Borrar"),
+                                              content: const Text("¿Seguro que quiere borrar este lote?"),
                                               actions: [
                                                 TextButton(
-                                                  child: Text("Cancelar"),
+                                                  child: const Text("Cancelar"),
                                                   onPressed: () {
                                                     Navigator.of(context).pop();
                                                   },
                                                 ),
                                                 TextButton(
-                                                  child: Text("Borrar"),
+                                                  child: const Text("Borrar"),
                                                   onPressed: () {
                                                     setState(() {
                                                       data.remove(row);
@@ -344,8 +346,8 @@ class _TableLotePageState extends State<TableLotePage> {
       floatingActionButton: ClipRRect(
         borderRadius: BorderRadius.circular(50.0),
         child: FloatingActionButton(
-          backgroundColor: Color.fromARGB(255, 25, 38, 83),
-          child: Icon(Icons.add),
+          backgroundColor: const Color.fromARGB(255, 25, 38, 83),
+          child: const Icon(Icons.add),
           onPressed: () {
             TextEditingController nuevoLoteController = TextEditingController();
             TextEditingController nuevoPesoController = TextEditingController();
@@ -359,18 +361,18 @@ class _TableLotePageState extends State<TableLotePage> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),
                   ),
-                  backgroundColor: Color.fromARGB(255, 255, 253, 244),
+                  backgroundColor: const Color.fromARGB(255, 255, 253, 244),
                   titlePadding: EdgeInsets.zero,
                   title: Container(
-                    padding: EdgeInsets.all(16.0),
-                    decoration: BoxDecoration(
+                    padding: const EdgeInsets.all(16.0),
+                    decoration: const BoxDecoration(
                       color: Color.fromARGB(255, 25, 38, 83),
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(15.0),
                         topRight: Radius.circular(15.0),
                       ),
                     ),
-                    child: Text(
+                    child: const Text(
                       'Agregar',
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
@@ -380,21 +382,21 @@ class _TableLotePageState extends State<TableLotePage> {
                     children: [
                       TextField(
                         controller: nuevoLoteController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Lote',
                         ),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       TextField(
                         controller: nuevoPesoController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Peso',
                         ),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       TextField(
                         controller: nuevaFechaController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Fecha',
                           suffixIcon: Icon(Icons.calendar_today),
                         ),
@@ -413,49 +415,45 @@ class _TableLotePageState extends State<TableLotePage> {
                           }
                         },
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       TextField(
                         controller: nuevoProveedorController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Proveedor',
                         ),
                       ),
                     ],
                   ),
                   actions: [
-                    Container(
+                    SizedBox(
                       width: 100,
                       child: TextButton(
-                        child: Text(
-                          'Cancelar',
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 21, 19, 107)),
-                        ),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
-                              Color.fromARGB(255, 231, 230, 230)),
+                              const Color.fromARGB(255, 231, 230, 230)),
                           shape: MaterialStateProperty.all<
                               RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
-                              side: BorderSide(
+                              side: const BorderSide(
                                   color: Color.fromARGB(255, 201, 201, 201),
                                   width: 2.0),
                             ),
                           ),
                         ),
+                        child: const Text(
+                          'Cancelar',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 21, 19, 107)),
+                        ),
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       width: 100,
                       child: TextButton(
-                        child: Text(
-                          'Agregar',
-                          style: TextStyle(color: Colors.white),
-                        ),
                         onPressed: () {
                           if (nuevoLoteController.text.isNotEmpty &&
                               nuevaFechaController.text.isNotEmpty) {
@@ -476,14 +474,17 @@ class _TableLotePageState extends State<TableLotePage> {
                           }
                         },
                         style: TextButton.styleFrom(
-                          primary: Colors.white,
-                          backgroundColor: Color.fromARGB(255, 22, 37, 92),
+                          foregroundColor: Colors.white, backgroundColor: const Color.fromARGB(255, 22, 37, 92),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0),
-                            side: BorderSide(
+                            side: const BorderSide(
                                 color: Color.fromARGB(255, 21, 14, 90),
                                 width: 2.0),
                           ),
+                        ),
+                        child: const Text(
+                          'Agregar',
+                          style: TextStyle(color: Colors.white),
                         ),
                       ),
                     ),

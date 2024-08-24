@@ -1,8 +1,10 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 
 class EndWorkSealedController extends GetxController {
+  final logger = Logger(); // Instancia de Logger
+
   var productionOrderController = TextEditingController().obs;
   var operatorController = TextEditingController().obs;
   var maquinController = TextEditingController().obs;
@@ -19,20 +21,18 @@ class EndWorkSealedController extends GetxController {
   var currentBalanceController = TextEditingController().obs;
 
   void send() {
-    print(productionOrderController.value.text);
-    print(operatorController.value.text);
-    print(maquinController.value.text);
-    print(extrusionController.value.text);
-    print(clientController.value.text);
-    print(subtotalController.value.text);
-    print(scrapController.value.text);
-    print(tortaController.value.text);
-    print(totalProductionController.value.text);
-    print(tableController.value.text);
-    print(materialController.value.text);
-    print(balanceController.value.text);
-    print(currentBalanceController.value.text);
+    logger.i('Production Order: ${productionOrderController.value.text}');
+    logger.i('Operator: ${operatorController.value.text}');
+    logger.i('Machine: ${maquinController.value.text}');
+    logger.i('Extrusion: ${extrusionController.value.text}');
+    logger.i('Client: ${clientController.value.text}');
+    logger.i('Subtotal: ${subtotalController.value.text}');
+    logger.i('Scrap: ${scrapController.value.text}');
+    logger.i('Torta: ${tortaController.value.text}');
+    logger.i('Total Production: ${totalProductionController.value.text}');
+    logger.i('Table: ${tableController.value.text}');
+    logger.i('Material: ${materialController.value.text}');
+    logger.i('Balance: ${balanceController.value.text}');
+    logger.i('Current Balance: ${currentBalanceController.value.text}');
   }
 }
-
-

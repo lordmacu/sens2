@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:logger/logger.dart';
 
 class TypeAhead extends StatelessWidget {
   final String text;
@@ -32,6 +33,7 @@ class TypeAhead extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final Logger logger = Logger(); // Instancia de Logger
 
     return TypeAheadFormField(
       textFieldConfiguration: TextFieldConfiguration(
@@ -72,7 +74,7 @@ class TypeAhead extends StatelessWidget {
         }
         return null;
       },
-      onSaved: (value) => print('Operador seleccionado: $value'),
+      onSaved: (value) => logger.i('Operador seleccionado: $value'), // Reemplaza print por logger
     );
   }
 }

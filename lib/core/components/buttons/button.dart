@@ -18,7 +18,7 @@ class ButtonGeneral extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        this.onPressed!();
+        onPressed!();
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: colorValue,

@@ -2,36 +2,38 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:sens2/core/services/request_queue_service.dart';
-import 'package:uuid/uuid.dart'; // Para generar un ID único
+import 'package:uuid/uuid.dart';
+import 'package:logger/logger.dart';
 
 class TableController extends GetxController {
+  final Logger logger = Logger();
+
   var data = <Map<String, dynamic>>[].obs;
   var filteredData = <Map<String, dynamic>>[].obs;
-
   var headers = <String, String>{}.obs;
   var title = "".obs;
   var editableFields = <String, Map<String, dynamic>>{}.obs;
   var category = "".obs;
 
   List<Map<String, dynamic>> _originalData = [];
-  List<Map<String, dynamic>> _currentEditableValues = [];
-  final RequestQueueService requestQueue =   Get.put(RequestQueueService());
+  final List<Map<String, dynamic>> _currentEditableValues = [];
+  final RequestQueueService requestQueue = Get.put(RequestQueueService());
 
   var sortedColumn = ''.obs;
   var isAscending = true.obs;
 
   Future<void> loadItems(
-      String category,
-      Map<String, String> headersMapping,
-      String title,
-      Map<String, Map<String, dynamic>> editableFieldsMapping) async {
+    String category,
+    Map<String, String> headersMapping,
+    String title,
+    Map<String, Map<String, dynamic>> editableFieldsMapping) async {
     final storage = GetStorage();
     editableFields.value = editableFieldsMapping;
 
     headers.value = headersMapping;
     this.title.value = title;
 
-    print("cargando categoria ninini  ${category}");
+    logger.i("Cargando categoría: $category");
     var items = await storage.read(category) as List<dynamic>;
     this.category.value = category;
 
@@ -52,7 +54,7 @@ class TableController extends GetxController {
     data.value = _originalData;
     filteredData.value = _originalData;
 
-    print("Processed items: $filteredData");
+    logger.i("Items procesados: $filteredData");
   }
 
   void filterTable(String query) {
@@ -76,11 +78,8 @@ class TableController extends GetxController {
         "name": fieldName
       };
     } else {
-      _currentEditableValues
-          .add({"key": key, "value": value, "name": fieldName});
+      _currentEditableValues.add({"key": key, "value": value, "name": fieldName});
     }
-
-
   }
 
   List<DropdownMenuItem<String>> getDropdownItems(String key) {
@@ -91,7 +90,7 @@ class TableController extends GetxController {
     List<String> items = [];
 
     if (storedTable != null && storedTable.isNotEmpty) {
-      print("Aquí está el contenido del store de la tabla: $storedTable");
+      logger.i("Contenido del almacenamiento: $storedTable");
 
       items = storedTable
           .map((item) => item['fields']['key'] as String?)
@@ -113,7 +112,7 @@ class TableController extends GetxController {
   void saveEditedItem(Map<String, dynamic> editedItem) async {
     final Map<String, dynamic> updatedFields = Map.from(editedItem['fields']);
 
-    _currentEditableValues.forEach((element) {
+    for (var element in _currentEditableValues) {
       var elementKey = element["key"];
       var valueEdited = element["value"];
 
@@ -121,9 +120,9 @@ class TableController extends GetxController {
 
       if (updatedFields.containsKey(elementKey)) {
         updatedFields[elementKey] = valueEdited;
-        print("Campo '$elementKey' actualizado a: $valueEdited");
+        logger.i("Campo '$elementKey' actualizado a: $valueEdited");
       }
-    });
+    }
 
     editedItem['fields'] = updatedFields;
 
@@ -137,17 +136,14 @@ class TableController extends GetxController {
 
       data.refresh();
       filteredData.refresh();
-    } else {}
+    }
 
     final storage = GetStorage();
     await storage.write(category.value, _originalData);
-    print("aaaaa  ${editedItem}");
-
-    //enqueueRequest('POST', '/paramsOrganizations', newItem);
-
   }
+
   void addNewItem() async {
-    var uuid = Uuid();
+    var uuid = const Uuid();
     String newId = uuid.v4();
 
     final Map<String, dynamic> newItem = {
@@ -157,7 +153,7 @@ class TableController extends GetxController {
 
     final Map<String, dynamic> fields = {};
 
-    _currentEditableValues.forEach((element) {
+    for (var element in _currentEditableValues) {
       var elementKey = element["key"];
       var value = element["value"];
       var elementName = element["name"];
@@ -165,10 +161,10 @@ class TableController extends GetxController {
       newItem['fields'][elementKey] = value;
 
       newItem[elementName] = value;
-      fields[elementKey] = value;  // Add to fields map instead of list
-    });
+      fields[elementKey] = value;
+    }
 
-    print("Adding item with fields: $fields");
+    logger.i("Adding item with fields: $fields");
 
     _originalData.insert(0, Map<String, dynamic>.from(newItem));
 
@@ -180,26 +176,26 @@ class TableController extends GetxController {
 
     final storage = GetStorage();
     await storage.write(category.value, _originalData);
-    enqueueRequest('POST', 'api/paramsOrganizations', fields);  // Pass the fields map
+    enqueueRequest('POST', 'api/paramsOrganizations', fields);
   }
 
   void deleteItem(String itemId) async {
-     int index = _originalData.indexWhere((item) => item['id'] == itemId);
+    int index = _originalData.indexWhere((item) => item['id'] == itemId);
 
     if (index != -1) {
-       _originalData.removeAt(index);
-      data.value= _originalData;
-      filteredData.value= _originalData;
+      _originalData.removeAt(index);
+      data.value = _originalData;
+      filteredData.value = _originalData;
 
-       data.refresh();
+      data.refresh();
       filteredData.refresh();
 
-       final storage = GetStorage();
+      final storage = GetStorage();
       await storage.write(category.value, _originalData);
 
-      print("Item con id '$itemId' eliminado.");
+      logger.i("Item con id '$itemId' eliminado.");
     } else {
-      print("No se encontró un item con id '$itemId' en '_originalData'.");
+      logger.w("No se encontró un item con id '$itemId' en '_originalData'.");
     }
   }
 
@@ -235,15 +231,13 @@ class TableController extends GetxController {
       'method': method,
       'endpoint': endpoint,
       'body': {
-        "organization": "samiya",  // Assuming the organization is fixed, otherwise make this dynamic
+        "organization": "samiya",
         "name": category.value,
         "fields": item
       }
     };
 
     requestQueue.addRequest(request);
-
     requestQueue.processRequests();
   }
-
 }

@@ -5,7 +5,7 @@ final ThemeData appTheme = ThemeData(
   primaryColor: Colors.blue,
   colorScheme: ColorScheme.fromSwatch().copyWith(background: Colors.white),
   scaffoldBackgroundColor: Colors.white,
-  textTheme: TextTheme(
+  textTheme: const TextTheme(
     headlineLarge: TextStyle(
         fontSize: 32.0, fontWeight: FontWeight.bold, color: Colors.black),
     headlineMedium: TextStyle(
@@ -13,10 +13,10 @@ final ThemeData appTheme = ThemeData(
     bodyLarge: TextStyle(fontSize: 16.0, color: Colors.black),
     bodyMedium: TextStyle(fontSize: 14.0, color: Colors.black54),
   ),
-  appBarTheme: AppBarTheme(
+  appBarTheme: const AppBarTheme(
     color: Colors.blue,
   ),
-  inputDecorationTheme: InputDecorationTheme(
+  inputDecorationTheme: const InputDecorationTheme(
     border: OutlineInputBorder(),
     enabledBorder: OutlineInputBorder(
       borderSide: BorderSide(color: Colors.blue),
@@ -49,7 +49,7 @@ final ThemeData darkTheme = ThemeData(
   primaryColor: Colors.blueGrey,
   colorScheme: ColorScheme.fromSwatch().copyWith(background: Colors.black),
   scaffoldBackgroundColor: Colors.black,
-  textTheme: TextTheme(
+  textTheme: const TextTheme(
     headlineLarge: TextStyle(
         fontSize: 32.0, fontWeight: FontWeight.bold, color: Colors.white),
     headlineMedium: TextStyle(
@@ -57,10 +57,10 @@ final ThemeData darkTheme = ThemeData(
     bodyLarge: TextStyle(fontSize: 16.0, color: Colors.white),
     bodyMedium: TextStyle(fontSize: 14.0, color: Colors.white70),
   ),
-  appBarTheme: AppBarTheme(
+  appBarTheme: const AppBarTheme(
     color: Colors.blueGrey,
   ),
-  inputDecorationTheme: InputDecorationTheme(
+  inputDecorationTheme: const InputDecorationTheme(
     border: OutlineInputBorder(),
     enabledBorder: OutlineInputBorder(
       borderSide: BorderSide(color: Colors.blueGrey),

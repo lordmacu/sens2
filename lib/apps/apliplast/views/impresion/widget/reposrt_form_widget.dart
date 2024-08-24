@@ -6,39 +6,39 @@ class ReportFormWidget extends StatelessWidget {
   final TextEditingController report3Controller = TextEditingController();
   final Function(String, String, String) onSubmit;
 
-  ReportFormWidget({Key? key, required this.onSubmit}) : super(key: key);
+  ReportFormWidget({super.key, required this.onSubmit});
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Color.fromARGB(234, 255, 255, 255),
-      margin: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+      color: const Color.fromARGB(234, 255, 255, 255),
+      margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
             child: Text('Nuevo Reporte'),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
               controller: report1Controller,
-              decoration: InputDecoration(labelText: 'Info de Reporte'),
+              decoration: const InputDecoration(labelText: 'Info de Reporte'),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
               controller: report2Controller,
-              decoration: InputDecoration(labelText: 'Info de Reporte'),
+              decoration: const InputDecoration(labelText: 'Info de Reporte'),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
               controller: report3Controller,
-              decoration: InputDecoration(labelText: 'Info de Reporte'),
+              decoration: const InputDecoration(labelText: 'Info de Reporte'),
             ),
           ),
           Row(
@@ -55,7 +55,7 @@ class ReportFormWidget extends StatelessWidget {
                   report2Controller.clear();
                   report3Controller.clear();
                 },
-                child: Text('Agregar'),
+                child: const Text('Agregar'),
               ),
             ],
           ),

@@ -1,10 +1,11 @@
 import 'dart:isolate';
-import 'package:flutter/material.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:sens2/core/services/first_task_handler.dart';
+import 'package:logger/logger.dart';
 
 class ForegroundTaskService {
   ReceivePort? _receivePort;
+  final Logger logger = Logger();
 
   @pragma('vm:entry-point')
   static void startCallback() {
@@ -64,7 +65,7 @@ class ForegroundTaskService {
     final ReceivePort? receivePort = FlutterForegroundTask.receivePort;
     final bool isRegistered = registerReceivePort(receivePort);
     if (!isRegistered) {
-      print('Failed to register receivePort!');
+      logger.e('Failed to register receivePort!');
       return false;
     }
 
@@ -90,9 +91,9 @@ class ForegroundTaskService {
     _receivePort?.listen((data) {
       if (data is String) {
         DateTime timestamp = DateTime.parse(data);
-        print('timestamp: ${timestamp.toString()}');
+        logger.i('timestamp: ${timestamp.toString()}');
       } else if (data is int) {
-        print('eventCount: $data');
+        logger.i('eventCount: $data');
       } else if (data == 'onNotificationPressed') {
         // Handle notification pressed event
       }
