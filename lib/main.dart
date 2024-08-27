@@ -17,6 +17,7 @@ import 'settings/views/settings_page.dart';
  import 'apps/apliplast/views/servidor/servidor_page.dart';
 import 'apps/apliplast/views/gatepage/gate_page.dart';
 import 'package:sens2/apps/apliplast/views/impresion/impresion_page.dart';
+import 'package:sens2/apps/samiya/views/catch_weigth/catch_weight_page.dart';
 
 
 //import 'apps/apliplast/apliplast_main.dart' show getRoutesApiplast;
@@ -62,7 +63,7 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/server', page: () => const ServidorPage()),
             GetPage(name: '/gateWay', page: () => const GatewayPage()),
              GetPage(name: '/tableLote', page: () => const TableLotePage()),
-              GetPage(name: '/impresion', page: () => const ImpresionPage()),
+              GetPage(name: '/impresion', page: () =>  CatchWeight()),
             
          ...getRoutesSamiya(),
       ],

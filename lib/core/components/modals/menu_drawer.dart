@@ -32,9 +32,9 @@ class MenuDrawer extends StatelessWidget {
               padding: EdgeInsets.zero,
               children: <Widget>[
                 _buildSectionTitle('CONFIGURACIÓN'),
-                _buildListTile('Servidor', '/server'),
+                _buildListTile('Direccion IP Del Equipo', '/server'),
                 _buildSectionTitle('CONFIGURACIÓN'),
-                _buildListTile('GateWay', '/gateWay'),
+                _buildListTile('Configuracion General', '/gateWay'),
                 _buildSectionTitle('GENERAL'),
                 _buildListTile('Lotes', '/tableLote'),
                 _buildListTile('Pallet', null),

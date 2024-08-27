@@ -140,7 +140,13 @@ class CatchWeight extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const DropdownText(items: ['Proveedores 2', 'Item 2', 'Item 3']),
+                    TypeAhead(
+                      text: 'Proveedor',
+                      
+                      onSuggestionSelectedCallback: (String suggestion) {
+                        printicketController.operatorController.value.text = suggestion;
+                      },
+                    ),
                     const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Align(
@@ -155,7 +161,13 @@ class CatchWeight extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const DropdownText(items: ['Proveedores 2', 'Item 2', 'Item 3']),
+                    TypeAhead(
+                      text: 'Materia Prima',
+                     
+                      onSuggestionSelectedCallback: (String suggestion) {
+                        printicketController.operatorController.value.text = suggestion;
+                      },
+                    ),
                     const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Align(
@@ -227,19 +239,22 @@ class CatchWeight extends StatelessWidget {
                             child: Column(
                               children: [
                                 const SizedBox(height: 8),
-                                TypeAhead(
-                                  text: "Graveta 2",
-                                  onSuggestionSelectedCallback:
-                                      (String suggestion) {
-                                    printicketController
-                                        .operatorController.value.text =
-                                        suggestion;
+                                TextField(
+                                  decoration: InputDecoration(
+                                    labelText: "Graveta 2",  // Puedes poner aquí el texto que quieras mostrar como etiqueta
+                                    border: OutlineInputBorder(),  
+                                  ),
+                                  keyboardType: TextInputType.number,  
+                                  onChanged: (value) {
+                                    
+                                    printicketController.operatorController.value.text = value;
                                   },
                                 ),
                               ],
                             ),
                           ),
                         ),
+
                       ],
                     ),
                     const SizedBox(height: 16),
