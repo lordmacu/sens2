@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:sens2/apps/samiya/controllers/tara_controller.dart';
 import 'package:sens2/core/controllers/menu_controller.dart';
 import 'package:sens2/core/services/auth_service.dart';
@@ -8,8 +9,8 @@ class MenuDrawer extends StatelessWidget {
   final MenuDrawerController controller = Get.find<MenuDrawerController>();
   final TableController controllerTable = Get.find<TableController>();
   final AuthService authService = Get.find<AuthService>();
+  final box = GetStorage(); // GetStorage instance
 
-  // Constructor que acepta el parámetro opcional key
   MenuDrawer({super.key});
 
   @override
@@ -33,11 +34,10 @@ class MenuDrawer extends StatelessWidget {
               children: <Widget>[
                 _buildSectionTitle('CONFIGURACIÓN'),
                 _buildListTile('Servidor', '/server'),
-                _buildSectionTitle('CONFIGURACIÓN'),
-                _buildListTile('GateWay', '/gateWay'),
+                _buildListTile('Configuración general', '/gateWay'),
                 _buildSectionTitle('GENERAL'),
-                _buildListTile('Lotes', '/tableLote'),
-                _buildListTile('Pallet', null),
+                _buildListTile('Corección de lote', '/tableLote'),
+                _buildPalletListTile(), // Updated Pallet ListTile
                 _buildSectionTitle('PARAMETROS'),
                 Obx(() {
                   return Column(
@@ -53,19 +53,19 @@ class MenuDrawer extends StatelessWidget {
                             final Map<String, Map<String, dynamic>> tableConfigurations = {
                               'material': {
                                 'headersMapping': {
-                                  'Material': 'key',
-                                  'Tarifa': 'tariff',
+                                  'Tara': 'key',
+                                  'Peso (Kg)': 'tariff',
                                 },
                                 'editableFieldsMapping': {
                                   'key': {
                                     'type': 'textfield',
                                     'value': 'key',
-                                    'name': 'Material',
+                                    'name': 'Tara',
                                   },
                                   'tariff': {
                                     'type': 'textfield',
                                     'value': 'tariff',
-                                    'name': 'Tarifa',
+                                    'name': 'Peso (Kg)',
                                   },
                                 },
                               },
@@ -106,6 +106,7 @@ class MenuDrawer extends StatelessWidget {
                                 },
                               },
                             };
+
 
                             final config = tableConfigurations[item['key']];
 
@@ -153,6 +154,57 @@ class MenuDrawer extends StatelessWidget {
     );
   }
 
+  Widget _buildPalletListTile() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 16.0),
+      child: ListTile(
+        title: const Text(
+          'Pallet',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        onTap: () {
+          // Open the modal when "Pallet" is clicked
+          _showPalletModal();
+        },
+      ),
+    );
+  }
+
+  void _showPalletModal() {
+    final TextEditingController _controller = TextEditingController();
+    _controller.text = box.read('pallet') ?? ''; // Set the current pallet value
+
+    Get.dialog(
+      AlertDialog(
+        title: const Text('Enter Pallet Value'),
+        content: TextField(
+          controller: _controller,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            hintText: 'Enter Pallet value',
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              // Save the value to GetStorage and close the modal
+              box.write('pallet', _controller.text);
+              Get.back(); // Close the modal
+              Navigator.of(Get.context!).pop(); // Close the drawer
+            },
+            child: const Text('Save'),
+          ),
+          TextButton(
+            onPressed: () {
+              Get.back(); // Close the modal without saving
+            },
+            child: const Text('Cancel'),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildSectionTitle(String title) {
     return Padding(
       padding: const EdgeInsets.only(left: 16.0),
@@ -177,8 +229,8 @@ class MenuDrawer extends StatelessWidget {
         ),
         onTap: route != null
             ? () {
-                Get.toNamed(route);
-              }
+          Get.toNamed(route);
+        }
             : null,
       ),
     );

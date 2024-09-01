@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:sens2/apps/apliplast/controllers/print_ticket_controller.dart';
+import 'package:sens2/apps/samiya/controllers/catch_weight_controller.dart';
+import 'package:sens2/core/components/inputs/CategoryTypeAhead.dart';
 import 'package:sens2/core/components/inputs/dropdown_text.dart';
 import 'package:sens2/core/components/inputs/type_ahead.dart';
 import 'package:sens2/core/components/modals/menu_drawer.dart';
 import 'package:sens2/core/controllers/menu_controller.dart';
 
 class CatchWeight extends StatelessWidget {
-  final PrintTicketController printicketController = Get.put(PrintTicketController());
+  final CatchWeightController catchWeightController =
+      Get.put(CatchWeightController());
   final MenuDrawerController menuController = Get.put(MenuDrawerController());
+  final GetStorage box = GetStorage();
 
-  final List<String> operators = [
-    'Operador 1',
-    'Operador 2',
-    'Operador 3'
-  ]; // Lista de operadores
+  CatchWeight() {
+    // Inicializa los controladores con los valores almacenados en GetStorage
+
+    catchWeightController.palletController.value.text =
+        box.read('pallet') ?? '';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +37,7 @@ class CatchWeight extends StatelessWidget {
           builder: (BuildContext context) {
             return IconButton(
               icon: const Icon(Icons.menu),
-              onPressed: () async{
+              onPressed: () async {
                 final Map<String, String> categoryMenuMapping = {
                   'supplier': 'Proveedor',
                   'material': 'Material',
@@ -39,22 +46,28 @@ class CatchWeight extends StatelessWidget {
                 };
                 menuController.loadMenuItems(categoryMenuMapping);
                 Scaffold.of(context).openDrawer();
-
               },
             );
           },
         ),
         actions: <Widget>[
           IconButton(
+            icon: const Row(
+              children: [Text("3"), Icon(Icons.access_alarms_rounded)],
+            ),
+            onPressed: () {
+              Get.back();
+            },
+          ),
+          IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Get.back(); 
+              Get.back();
             },
           ),
         ],
       ),
-       drawer: MenuDrawer(),
-
+      drawer: MenuDrawer(),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -140,7 +153,16 @@ class CatchWeight extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const DropdownText(items: ['Proveedores 2', 'Item 2', 'Item 3']),
+                    CategoryTypeAhead(
+                      categoryName: 'supplier',
+                      text: 'Seleccionar proveedor',
+                      searchKey: 'key',
+                      controller:
+                          catchWeightController.supplierController.value,
+                      onSuggestionSelectedCallback: (selectedSuggestion) {
+                         print('Selected suggestion: $selectedSuggestion');
+                      },
+                    ),
                     const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Align(
@@ -155,7 +177,15 @@ class CatchWeight extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const DropdownText(items: ['Proveedores 2', 'Item 2', 'Item 3']),
+                    CategoryTypeAhead(
+                      categoryName: 'materiaPrima',
+                      text: 'Seleccionar Materia Prima',
+                      searchKey: 'key',
+                      controller: catchWeightController.materiaPrima.value,
+                      onSuggestionSelectedCallback: (selectedSuggestion) {
+                         print('Selected suggestion: $selectedSuggestion');
+                      },
+                    ),
                     const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Align(
@@ -176,10 +206,14 @@ class CatchWeight extends StatelessWidget {
                       child: Column(
                         children: [
                           TextFormField(
+                            controller:
+                                catchWeightController.palletController.value,
                             decoration: const InputDecoration(
                               labelText: 'Pallet',
                               border: OutlineInputBorder(),
                             ),
+                            onChanged: (value) {
+                             },
                           ),
                         ],
                       ),
@@ -208,13 +242,16 @@ class CatchWeight extends StatelessWidget {
                             child: Column(
                               children: [
                                 const SizedBox(height: 8),
-                                TypeAhead(
-                                  text: "Graveta",
+                                CategoryTypeAhead(
+                                  categoryName: 'material',
+                                  text: 'Seleccionar Materia Prima',
+                                  searchKey: 'key',
+                                  controller: catchWeightController
+                                      .materialController.value,
                                   onSuggestionSelectedCallback:
-                                      (String suggestion) {
-                                    printicketController
-                                        .operatorController.value.text =
-                                        suggestion;
+                                      (selectedSuggestion) {
+                                     print(
+                                        'Selected suggestion: $selectedSuggestion');
                                   },
                                 ),
                               ],
@@ -227,13 +264,21 @@ class CatchWeight extends StatelessWidget {
                             child: Column(
                               children: [
                                 const SizedBox(height: 8),
-                                TypeAhead(
-                                  text: "Graveta 2",
-                                  onSuggestionSelectedCallback:
-                                      (String suggestion) {
-                                    printicketController
-                                        .operatorController.value.text =
-                                        suggestion;
+                                TextFormField(
+                                  controller: catchWeightController
+                                      .operatorController.value,
+                                  decoration: const InputDecoration(
+                                    labelText: "Valor",
+                                    border: OutlineInputBorder(),
+                                  ),
+                                  keyboardType: TextInputType.number,
+                                  inputFormatters: <TextInputFormatter>[
+                                    FilteringTextInputFormatter
+                                        .digitsOnly, // Permite solo números
+                                  ],
+                                  onChanged: (value) {
+                                    // Si deseas realizar alguna acción cuando el valor cambie
+                                    print('Valor input: $value');
                                   },
                                 ),
                               ],
@@ -248,20 +293,19 @@ class CatchWeight extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 10.0),
                       child: TextButton(
                         onPressed: () {
-                          printicketController.send();
+                          catchWeightController.send();
                         },
                         style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(
+                          backgroundColor: MaterialStateProperty.all<Color>(
                             const Color.fromARGB(255, 224, 211, 138),
                           ),
-                          padding: MaterialStateProperty.all<
-                              EdgeInsetsGeometry>(
+                          padding:
+                              MaterialStateProperty.all<EdgeInsetsGeometry>(
                             const EdgeInsets.symmetric(
                                 vertical: 15.0, horizontal: 20.0),
                           ),
-                          shape: MaterialStateProperty.all<
-                              RoundedRectangleBorder>(
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20.0),
                             ),
@@ -281,20 +325,19 @@ class CatchWeight extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 10.0),
                       child: TextButton(
                         onPressed: () {
-                          printicketController.send();
+                          //printicketController.send();
                         },
                         style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(
+                          backgroundColor: MaterialStateProperty.all<Color>(
                             const Color.fromARGB(255, 214, 212, 212),
                           ),
-                          padding: MaterialStateProperty.all<
-                              EdgeInsetsGeometry>(
+                          padding:
+                              MaterialStateProperty.all<EdgeInsetsGeometry>(
                             const EdgeInsets.symmetric(
                                 vertical: 15.0, horizontal: 20.0),
                           ),
-                          shape: MaterialStateProperty.all<
-                              RoundedRectangleBorder>(
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20.0),
                             ),
@@ -319,4 +362,3 @@ class CatchWeight extends StatelessWidget {
     );
   }
 }
-

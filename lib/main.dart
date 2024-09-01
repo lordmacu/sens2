@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:sens2/apps/apliplast/apliplast_main.dart';
 import 'package:sens2/apps/samiya/controllers/tara_controller.dart';
 import 'package:sens2/apps/samiya/views/lote/table_lote_page.dart';
 import 'package:sens2/core/components/table/general_table.dart';
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
         Get.put(ConnectivityService());
         Get.put(RequestQueueService());
        }),
-      initialRoute: '/impresion', // Ajusta el initialRoute a '/'
+      initialRoute: '/', // Ajusta el initialRoute a '/'
 
       getPages: [
         GetPage(name: '/', page: () => AuthWrapper()),
@@ -63,8 +64,10 @@ class MyApp extends StatelessWidget {
             GetPage(name: '/gateWay', page: () => const GatewayPage()),
              GetPage(name: '/tableLote', page: () => const TableLotePage()),
               GetPage(name: '/impresion', page: () => const ImpresionPage()),
-            
-         ...getRoutesSamiya(),
+
+
+        ...getRoutesSamiya(),
+        ...getRoutesApiplast(),
       ],
     );
   }

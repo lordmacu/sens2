@@ -42,33 +42,7 @@ class ExtrusionPrintTicket extends StatelessWidget {
           ),
         ],
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text(
-                'Menú',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
-              ),
-            ),
-            ListTile(
-              title: const Text('Opción 1'),
-              onTap: () {},
-            ),
-            ListTile(
-              title: const Text('Opción 2'),
-              onTap: () {},
-            ),
-          ],
-        ),
-      ),
+
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -278,7 +252,7 @@ class ExtrusionPrintTicket extends StatelessWidget {
                     optionalText: 'Peso Bruto',
                     optionalNumber: 15,
                   ),
-                   
+
                     const SizedBox(height: 10),
                     Container(
                       width: 200,

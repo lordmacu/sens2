@@ -414,7 +414,9 @@ class _ImpresionPageState extends State<ImpresionPage> {
             'text': 'Calcular peso',
             'onPressed': () async {
               _addReport('Reporte 1', 'Reporte 2', 'Reporte 3', _currentPage);
-              Get.toNamed('/printExtrusionTicket');
+              //Get.toNamed('/printExtrusionTicket');
+              Get.offNamed('/printExtrusionTicket');
+
             },
           },
         ],

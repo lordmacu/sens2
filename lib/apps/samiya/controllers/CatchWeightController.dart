@@ -9,7 +9,6 @@ class CatchWeightController extends GetxController {
   var palletController = TextEditingController().obs;
   var supplierController = TextEditingController().obs;
   var materialController = TextEditingController().obs;
-  var materiaPrima = TextEditingController().obs;
   var lotController = TextEditingController().obs; // Ejemplo para 'Lote'
 
   // Otros controladores si son necesarios

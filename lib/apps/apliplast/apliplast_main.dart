@@ -54,8 +54,11 @@ class _App1MainState extends State<App1Main> {
         final newReceivePort = FlutterForegroundTask.receivePort;
         _foregroundTaskService.registerReceivePort(newReceivePort);
       }
+
     });
   }
+
+
 
   @override
   void dispose() {
@@ -66,24 +69,7 @@ class _App1MainState extends State<App1Main> {
   @override
   Widget build(BuildContext context) {
     return WithForegroundTask(
-      child: Scaffold(
-        appBar: AppBar(title: const Text('App 1')),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text('Welcome to App 1!'),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  Get.toNamed('/app1/products');
-                },
-                child: const Text('Go to Product List'),
-              ),
-            ],
-          ),
-        ),
-      ),
+      child:  Container(),
     );
   }
 }
