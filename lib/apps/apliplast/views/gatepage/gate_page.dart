@@ -12,7 +12,7 @@ class GatewayPage extends GetView<GateController> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 25, 38, 83),
-        title: const Text('Gateway', style: TextStyle(color: Colors.white)),
+        title: const Text('Configuracion general', style: TextStyle(color: Colors.white)),
         iconTheme: const IconThemeData(color: Colors.white),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
