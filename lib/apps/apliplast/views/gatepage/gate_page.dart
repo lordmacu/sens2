@@ -17,7 +17,7 @@ class GatewayPage extends GetView<GateController> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Get.back();
+            Get.offNamed('/');
           },
         ),
       ),

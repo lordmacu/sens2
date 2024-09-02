@@ -27,7 +27,7 @@ class ExtrusionReport extends GetView<GateController> {
           IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Get.back();
+              Get.offNamed('/');
             },
           ),
         ],

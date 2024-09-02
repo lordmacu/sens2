@@ -19,7 +19,7 @@ class ServidorPage extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
          onPressed: () {
-      Get.back(); // Volver a la pantalla anterior
+      Get.offNamed('/'); // Volver a la pantalla anterior
     },
         ),
       ),

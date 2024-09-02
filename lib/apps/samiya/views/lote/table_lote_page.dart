@@ -76,7 +76,7 @@ class _TableLotePageState extends State<TableLotePage> {
           IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Get.back();
+              Get.offNamed('/');
             },
           ),
         ],
@@ -349,6 +349,8 @@ class _TableLotePageState extends State<TableLotePage> {
           backgroundColor: const Color.fromARGB(255, 25, 38, 83),
           child: const Icon(Icons.add),
           onPressed: () {
+
+            loteController.fetchLotes();
             TextEditingController nuevoLoteController = TextEditingController();
             TextEditingController nuevoPesoController = TextEditingController();
             TextEditingController nuevaFechaController = TextEditingController();

@@ -20,7 +20,7 @@ void showEditDialog(BuildContext context) {
                               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0), // Tamaño del botón
                             ),
              onPressed: () {
-                  Get.back(); // Volver a la pantalla anterior
+                  Get.offNamed('/'); // Volver a la pantalla anterior
                 },
               child: const Text('Cancelar'),
           ),

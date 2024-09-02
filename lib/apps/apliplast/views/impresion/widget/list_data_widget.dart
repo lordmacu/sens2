@@ -14,7 +14,7 @@ class ListDataWidget extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.close),
             onPressed: () {
-              Get.back();
+              Get.offNamed('/');
             },
           ),
         ],

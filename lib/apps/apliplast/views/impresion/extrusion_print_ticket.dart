@@ -41,8 +41,7 @@ class PrintTicket extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Get.back(); // Utilizando Get para navegar hacia atrás
-            },
+              Get.offNamed('/');            },
           ),
         ],
       ),

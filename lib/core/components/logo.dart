@@ -10,16 +10,12 @@ class LogoPrincipal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      top: topValue.toDouble(), 
-      left: 0,
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        height: 130,
-        child: Image.asset(
-          'lib/core/assets/icon-seas.png',
-          fit: BoxFit.contain,
-        ),
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      height: 130,
+      child: Image.asset(
+        'lib/core/assets/icon-seas.png',
+        fit: BoxFit.contain,
       ),
     );
   }

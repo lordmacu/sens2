@@ -32,7 +32,7 @@ class ParamsController extends GetxController {
     });
   }
 
-  void fetchParams() async {
+  Future fetchParams() async {
     try {
       isLoading(true);
 

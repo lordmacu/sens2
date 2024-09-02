@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:sens2/apps/apliplast/controllers/print_ticket_controller.dart';
 import 'package:sens2/apps/samiya/controllers/catch_weight_controller.dart';
+import 'package:sens2/apps/samiya/views/catch_weigth/Live_weight_display.dart';
 import 'package:sens2/core/components/inputs/CategoryTypeAhead.dart';
 import 'package:sens2/core/components/inputs/dropdown_text.dart';
 import 'package:sens2/core/components/inputs/type_ahead.dart';
@@ -56,13 +57,13 @@ class CatchWeight extends StatelessWidget {
               children: [Text("3"), Icon(Icons.access_alarms_rounded)],
             ),
             onPressed: () {
-              Get.back();
+               Get.offNamed('/');
             },
           ),
           IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Get.back();
+              Get.offNamed('/');
             },
           ),
         ],
@@ -84,33 +85,7 @@ class CatchWeight extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const SizedBox(height: 8),
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 20),
-                      padding: const EdgeInsets.only(
-                          top: 20, bottom: 30, left: 20, right: 20),
-                      width: double.infinity,
-                      color: Colors.grey.shade400.withOpacity(0.2),
-                      child: const Column(
-                        children: [
-                          Text(
-                            '0',
-                            style: TextStyle(
-                              fontSize: 40,
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 207, 11, 11),
-                            ),
-                          ),
-                          Text(
-                            'Peso Neto 0.00',
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 148, 8, 8),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    LiveWeightDisplay(),
                     const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Align(
