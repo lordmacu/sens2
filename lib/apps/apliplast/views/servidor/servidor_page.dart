@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:flutter/services.dart';
 import 'package:sens2/core/components/buttons/button_general.dart';
-
 
 class ServidorPage extends StatelessWidget {
   const ServidorPage({super.key});
@@ -18,9 +19,9 @@ class ServidorPage extends StatelessWidget {
         iconTheme: const IconThemeData(color: Colors.white),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-         onPressed: () {
-      Get.back(); // Volver a la pantalla anterior
-    },
+          onPressed: () {
+            Get.back(); // Volver a la pantalla anterior
+          },
         ),
       ),
       body: SingleChildScrollView(
@@ -42,37 +43,40 @@ class ServidorPage extends StatelessWidget {
                     Row(
                       children: [
                         Expanded(
-                          child: DropdownButton<String>(
-                            value: 'Protocolo',
-                            onChanged: (String? newValue) {},
-                            items: <String>[
-                              'Protocolo',
-                              'Option 2',
-                              'Option 3',
-                              'Option 4'
-                            ].map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(value),
-                                    const SizedBox(width: 185),
-                                  ],
+                          child: TypeAheadField<String>(
+                            textFieldConfiguration: TextFieldConfiguration(
+                              decoration: const InputDecoration(
+                                hintText: 'Protocolo',
+                                border: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.black,
+                                    width: 1.0,
+                                  ),
                                 ),
-                              );
-                            }).toList(),
-                            underline: Container(
-                              height: 1,
-                              color: const Color.fromARGB(167, 88, 97, 121),
+                              ),
                             ),
+                            suggestionsCallback: (pattern) {
+                              return ['HTTP', 'HTTPS', 'FTP', 'SFTP']
+                                  .where((item) => item.toLowerCase().contains(pattern.toLowerCase()));
+                            },
+                            itemBuilder: (context, suggestion) {
+                              return ListTile(
+                                title: Text(suggestion),
+                              );
+                            },
+                            onSuggestionSelected: (suggestion) {
+                              // Aquí puedes manejar lo que ocurre al seleccionar una sugerencia.
+                            },
                           ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 16),
                     const TextField(
+                      keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                      
+                      ],
                       decoration: InputDecoration(
                         hintText: 'Ruta del Servidor',
                         border: UnderlineInputBorder(
@@ -85,6 +89,10 @@ class ServidorPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     const TextField(
+                      keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                        
+                      ],
                       decoration: InputDecoration(
                         hintText: 'Puerto',
                         border: UnderlineInputBorder(

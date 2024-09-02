@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:sens2/apps/apliplast/controllers/Gate_controller.dart';
 
 class GatewayPage extends GetView<GateController> {
@@ -12,7 +12,7 @@ class GatewayPage extends GetView<GateController> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 25, 38, 83),
-        title: const Text('Configuracion general', style: TextStyle(color: Colors.white)),
+        title: const Text('Configuración general', style: TextStyle(color: Colors.white)),
         iconTheme: const IconThemeData(color: Colors.white),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
@@ -43,19 +43,32 @@ class GatewayPage extends GetView<GateController> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 0),
-                    child: TextField(
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                        hintText: 'localhost',
-                        border: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.black,
-                            width: 1.0,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 0),
+                    child: TypeAheadField(
+                      textFieldConfiguration: TextFieldConfiguration(
+                        decoration: const InputDecoration(
+                          hintText: 'localhost',
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.black,
+                              width: 1.0,
+                            ),
                           ),
                         ),
                       ),
+                      suggestionsCallback: (pattern) {
+                        return ['localhost', '192.168.1.1', '10.0.0.1']
+                            .where((item) => item.contains(pattern));
+                      },
+                      itemBuilder: (context, suggestion) {
+                        return ListTile(
+                          title: Text(suggestion as String),
+                        );
+                      },
+                      onSuggestionSelected: (suggestion) {
+                        // Aquí puedes manejar lo que ocurre al seleccionar una sugerencia.
+                      },
                     ),
                   ),
                   const SizedBox(height: 16),
