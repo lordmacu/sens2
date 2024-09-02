@@ -19,9 +19,9 @@ class ServidorPage extends StatelessWidget {
         iconTheme: const IconThemeData(color: Colors.white),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Get.back(); // Volver a la pantalla anterior
-          },
+         onPressed: () {
+      Get.offNamed('/'); // Volver a la pantalla anterior
+    },
         ),
       ),
       body: SingleChildScrollView(
@@ -65,7 +65,7 @@ class ServidorPage extends StatelessWidget {
                               );
                             },
                             onSuggestionSelected: (suggestion) {
-                              // Aquí puedes manejar lo que ocurre al seleccionar una sugerencia.
+                              
                             },
                           ),
                         ),
@@ -75,7 +75,7 @@ class ServidorPage extends StatelessWidget {
                     const TextField(
                       keyboardType: TextInputType.number,
                       inputFormatters: <TextInputFormatter>[
-                      
+                        
                       ],
                       decoration: InputDecoration(
                         hintText: 'Ruta del Servidor',
@@ -91,7 +91,7 @@ class ServidorPage extends StatelessWidget {
                     const TextField(
                       keyboardType: TextInputType.number,
                       inputFormatters: <TextInputFormatter>[
-                        
+                       
                       ],
                       decoration: InputDecoration(
                         hintText: 'Puerto',

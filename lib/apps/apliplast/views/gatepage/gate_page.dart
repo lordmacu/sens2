@@ -17,7 +17,7 @@ class GatewayPage extends GetView<GateController> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Get.back();
+            Get.offNamed('/');
           },
         ),
       ),
@@ -46,8 +46,8 @@ class GatewayPage extends GetView<GateController> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 0),
                     child: TypeAheadField(
-                      textFieldConfiguration: TextFieldConfiguration(
-                        decoration: const InputDecoration(
+                      textFieldConfiguration: const TextFieldConfiguration(
+                        decoration: InputDecoration(
                           hintText: 'localhost',
                           border: UnderlineInputBorder(
                             borderSide: BorderSide(
@@ -63,7 +63,7 @@ class GatewayPage extends GetView<GateController> {
                       },
                       itemBuilder: (context, suggestion) {
                         return ListTile(
-                          title: Text(suggestion as String),
+                          title: Text(suggestion),
                         );
                       },
                       onSuggestionSelected: (suggestion) {

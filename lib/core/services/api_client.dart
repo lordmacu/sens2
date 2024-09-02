@@ -40,7 +40,7 @@ class ApiClient extends GetxService {
   Future<http.Response> post(String endpoint,
       {Map<String, String>? headers, dynamic body}) async {
     final combinedHeaders = {
-      'access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhbWl5YXRlc3RlckBzZW5zY2xvdWQuaW8iLCJ1c2VyX2lkIjoiNjM5YjYzNzQ2MjllN2JjYjlmYjRiMzhiIiwiZW5hYmxlIjp0cnVlLCJpYXQiOjE3MjQxNjA2MzMsImV4cCI6MTcyNDc2NTQzM30.t3bRYvWQPgosbVX3ClnCidLlFyc7vlllisBpW4aHqzY',
+      'access-token': token.value,
       'Content-Type': 'application/json',
       if (headers != null) ...headers,
     };

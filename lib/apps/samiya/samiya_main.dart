@@ -29,7 +29,8 @@ class _App1MainState extends State<App2Main> {
     super.initState();
 
     Get.lazyPut<ParamsService>(() => ParamsService());
-    Get.put(ParamsController());
+      final ParamsController paramsController = Get.put(ParamsController());
+
     Get.put(MqttService());
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -41,6 +42,7 @@ class _App1MainState extends State<App2Main> {
         final newReceivePort = FlutterForegroundTask.receivePort;
         _foregroundTaskService.registerReceivePort(newReceivePort);
       }
+      await paramsController.fetchParams();
       Get.offNamed('/catchWeight');
     });
   }

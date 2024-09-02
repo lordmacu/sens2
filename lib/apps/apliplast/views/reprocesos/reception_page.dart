@@ -46,7 +46,7 @@ class _ReceptionPageState extends State<ReceptionPage> {
               IconButton(
                 icon: const Icon(Icons.arrow_back),
                 onPressed: () {
-                  Get.back(); // Volver a la pantalla anterior
+                  Get.offNamed('/'); // Volver a la pantalla anterior
                 },
               ),
             ],
@@ -116,7 +116,7 @@ class _ReceptionPageState extends State<ReceptionPage> {
         leading: IconButton(
           icon: const Icon(Icons.close),
           onPressed: () {
-            Get.back(); // Volver a la pantalla anterior
+            Get.offNamed('/'); // Volver a la pantalla anterior
           },
         ),
       ),

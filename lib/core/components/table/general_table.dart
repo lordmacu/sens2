@@ -39,7 +39,7 @@ class GeneralTable extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Get.back();
+              Get.offNamed('/');
             },
           ),
         ],

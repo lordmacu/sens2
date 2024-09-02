@@ -117,7 +117,7 @@ class _DispatchPageState extends State<DispatchPage> {
         leading: IconButton(
           icon: const Icon(Icons.close),
           onPressed: () {
-            Get.back(); // Volver a la pantalla anterior
+            Get.offNamed('/'); // Volver a la pantalla anterior
           },
         ),
       ),

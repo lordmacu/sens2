@@ -177,7 +177,7 @@ class _ImpresionPageState extends State<ImpresionPage> {
                 } else if (_currentPage == 2) {
                   await Get.toNamed('/sealedPrintTicket');
                 }
-                Get.back();
+                Get.offNamed('/');
               },
             },
           {
@@ -190,7 +190,7 @@ class _ImpresionPageState extends State<ImpresionPage> {
                 } else if (_currentPage == 2) {
                   await Get.toNamed('/sealedEndWork');
                 }
-                Get.back();
+                Get.offNamed('/');
               },
             },
         ],
@@ -414,7 +414,9 @@ class _ImpresionPageState extends State<ImpresionPage> {
             'text': 'Calcular peso',
             'onPressed': () async {
               _addReport('Reporte 1', 'Reporte 2', 'Reporte 3', _currentPage);
-              Get.toNamed('/printExtrusionTicket');
+              //Get.toNamed('/printExtrusionTicket');
+              Get.offNamed('/printExtrusionTicket');
+
             },
           },
         ],

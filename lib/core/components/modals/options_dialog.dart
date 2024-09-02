@@ -72,7 +72,7 @@ class OptionsDialog extends StatelessWidget {
             child: IconButton(
               icon: const Icon(Icons.close),
               onPressed: () {
-                Get.back();
+                Get.offNamed('/');
               },
             ),
           ),

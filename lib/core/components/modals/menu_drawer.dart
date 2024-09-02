@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:sens2/apps/samiya/controllers/tara_controller.dart';
 import 'package:sens2/core/controllers/menu_controller.dart';
 import 'package:sens2/core/services/auth_service.dart';
@@ -7,9 +8,10 @@ import 'package:sens2/core/services/auth_service.dart';
 class MenuDrawer extends StatelessWidget {
   final MenuDrawerController controller = Get.find<MenuDrawerController>();
   final TableController controllerTable = Get.find<TableController>();
-  final AuthService authService = Get.find<AuthService>();
 
-  // Constructor que acepta el parámetro opcional key
+  final AuthService authService = Get.find<AuthService>();
+  final box = GetStorage(); // GetStorage instance
+
   MenuDrawer({super.key});
 
   @override
@@ -32,12 +34,12 @@ class MenuDrawer extends StatelessWidget {
               padding: EdgeInsets.zero,
               children: <Widget>[
                 _buildSectionTitle('CONFIGURACIÓN'),
-                _buildListTile('Direccion IP Del Equipo', '/server'),
-                _buildSectionTitle('CONFIGURACIÓN'),
-                _buildListTile('Configuracion General', '/gateWay'),
+
+                _buildListTile('Servidor', '/server'),
+                _buildListTile('Configuración general', '/gateWay'),
                 _buildSectionTitle('GENERAL'),
-                _buildListTile('Lotes', '/tableLote'),
-                _buildListTile('Pallet', null),
+                _buildListTile('Corrección de lote', '/tableLote'),
+                _buildPalletListTile(), // Updated Pallet ListTile
                 _buildSectionTitle('PARAMETROS'),
                 Obx(() {
                   return Column(
@@ -53,19 +55,19 @@ class MenuDrawer extends StatelessWidget {
                             final Map<String, Map<String, dynamic>> tableConfigurations = {
                               'material': {
                                 'headersMapping': {
-                                  'Material': 'key',
-                                  'Tarifa': 'tariff',
+                                  'Tara': 'key',
+                                  'Peso (Kg)': 'tariff',
                                 },
                                 'editableFieldsMapping': {
                                   'key': {
                                     'type': 'textfield',
                                     'value': 'key',
-                                    'name': 'Material',
+                                    'name': 'Tara',
                                   },
                                   'tariff': {
                                     'type': 'textfield',
                                     'value': 'tariff',
-                                    'name': 'Tarifa',
+                                    'name': 'Peso (Kg)',
                                   },
                                 },
                               },
@@ -107,6 +109,7 @@ class MenuDrawer extends StatelessWidget {
                               },
                             };
 
+
                             final config = tableConfigurations[item['key']];
 
                             final headersMapping = config?['headersMapping'] as Map<String, String>;
@@ -121,7 +124,7 @@ class MenuDrawer extends StatelessWidget {
 
                             Navigator.of(context).pop();
 
-                            Get.toNamed('/generalTable', arguments: {
+                            Get.offNamed('/generalTable', arguments: {
                               'key': item['key'],
                               'value': item['value']
                             });
@@ -141,12 +144,63 @@ class MenuDrawer extends StatelessWidget {
                     ),
                     onTap: () {
                       authService.logout();
-                      Get.toNamed('/');
+                      Get.offNamed('/');
                     },
                   ),
                 ),
               ],
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPalletListTile() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 16.0),
+      child: ListTile(
+        title: const Text(
+          'Pallet',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        onTap: () {
+          // Open the modal when "Pallet" is clicked
+          _showPalletModal();
+        },
+      ),
+    );
+  }
+
+  void _showPalletModal() {
+    final TextEditingController controller = TextEditingController();
+    controller.text = box.read('pallet') ?? ''; // Set the current pallet value
+
+    Get.dialog(
+      AlertDialog(
+        title: const Text('Enter Pallet Value'),
+        content: TextField(
+          controller: controller,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            hintText: 'Enter Pallet value',
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              // Save the value to GetStorage and close the modal
+              box.write('pallet', controller.text);
+              Get.offNamed('/'); // Close the modal
+              Navigator.of(Get.context!).pop(); // Close the drawer
+            },
+            child: const Text('Save'),
+          ),
+          TextButton(
+            onPressed: () {
+              Get.offNamed('/'); // Close the modal without saving
+            },
+            child: const Text('Cancel'),
           ),
         ],
       ),
@@ -177,8 +231,8 @@ class MenuDrawer extends StatelessWidget {
         ),
         onTap: route != null
             ? () {
-                Get.toNamed(route);
-              }
+          Get.offNamed(route);
+        }
             : null,
       ),
     );
