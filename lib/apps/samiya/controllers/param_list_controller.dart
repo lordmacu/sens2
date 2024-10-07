@@ -13,7 +13,6 @@ class ParamsController extends GetxController {
   var isOnline = true.obs;
   var categories = <String>[].obs;
   var categoryItems = <String, List<Map<String, dynamic>>>{}.obs;
-  var pendingRequest = 0.obs;
 
   Timer? _requestTimer;
 

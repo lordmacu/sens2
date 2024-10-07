@@ -126,6 +126,7 @@ class SealedEndWork extends StatelessWidget {
                           const DropdownText(items: ['Turno', 'Item 2', 'Item 3']),
                           const SizedBox(height: 8),
                           TypeAhead(
+                            controller: TextEditingController(),
                             suggestions: operators,
                             text: "Operador",
                             onSuggestionSelectedCallback: (String suggestion) {
@@ -139,6 +140,7 @@ class SealedEndWork extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     TypeAhead(
+                      controller: TextEditingController(),
                       suggestions: operators,
                       text: "Orden de producción",
                       onSuggestionSelectedCallback: (String suggestion) {
@@ -148,6 +150,7 @@ class SealedEndWork extends StatelessWidget {
                     ),
                       const SizedBox(height: 16),
                      TypeAhead(
+                       controller: TextEditingController(),
                       suggestions: operators,
                       text: "Maquina",
                       onSuggestionSelectedCallback: (String suggestion) {

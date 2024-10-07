@@ -14,6 +14,7 @@ class AuthService extends GetxService {
   var token = ''.obs;
   var isLoggedInProcess = false.obs;
 
+  var organization = ''.obs;
   @override
   void onInit() {
     super.onInit();
@@ -61,6 +62,11 @@ class AuthService extends GetxService {
     try {
       var body = jsonDecode(response.body);
       storage.write('organization', body['data']['organization']);
+      print("esta es la organizacion ---- ${ body['data']['organization']} ");
+      organization.value = body['data']['organization']["name"];
+      storage.write('organization', organization.value);
+
+
       isLoggedIn.value = true;
     } catch (e) {
       logger.e("Error al obtener información del usuario: $e");

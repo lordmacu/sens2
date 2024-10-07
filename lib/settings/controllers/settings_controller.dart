@@ -17,7 +17,7 @@ class SettingsController extends GetxController {
   }
 
   void loadSettings() {
-    serverUrl.value = storage.read('serverUrl') ?? 'http://localhost';
+    serverUrl.value = storage.read('serverUrl') ?? 'http://192.168.100.162';
     serverPort.value = storage.read('serverPort') ?? '3500';
     apiClient.setBaseUrl('${serverUrl.value}:${serverPort.value}/');
   }

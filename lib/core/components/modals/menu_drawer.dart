@@ -70,7 +70,7 @@ class MenuDrawer extends StatelessWidget {
                         padding: const EdgeInsets.only(left: 16.0),
                         child: ListTile(
                           title: Text(
-                            item['value']!,
+                            item['value']! == "Material" ? "Tara" :  item['value']!,
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                           onTap: () async {

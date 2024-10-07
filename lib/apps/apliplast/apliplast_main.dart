@@ -43,18 +43,18 @@ class _App1MainState extends State<App1Main> {
 
     Get.lazyPut<ProductService>(() => ProductService());
     Get.lazyPut<ProductListController>(() => ProductListController());
-    Get.put(MqttService());
+   // Get.put(MqttService());
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await _foregroundTaskService.requestPermissions();
+    /*  await _foregroundTaskService.requestPermissions();
       await _foregroundTaskService.initForegroundTask();
       _foregroundTaskService.startForegroundTask();
 
       if (await FlutterForegroundTask.isRunningService) {
         final newReceivePort = FlutterForegroundTask.receivePort;
         _foregroundTaskService.registerReceivePort(newReceivePort);
-      }
-
+      }*/
+      Get.offAllNamed('/impresion');
     });
   }
 

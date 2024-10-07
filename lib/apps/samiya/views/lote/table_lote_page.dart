@@ -291,7 +291,7 @@ class _TableLotePageState extends State<TableLotePage> {
 
                               return DataRow(cells: [
                                 DataCell(
-                                  Row(
+                                  row['is_new'] == null ? Row(
                                     children: [
                                       Container(
                                         margin: const EdgeInsets.symmetric(
@@ -371,6 +371,27 @@ class _TableLotePageState extends State<TableLotePage> {
                                                       mainAxisSize:
                                                           MainAxisSize.min,
                                                       children: [
+                                                        const SizedBox(
+                                                            height: 8),
+                                                        TextField(
+                                                          controller: loteController
+                                                              .editLoteController
+                                                              .value,
+                                                          keyboardType:
+                                                          TextInputType
+                                                              .number,
+                                                          decoration:
+                                                          const InputDecoration(
+                                                            hintText:
+                                                            'Editar Lote',
+                                                          ),
+                                                          onChanged: (val){
+                                                            print("este es el val ${val}");
+                                                            loteController
+                                                                .lote
+                                                                .value = val;
+                                                          },
+                                                        ),
                                                         const SizedBox(
                                                             height: 8),
                                                         CategoryTypeAhead(
@@ -627,7 +648,7 @@ class _TableLotePageState extends State<TableLotePage> {
                                         ),
                                       )
                                     ],
-                                  ),
+                                  ): Container(),
                                 ),
                                 DataCell(Text("${row['batch']}")),
                                 DataCell(Text(double.parse(row['weight'].toString()).toStringAsFixed(2))),

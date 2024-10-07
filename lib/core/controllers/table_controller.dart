@@ -154,6 +154,14 @@ class TableController extends GetxController {
     enqueueRequest('PUT', 'api/paramsOrganizations/edit/${editedItem['id']}',updatedFields,editedItem['id'] );
   }
 
+  updateArray(data) async{
+    final storage = GetStorage();
+
+    await storage.write(category.value, data);
+
+    loadItems(category.value, headers.value, title.value , editableFields.value);
+  }
+
   void addNewItem() async {
     var uuid = const Uuid();
     String newId = uuid.v4();
@@ -259,7 +267,7 @@ class TableController extends GetxController {
       final Map<String, dynamic> body = {
         "organization": "samiya",
         "name": category.value,
-        "fields": item
+        "fields": item,
       };
 
       // Add 'id' if it is provided
@@ -272,14 +280,18 @@ class TableController extends GetxController {
         'method': method,
         'endpoint': endpoint,
         'module': "table",
-        'body': body
+        'body': body,
+        'is_processing': false,
+
       };
     } else {
       // If no item, create the request without body
       request = {
         'method': method,
         'module': "table",
-        'endpoint': endpoint
+        'endpoint': endpoint,
+        'is_processing': false,
+
       };
     }
 

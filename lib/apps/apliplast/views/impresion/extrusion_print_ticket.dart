@@ -116,6 +116,7 @@ class PrintTicket extends StatelessWidget {
                           const DropdownText(items: ['Turno', 'Item 2', 'Item 3']),
                           const SizedBox(height: 8),
                           TypeAhead(
+                            controller: TextEditingController(),
                             suggestions: operators,
                             text: "Operador",
                             onSuggestionSelectedCallback: (String suggestion) {
@@ -128,6 +129,7 @@ class PrintTicket extends StatelessWidget {
                       ),
                     ),
                     TypeAhead(
+                      controller: TextEditingController(),
                       text: "Orden de Producción",
                       onSuggestionSelectedCallback: (String suggestion) {
                         printTicketExtrusionController.operatorController.value.text =

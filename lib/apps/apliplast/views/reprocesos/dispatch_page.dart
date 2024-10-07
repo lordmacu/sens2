@@ -143,6 +143,8 @@ class _DispatchPageState extends State<DispatchPage> {
             ),
             const SizedBox(height: 16),
             TypeAhead(
+              controller: TextEditingController(),
+
               text: 'Operador',
               onSuggestionSelectedCallback: (String suggestion) {
                 _operadorController.text = suggestion;
@@ -150,6 +152,7 @@ class _DispatchPageState extends State<DispatchPage> {
             ),
             const SizedBox(height: 16),
             TypeAhead(
+              controller: TextEditingController(),
               text: 'Proveedor',
               onSuggestionSelectedCallback: (String suggestion) {
                 _proveedorController.text = suggestion;

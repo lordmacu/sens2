@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'dart:convert';
 import 'package:sens2/core/services/api_client.dart';
@@ -23,18 +24,39 @@ class LoteController extends GetxController {
   var editUnitsController = TextEditingController().obs;
   var editDateController = TextEditingController().obs;
 
+  var lote = "".obs;
+
   final RequestQueueService requestQueue = Get.put(RequestQueueService());
   var customToken = "877f21428132a6c9f3d55bb8163fcb24";
   final Logger logger = Logger();
+  final GetStorage box = GetStorage();
 
   @override
   void onInit() {
     super.onInit();
+
+    print("cuando carga el lote?");
+    DateTime date = DateTime.now();
+
+    String formattedDate = DateFormat('yyyy-MM-dd').format(date);
+
+    // Asignar el valor formateado a ambas variables
+    String dateFrom = formattedDate;
+    String dateTo = formattedDate;
+    fechaFilterController.value.text = "${dateFrom} - ${dateTo}";
+
+     loteFilterController.value.text = box.read('lote') ?? '100';
+
+    fetchLotes();
   }
 
   // Función para agregar un nuevo lote
-  void sendData(String batch, String peso, String supplier, String product, String date) {
+  void sendData(String batch, String peso, String supplier, String product, String date) async {
+    var uuid = const Uuid();
+    String newId = uuid.v4();
+
     final fields = {
+      "id": newId, // Asumiendo que loteId es el identificador del lote actual
       "batch": int.parse(batch),
       "weight": {"value": double.tryParse(peso) ?? 0, "units": "kg"},
       "supplier": supplier,
@@ -43,8 +65,6 @@ class LoteController extends GetxController {
       "gateway_id": "SAM01001"
     };
 
-    var uuid = const Uuid();
-    String newId = uuid.v4();
 
     final payloadToAdd = {
       "id": newId, // Asumiendo que loteId es el identificador del lote actual
@@ -53,16 +73,46 @@ class LoteController extends GetxController {
       "date": date,
       "product": product,
       "weight": double.tryParse(peso) ?? 0,
-      "weight_units": "kg"
+      "weight_units": "kg",
+      "is_new":true
     };
 
-    enqueueRequest('POST', 'api/scale', fields);
+   await  enqueueRequest('POST', 'api/scale', fields);
+    loteFilterController.value.text = batch;
+
     Get.snackbar('Éxito', 'Lote agregado correctamente',
         snackPosition: SnackPosition.BOTTOM);
     resetFields();
 
     lotes.add(payloadToAdd);
     lotes.refresh();
+
+    var dateSplit = [];
+    var dateFrom = "";
+    var dateTo =  "";
+
+
+    var dateSplitNew = date.split(" ");
+    fechaFilterController.value.text = "${dateSplitNew[0]} - ${dateSplitNew[0]}";
+    loteFilterController.value.text = batch;
+
+
+    try{
+      dateSplit = fechaFilterController.value.text.split(" - ");
+      dateFrom = dateSplit[0];
+      dateTo = dateSplit[1];
+    }catch(e){
+      dateFrom = date;
+      dateTo = date;
+    }
+
+    final storage = GetStorage();
+
+
+    final storageKey =
+        "lote_${int.parse(loteFilterController.value.text)}_${dateFrom}_$dateTo";
+
+    await storage.write(storageKey, lotes);
   }
 
   void resetFields() {
@@ -75,10 +125,12 @@ class LoteController extends GetxController {
   }
 
   Future<void> udpate(loteId) async {
+
+print("aquii modificando ${editLoteController.value.text}");
     final payload = {
       "_id": loteId, // Asumiendo que loteId es el identificador del lote actual
       "supplier": editSupplierController.value.text,
-      "batch": int.parse(loteFilterController.value.text),
+      "batch": int.parse(editLoteController.value.text),
       "date": editDateController.value.text,
       "product": editProductController.value.text,
       "weight": {
@@ -90,7 +142,7 @@ class LoteController extends GetxController {
     final payloadToUpdate = {
       "id": loteId, // Asumiendo que loteId es el identificador del lote actual
       "supplier": editSupplierController.value.text,
-      "batch": int.parse(loteFilterController.value.text),
+      "batch": int.parse(editLoteController.value.text),
       "date": editDateController.value.text,
       "product": editProductController.value.text,
       "weight": double.tryParse(editPesoController.value.text) ?? 0,
@@ -105,39 +157,58 @@ class LoteController extends GetxController {
     if (index != -1) {
       lotes[index] = Map<String, dynamic>.from(payloadToUpdate);
     }
+    await enqueueRequest('PUT', 'api/scale/${loteId}', payload);
 
-    var dateSplit = fechaFilterController.value.text.split(" - ");
-    final dateFrom = dateSplit[0];
-    final dateTo = dateSplit[1];
+
+    var dateSplit = [];
+    var dateFrom = "";
+    var dateTo =  "";
+
+
+    var dateSplitNew = editDateController.value.text.split(" ");
+    fechaFilterController.value.text = "${dateSplitNew[0]} - ${dateSplitNew[0]}";
+    loteFilterController.value.text = lote.value;
+
+    Future.delayed(Duration(seconds: 3000), () {
+      fetchLotes();
+    });
+
+    try{
+      dateSplit = fechaFilterController.value.text.split(" - ");
+      dateFrom = dateSplit[0];
+      dateTo = dateSplit[1];
+    }catch(e){
+      dateFrom = editDateController.value.text;
+      dateTo = editDateController.value.text;
+    }
+    loteFilterController.value.text = editLoteController.value.text;
+
 
     final storage = GetStorage();
     final storageKey =
         "lote_${int.parse(loteFilterController.value.text)}_${dateFrom}_$dateTo";
 
     await storage.write(storageKey, lotes);
-    enqueueRequest('PUT', 'api/scale/${loteId}', payload);
   }
 
-  void enqueueRequest(String method, String endpoint, payload) {
+  Future enqueueRequest(String method, String endpoint, payload) async {
     final request = {
       'method': method,
       'endpoint': endpoint,
       "token": customToken,
-      'body': payload
+      'body': payload,
+      'is_processing': false,
+      'module': "lote",
     };
 
     requestQueue.addRequest(request);
+   }
 
-    Future.delayed(const Duration(seconds: 2), () {
-      try {
-        final batch = int.tryParse(loteFilterController.value.text);
-        var dateSplit = fechaFilterController.value.text.split(" - ");
+  setItemAfterCreate(index, item){
+    lotes[index] = Map<String, dynamic>.from(item);
 
-        if (batch != null && dateSplit.length == 2) {
-          fetchLotes();
-        } else {}
-      } catch (e) {}
-    });
+
+    lotes.refresh();
   }
 
   void removeItem(String loteId) async {
@@ -148,6 +219,14 @@ class LoteController extends GetxController {
     if (index != -1) {
       lotes.removeAt(index);
 
+
+      lotes.refresh();
+
+      final payload = {
+        "id": loteId,
+      };
+      enqueueRequest('DELETE', 'api/scale/${loteId}', payload);
+
       var dateSplit = fechaFilterController.value.text.split(" - ");
       final dateFrom = dateSplit[0];
       final dateTo = dateSplit[1];
@@ -156,15 +235,10 @@ class LoteController extends GetxController {
           "lote_${int.parse(loteFilterController.value.text)}_${dateFrom}_$dateTo";
       final storage = GetStorage();
 
-      lotes.refresh();
+      logger.i("Item con id '$loteId' eliminado.");
 
       await storage.write(storageKey, lotes);
-      final payload = {
-        "id": loteId,
-      };
-      enqueueRequest('DELETE', 'api/scale/${loteId}', payload);
 
-      logger.i("Item con id '$loteId' eliminado.");
     } else {
       logger.w("No se encontró un item con id '$loteId' en 'lotes'.");
     }
@@ -196,6 +270,8 @@ class LoteController extends GetxController {
       "date_from": dateFrom,
       "date_to": dateTo
     };
+
+    print("este es el payload ${payload}");
 
     try {
       final response = await apiClient.get(
@@ -238,7 +314,8 @@ class LoteController extends GetxController {
 
       // Split the date range
       var dateSplit = fechaFilterController.value.text.split(" - ");
-      DateTime dateFrom = DateTime.parse(dateSplit[0]);
+
+       DateTime dateFrom = DateTime.parse(dateSplit[0]);
       DateTime dateTo = DateTime.parse(dateSplit[1]);
 
       // Ajustar fechas si son iguales (inicio y fin del mismo día)
@@ -252,13 +329,18 @@ class LoteController extends GetxController {
       }
 
       // Comprobar si el dispositivo está en línea
+
+      var service= Get.find<ConnectivityService>();
+      await service.checkInternetAccess();
       if (Get.find<ConnectivityService>().isOnline.value) {
         await fetchLotesApi(batch, dateFrom.toIso8601String(), dateTo.toIso8601String());
       }
 
       // Utilizar las cadenas formateadas para pasar las fechas
       loadItems(batch, dateFrom.toIso8601String(), dateTo.toIso8601String());
-    } catch (e) {
+     } catch (e) {
+
+      print("aquiii hgay un error ${e}");
       Get.defaultDialog(
         title: "Lotes",
         middleText: "Ingresar los filtros correctamente",

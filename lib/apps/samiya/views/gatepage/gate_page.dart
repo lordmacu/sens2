@@ -16,7 +16,7 @@ class GatewayPage extends GetView<GateController> {
   @override
   Widget build(BuildContext context) {
      final TextEditingController serverController = TextEditingController(
-      text: box.read('serverGatewayUrl') ?? 'localhost',
+      text: box.read('serverGatewayUrl') ?? '192.168.100.162',
     );
     final TextEditingController loteController = TextEditingController(
       text: box.read('lote') ?? '100',

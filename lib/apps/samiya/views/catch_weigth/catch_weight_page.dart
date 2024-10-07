@@ -8,6 +8,7 @@ import 'package:sens2/apps/samiya/views/catch_weigth/Live_weight_display.dart';
 import 'package:sens2/core/components/inputs/CategoryTypeAhead.dart';
 import 'package:sens2/core/components/modals/menu_drawer.dart';
 import 'package:sens2/core/controllers/menu_controller.dart';
+import 'package:sens2/core/services/request_queue_service.dart';
 
 class CatchWeight extends StatelessWidget {
   final CatchWeightController catchWeightController =
@@ -15,6 +16,7 @@ class CatchWeight extends StatelessWidget {
   final MenuDrawerController menuController = Get.put(MenuDrawerController());
   final GetStorage box = GetStorage();
   final FetchController fetchController = Get.put(FetchController());
+  final RequestQueueService requestQueueService = Get.find<RequestQueueService>();
 
   CatchWeight() {
 
@@ -26,6 +28,8 @@ class CatchWeight extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 25, 38, 83),
@@ -69,7 +73,9 @@ class CatchWeight extends StatelessWidget {
                 return const SizedBox.shrink(); // No mostrar nada si es 0
               }
             }),
-            onPressed: () {},
+            onPressed: () {
+              requestQueueService.processRequests();
+            },
           ),
         ],
       ),
@@ -79,7 +85,7 @@ class CatchWeight extends StatelessWidget {
           children: [
             Center(
               child: Container(
-                width: 360,
+                width: screenWidth ,
                 decoration: BoxDecoration(
                   color: const Color.fromARGB(22, 79, 92, 150),
                   borderRadius: BorderRadius.circular(20),

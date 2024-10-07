@@ -214,12 +214,7 @@ class _ImpresionPageState extends State<ImpresionPage> {
           style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
         ),
         iconTheme: const IconThemeData(color: Color.fromARGB(255, 206, 207, 209)),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
+
       ),
       bottomNavigationBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),

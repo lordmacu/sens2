@@ -121,6 +121,7 @@ class _EndWorkState extends State<EndWork> {
                           const DropdownText(items: ['Turno', 'Item 2', 'Item 3']),
                           const SizedBox(height: 8),
                           TypeAhead(
+                            controller: TextEditingController(),
                             suggestions: operators,
                             text: "Operador",
                             onSuggestionSelectedCallback: (String suggestion) {
@@ -134,6 +135,7 @@ class _EndWorkState extends State<EndWork> {
                     ),
                     const SizedBox(height: 8),
                     TypeAhead(
+                      controller: TextEditingController(),
                       suggestions: operators,
                       text: "Orden de producción",
                       onSuggestionSelectedCallback: (String suggestion) {

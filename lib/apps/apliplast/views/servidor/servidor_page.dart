@@ -72,40 +72,7 @@ class _ServidorPageState extends State<ServidorPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: DropdownButton<String>(
-                            value: selectedProtocol,
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                selectedProtocol = newValue!;
-                              });
-                            },
-                            items: <String>[
-                              'https',
-                              'http',
-                            ].map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(value),
-                                    const SizedBox(width: 185),
-                                  ],
-                                ),
-                              );
-                            }).toList(),
-                            underline: Container(
-                              height: 1,
-                              color: const Color.fromARGB(167, 88, 97, 121),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+
                     const SizedBox(height: 16),
                     TextField(
 

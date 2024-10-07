@@ -1,7 +1,10 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:sens2/apps/apliplast/apliplast_main.dart';
+import 'package:sens2/apps/samiya/controllers/lote_controller.dart';
 import 'package:sens2/apps/samiya/views/gatepage/gate_page.dart';
 import 'package:sens2/core/controllers/table_controller.dart';
 import 'package:sens2/apps/samiya/views/lote/table_lote_page.dart';
@@ -45,6 +48,7 @@ class MyApp extends StatelessWidget {
 
         apiClient.setBaseUrl('$serverUrl:$serverPort/');
         Get.lazyPut<TableController>(() => TableController());
+        Get.lazyPut<LoteController>(() => LoteController());
 
 
 
@@ -80,22 +84,24 @@ class MyApp extends StatelessWidget {
 
 class AuthWrapper extends StatelessWidget {
   final AuthService authService = Get.find<AuthService>();
+  var storage = GetStorage();
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
     //  authService.logout();
       if (authService.isLoggedIn.value) {
-        const String appType = 'app2'; 
-        switch (appType) {
-          case 'app1':
+        var appTypes = storage.read("organization").toLowerCase();
+
+       //  String appType  = authService.organization.value.toLowerCase();
+        //print("aquii esta la organizacion ${appType}");
+        switch (appTypes) {
+          case 'samiya':
             return const App2Main();
-          case 'app2':
-            return const App2Main(); // Asegúrate de redirigir correctamente a SamiyaTara
+          case 'apliplast':
+            return const App1Main(); // Asegúrate de redirigir correctamente a SamiyaTara
           default:
-            return const Scaffold(
-              body: Center(child: Text('Aplicación no encontrada')),
-            );
+           return App2Main();
         }
       } else {
         return LoginPage();

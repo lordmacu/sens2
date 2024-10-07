@@ -142,6 +142,8 @@ class _ReceptionPageState extends State<ReceptionPage> {
             ),
             const SizedBox(height: 16),
             TypeAhead(
+              controller: TextEditingController(),
+
               text: 'Operador',
               onSuggestionSelectedCallback: (String suggestion) {
                 _operadorController.text = suggestion;
@@ -149,6 +151,8 @@ class _ReceptionPageState extends State<ReceptionPage> {
             ),
             const SizedBox(height: 16),
             TypeAhead(
+              controller: TextEditingController(),
+
               text: 'Proveedor',
               onSuggestionSelectedCallback: (String suggestion) {
                 _proveedorController.text = suggestion;

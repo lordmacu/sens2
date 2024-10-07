@@ -79,7 +79,7 @@ class _App1MainState extends State<App2Main> {
 
     print("aquiii esta el server gateway ${storedServerUrl}");
     if (storedServerUrl == null || storedServerUrl.isEmpty) {
-      const defaultServerUrl = 'localhost'; // Valor por defecto
+      const defaultServerUrl = '192.168.100.162'; // Valor por defecto
       box.write('serverGatewayUrl', defaultServerUrl);
     }
   }

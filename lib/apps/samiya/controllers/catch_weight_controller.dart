@@ -131,6 +131,8 @@ class CatchWeightController extends GetxController {
       'endpoint': endpoint,
       'body': item,
       "token": customToken,
+      'is_processing': false,
+
     };
 
     requestQueue.addRequest(request);
@@ -141,28 +143,24 @@ class CatchWeightController extends GetxController {
   }
 
   void resetFields() {
-     supplierController.value.text = '';
-    materialController.value.text = '';
-    materiaPrima.value.text = '';
-    lotController.value.text = '';
+     materialController.value.text = '';
+     lotController.value.text = '';
     operatorController.value.text = '';
     netWeightController.value.text = '';
     grossWeightController.value.text = '';
   }
 
 
-
   Future<void> fetchWeightr() async {
-     var serverGatewayUrl = box.read('serverGatewayUrl');
+    var serverGatewayUrl = box.read('serverGatewayUrl');
     // var serverGatewayUrl ="192.168.2.18";
     try {
       final response =
-          await http.get(Uri.parse('http://$serverGatewayUrl:3500/api/scale'));
+      await http.get(Uri.parse('http://$serverGatewayUrl:3500/api/scale'));
 
       if (response.statusCode == 200) {
         try {
           final data = json.decode(response.body);
-
 
           // Verificar que el JSON contenga las claves y valores esperados
           if (data is Map<String, dynamic> &&
@@ -170,22 +168,22 @@ class CatchWeightController extends GetxController {
               data.containsKey('weight')) {
             String status = data['status'] as String;
 
-            if (status == 'Ok' && data['weight'] != null) {
+            if (status.toLowerCase() == 'ok' && data['weight'] != null) {
               // Asegurarse de que 'weight' es un Map y contiene los campos esperados
               if (data['weight'] is Map<String, dynamic>) {
                 Weight weight =
-                    Weight.fromJson(data['weight'] as Map<String, dynamic>);
+                Weight.fromJson(data['weight'] as Map<String, dynamic>);
                 // Solo setear las variables si los datos no son nulos
                 netWeightController.update((controller) {
                   controller!.text =
                       weight.value!.toStringAsFixed(2); // Formatea a dos decimales
                 });
                 grossWeightController.update((controller) {
-                  controller!.text = "kg" ?? '';
+                  controller!.text = "kg";
                 });
 
-                logger
-                    .i('Net Weight updated: ${netWeightController.value.text}');
+                logger.i(
+                    'Net Weight updated: ${netWeightController.value.text}');
                 logger.i(
                     'Gross Weight updated: ${grossWeightController.value.text}');
               } else {
@@ -207,6 +205,7 @@ class CatchWeightController extends GetxController {
       logger.e('Error fetching weight: $e');
     }
   }
+
 
   void send() {
     sendData();
